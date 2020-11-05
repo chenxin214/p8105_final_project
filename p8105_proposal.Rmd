@@ -9,29 +9,23 @@ output: github_document
 
 ---
 
-```{r setup, include=FALSE}
-library(tidyverse)
-library(ggridges)
-library(patchwork)
+## Group Members: 
 
-library(p8105.datasets)
+* ChenXin Zhang
+* JingYao Geng
+* Liner Ge
+* YiFan Su
 
-knitr::opts_chunk$set(
-	echo = TRUE,
-	warning = FALSE,
-	fig.width = 8, 
-  fig.height = 6,
-  out.width = "90%"
-)
+## The Tentative Project Title:
+* US Overweight and Obesity (BMI) Analysis 
+   * (From 2011 to Present)
 
-theme_set(theme_minimal() + theme(legend.position = "bottom"))
+## The Motivation for this project:
+- [obesity](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight)
+- [health](https://www.healthline.com/health/obesity-facts)
 
-options(
-  ggplot2.continuous.colour = "viridis",
-  ggplot2.continuous.fill = "viridis"
-)
+## The anticipated data sources
 
-scale_colour_discrete = scale_colour_viridis_d
-scale_fill_discrete = scale_fill_viridis_d
-```
+* Data collected from Behavioral Risk Factor Sureillance System (BRFSS)
+* Centers for Diseases Control and Prevention (CDC)
 
