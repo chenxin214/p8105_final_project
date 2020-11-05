@@ -1,6 +1,5 @@
 ---
 title: "Proposal"
-author: "Chenxin Zhang(cz2634), Jingyao Geng(jg4294), Liner Ge(lg3156), Yifan Su(ys3394)"
 date: '`r format(Sys.time(), "%Y-%m-%d")`'
 output: github_document
 
@@ -8,21 +7,53 @@ output: github_document
 
 ## Group Members: 
 
-* ChenXin Zhang
-* JingYao Geng
-* Liner Ge
-* YiFan Su
+* ChenXin Zhang (cz2634)
+* JingYao Geng (jg4294)
+* Liner Ge (lg3156)
+* YiFan Su (ys3394)
 
 ## The Tentative Project Title:
-* US Overweight and Obesity (BMI) Analysis 
-   * (From 2011 to Present)
+* US Overweight and Obesity (BMI) Analysis (From 2011 to Present)
 
 ## The Motivation for this project:
+
 - [obesity](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight)
 - [health](https://www.healthline.com/health/obesity-facts)
 
-## The anticipated data sources
+## The Intended Final Products:
+* A website about this project
+* A report about the process of this project
+* Some interactivity plots to visualize results
+* A screencast illustrating this project
 
-* Data collected from Behavioral Risk Factor Sureillance System (BRFSS)
-* Centers for Diseases Control and Prevention (CDC)
+## The Anticipated Data Sources
+
+- [Data collected from Behavioral Risk Factor Sureillance System (BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf)
+- [Centers for Diseases Control and Prevention (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
+
+## The planned analyses / visualizations / coding challenges
+
+* **Planned Analyses:**
+1. Overview of US obesity and overweight.
+2. Focus on the state with the highest obesity and overweight rate
+3. Investigate the obesity and overweight based on 'Education level', 'Gender', 'Race', 'Age', 'Income' etc.
+4. Apply Time Series Analysis to examine the time trend from 2011 to present.
+
+* **Visulizations:**
+1. Visulizing the US obesity and overweight rates geographically
+2. Visulizing the changes in obesity and overweight rates over time
+3. Visulizing the state with highest obesity and overweight
+4. Visulizing the difference of obesity rate group by 'Educational Level',  'Gender', 'Race', 'Age', or 'Income' 
+
+* **Coding Challenge:**
+    * Since the data is huge, it might be a trouble to run or knit.
+
+## The planned timeline
+
+```{r echo=FALSE, message=FALSE}
+library(tidyverse)
+readxl::read_xlsx("./timeline.xlsx") %>% 
+  knitr::kable()
+```
+
 
