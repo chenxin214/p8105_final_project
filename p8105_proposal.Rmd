@@ -1,12 +1,7 @@
 ---
 title: "Proposal"
-<<<<<<< HEAD
-author: "Chenxin Zhang (cz2634)
-Jingyao Geng
-=======
 author: "Chenxin Zhang(cz2634)
 Jingyao Geng (jg4294)
->>>>>>> a3b94964ac45ea8f9706903e62e542db1369f4e1
 Liner Ge
 Yifan Su (ys3394)"
 date: '`r format(Sys.time(), "%Y-%m-%d")`'
