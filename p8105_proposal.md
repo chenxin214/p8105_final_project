@@ -40,8 +40,8 @@ Proposal
 
 1.  Overview of US obesity and overweight.
 2.  Focus on the state with the highest obesity and overweight rate
-3.  Investigate the obesity and overweight based on ‘Education level’,
-    ‘Gender’, ‘Race’, ‘Age’, ‘Income’ etc.
+3.  Investigate the obesity and overweight based on `Education level`,
+    `Gender`, `Race`, `Age`, `Income` etc.
 4.  Apply Time Series Analysis to examine the time trend from 2011 to
     present.
 
