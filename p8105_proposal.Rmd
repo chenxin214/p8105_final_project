@@ -1,6 +1,9 @@
 ---
 title: "Proposal"
-author: ""
+author: "Chenxin Zhang(cz2634)
+Jingyao Geng
+Liner Ge
+Yifan Su(ys3394)"
 date: '`r format(Sys.time(), "%Y-%m-%d")`'
 output: github_document
 
