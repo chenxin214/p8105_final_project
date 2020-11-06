@@ -4,39 +4,6 @@ ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan
 Su (ys3394)
 2020-11-06
 
-<style type="text/css">
-
-body{ /* Normal  */
-      font-size: 12px;
-  }
-td {  /* Table  */
-  font-size: 8px;
-}
-h1.title {
-  font-size: 35px;
-  color: DarkRed;
-}
-h1 { /* Header 1 */
-  font-size: 25px;
-  color: Black;
-}
-h2 { /* Header 2 */
-    font-size: 22px;
-  color: Black;
-}
-h3 { /* Header 3 */
-  font-size: 18px;
-  font-family: "Times New Roman", Times, serif;
-  color: Black;
-}
-code.r{ /* Code block */
-    font-size: 12px;
-}
-pre { /* Code block - determines code spacing between lines */
-    font-size: 14px;
-}
-</style>
-
 ### The Motivation for this project:
 
 According to [the World Health Organization
