@@ -41,7 +41,7 @@ pre { /* Code block - determines code spacing between lines */
 }
 </style>
 
-### The Motivation for this project:
+### The Motivation for This Project:
 According to [the World Health Organization (WHO)](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight), more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is [the fifth leading risk](https://easo.org/media-portal/statistics/) for global death. People overweight have a higher risk of getting more than [60 chronic diseases](https://www.healthline.com/health/obesity-facts) like type 2 diabetes, heart disease, which also increases the medical cost. The association between obesity and education level, income is intricate and differs by gender, age, and race.
 
 ### The Intended Final Products:
@@ -58,15 +58,15 @@ A website about this project, a report about the process of this project, some i
 2. Focus on the state with the highest obesity and overweight rate
 3. Investigate the obesity and overweight based on `Education level`, `Gender`, `Race`, `Age`, `Income` etc.
 4. Apply Time Series Analysis to examine the time trend from 2011 to present.
-* Visulizations:
-1. Visulizing the US obesity and overweight rates geographically
-2. Visulizing the changes in obesity and overweight rates over time
-3. Visulizing the state with highest obesity and overweight
-4. Visulizing the difference of obesity rate group by 'Educational Level',  'Gender', 'Race', 'Age', or 'Income' 
+* Visualizations:
+1. Visualizing the US obesity and overweight rates geographically
+2. Visualizing the changes in obesity and overweight rates over time
+3. Visualizing the state with highest obesity and overweight
+4. Visualizing the difference of obesity rate group by `Educational Level`,  `Gender`, `Race`, `Age`, or `Income`. 
 * Coding Challenge:
 Since the data is huge, it might be a trouble to run or knit.
 
-### The planned timeline
+### The Planned Timeline
 
 ```{r echo=FALSE, message=FALSE}
 library(tidyverse)

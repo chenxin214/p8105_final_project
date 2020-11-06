@@ -4,7 +4,40 @@ ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan
 Su (ys3394)
 2020-11-06
 
-### The Motivation for this project:
+<style type="text/css">
+
+body{ /* Normal  */
+      font-size: 12px;
+  }
+td {  /* Table  */
+  font-size: 8px;
+}
+h1.title {
+  font-size: 35px;
+  color: DarkRed;
+}
+h1 { /* Header 1 */
+  font-size: 25px;
+  color: Black;
+}
+h2 { /* Header 2 */
+    font-size: 22px;
+  color: Black;
+}
+h3 { /* Header 3 */
+  font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: Black;
+}
+code.r{ /* Code block */
+    font-size: 12px;
+}
+pre { /* Code block - determines code spacing between lines */
+    font-size: 14px;
+}
+</style>
+
+### The Motivation for This Project:
 
 According to [the World Health Organization
 (WHO)](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight),
@@ -45,24 +78,24 @@ illustrating this project.
 
 <!-- end list -->
 
-  - Visulizations:
+  - Visualizations:
 
 <!-- end list -->
 
-1.  Visulizing the US obesity and overweight rates geographically
-2.  Visulizing the changes in obesity and overweight rates over time
-3.  Visulizing the state with highest obesity and overweight
-4.  Visulizing the difference of obesity rate group by ‘Educational
-    Level’, ‘Gender’, ‘Race’, ‘Age’, or ‘Income’
+1.  Visualizing the US obesity and overweight rates geographically
+2.  Visualizing the changes in obesity and overweight rates over time
+3.  Visualizing the state with highest obesity and overweight
+4.  Visualizing the difference of obesity rate group by `Educational
+    Level`, `Gender`, `Race`, `Age`, or `Income`.
 
 <!-- end list -->
 
   - Coding Challenge: Since the data is huge, it might be a trouble to
     run or knit.
 
-### The planned timeline
+### The Planned Timeline
 
-| Date | Objectives                             | Date | Objective                                 |
+| Date…1 | Objectives                             | Date…3 | Objective                                 |
 | :----- | :------------------------------------- | :----- | :---------------------------------------- |
 | 11/06  | set goals and have a proposal          | 11/25  | started to write the final report         |
 | 11/07  | hand in the proposal                   | 11/29  | meeting, complete report and website      |
