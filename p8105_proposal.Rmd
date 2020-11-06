@@ -3,8 +3,11 @@ title: "US Overweight and Obesity (BMI) Analysis (From 2011 to Present)"
 author: "ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan Su (ys3394)"
 date: '`r format(Sys.time(), "%Y-%m-%d")`'
 output: github_document
-theme: cerulean
+theme: null
+highlight: null
+css: styles.css
 ---
+
 <style type="text/css">
 
 body{ /* Normal  */
@@ -14,21 +17,21 @@ td {  /* Table  */
   font-size: 8px;
 }
 h1.title {
-  font-size: 38px;
+  font-size: 35px;
   color: DarkRed;
 }
 h1 { /* Header 1 */
-  font-size: 28px;
-  color: DarkBlue;
+  font-size: 25px;
+  color: Black;
 }
 h2 { /* Header 2 */
     font-size: 22px;
-  color: DarkBlue;
+  color: Black;
 }
 h3 { /* Header 3 */
   font-size: 18px;
   font-family: "Times New Roman", Times, serif;
-  color: DarkBlue;
+  color: Black;
 }
 code.r{ /* Code block */
     font-size: 12px;
@@ -38,20 +41,19 @@ pre { /* Code block - determines code spacing between lines */
 }
 </style>
 
+### The Motivation for this project:
+According to [the World Health Organization (WHO)](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight), more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is [the fifth leading risk](https://easo.org/media-portal/statistics/) for global death. People overweight have a higher risk of getting more than [60 chronic diseases](https://www.healthline.com/health/obesity-facts) like type 2 diabetes, heart disease, which also increases the medical cost. The association between obesity and education level, income is intricate and differs by gender, age, and race.
 
-## The Motivation for this project:
-According to [the World Health Organization (WHO)](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight), more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is [the fifth leading risk](https://easo.org/media-portal/statistics/) for global death. People overweight have a higher risk of getting more than [60 chronic diseases](https://www.healthline.com/health/obesity-facts) like type 2 diabetes, heart disease, cancer, which also increases the medical cost. The association between obesity and education level, income is intricate and differs by gender, age, and race.
-
-## The Intended Final Products:
+### The Intended Final Products:
 A website about this project, a report about the process of this project, some interactivity plots to visualize results, and a screencast illustrating this project.
 
-## The Anticipated Data Sources
+### The Anticipated Data Sources
 [Data collected from Behavioral Risk Factor Sureillance System (BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf), [Centers for Diseases Control and Prevention (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
 
 
-## The Planned Analyses / Visualizations / Coding challenges
+### The Planned Analyses / Visualizations / Coding challenges
 
-* **Planned Analyses:**
+* Planned Analyses: 
 1. Overview of US obesity and overweight.
 2. Focus on the state with the highest obesity and overweight rate
 3. Investigate the obesity and overweight based on `Education level`, `Gender`, `Race`, `Age`, `Income` etc.
@@ -64,7 +66,7 @@ A website about this project, a report about the process of this project, some i
 * Coding Challenge:
 Since the data is huge, it might be a trouble to run or knit.
 
-## The planned timeline
+### The planned timeline
 
 ```{r echo=FALSE, message=FALSE}
 library(tidyverse)
