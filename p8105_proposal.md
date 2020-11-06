@@ -1,6 +1,6 @@
 Proposal
 ================
-2020-11-05
+2020-11-06
 
 ## Group Members:
 
@@ -13,10 +13,21 @@ Proposal
 
   - US Overweight and Obesity (BMI) Analysis (From 2011 to Present)
 
-## The Motivation for this project:
+## The Motivation for This Project:
 
-  - [obesity](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight)
-  - [health](https://www.healthline.com/health/obesity-facts)
+  - According to [the World Health Organization
+    (WHO)](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight),
+    more than two-thirds of adults are obese or overweight and one-sixth
+    of children are obese in the US. Obesity is [the fifth leading
+    risk](https://easo.org/media-portal/statistics/) for global death.
+    People overweight have a higher risk of getting more than [60
+    chronic diseases](https://www.healthline.com/health/obesity-facts)
+    like type 2 diabetes, heart disease, cancer, which also increases
+    the medical cost. The association between obesity and education
+    level, income is intricate and differs by gender, age, and race.
+    ![](https://www.cdc.gov/obesity/data/maps/brfss_2019_ob_all.svg)
+    (Prevalence of Self-Reported Obesity Among U.S. Adults by State and
+    Territory, BRFSS, 2019.Source:[BRFSS](https://www.cdc.gov/brfss/))
 
 ## The Intended Final Products:
 
@@ -32,7 +43,7 @@ Proposal
   - [Centers for Diseases Control and Prevention
     (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
 
-## The planned analyses / visualizations / coding challenges
+## The Planned Analyses / Visualizations / Coding challenges
 
   - **Planned Analyses:**
 
@@ -59,8 +70,8 @@ Proposal
 
 <!-- end list -->
 
-  - **Coding Challenge:**
-      - Since the data is huge, it might be a trouble to run or knit.
+  - **Coding Challenge:** Since the data is huge, it might be a trouble
+    to run or knit.
 
 ## The planned timeline
 
