@@ -62,7 +62,7 @@ illustrating this project.
 
 ### The planned timeline
 
-| Date…1 | Objectives                             | Date…3 | Objective                                 |
+| Date | Objectives                             | Date | Objective                                 |
 | :----- | :------------------------------------- | :----- | :---------------------------------------- |
 | 11/06  | set goals and have a proposal          | 11/25  | started to write the final report         |
 | 11/07  | hand in the proposal                   | 11/29  | meeting, complete report and website      |
