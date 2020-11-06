@@ -38,6 +38,7 @@ pre { /* Code block - determines code spacing between lines */
 }
 </style>
 
+
 ## The Motivation for this project:
 According to [the World Health Organization (WHO)](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight), more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is [the fifth leading risk](https://easo.org/media-portal/statistics/) for global death. People overweight have a higher risk of getting more than [60 chronic diseases](https://www.healthline.com/health/obesity-facts) like type 2 diabetes, heart disease, cancer, which also increases the medical cost. The association between obesity and education level, income is intricate and differs by gender, age, and race.
 
@@ -47,10 +48,12 @@ A website about this project, a report about the process of this project, some i
 ## The Anticipated Data Sources
 [Data collected from Behavioral Risk Factor Sureillance System (BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf), [Centers for Diseases Control and Prevention (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
 
-## The planned analyses / visualizations / coding challenges
-* Planned Analyses:
-1. Overview of US obesity and overweight 
-2. Focus on the state with the highest obesity and overweight rate. 
+
+## The Planned Analyses / Visualizations / Coding challenges
+
+* **Planned Analyses:**
+1. Overview of US obesity and overweight.
+2. Focus on the state with the highest obesity and overweight rate
 3. Investigate the obesity and overweight based on `Education level`, `Gender`, `Race`, `Age`, `Income` etc.
 4. Apply Time Series Analysis to examine the time trend from 2011 to present.
 * Visulizations:

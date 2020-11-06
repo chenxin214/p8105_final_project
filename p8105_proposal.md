@@ -63,14 +63,14 @@ illustrating this project.
 [Centers for Diseases Control and Prevention
 (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
 
-## The planned analyses / visualizations / coding challenges
+## The Planned Analyses / Visualizations / Coding challenges
 
-  - Planned Analyses:
+  - **Planned Analyses:**
 
 <!-- end list -->
 
-1.  Overview of US obesity and overweight
-2.  Focus on the state with the highest obesity and overweight rate.
+1.  Overview of US obesity and overweight.
+2.  Focus on the state with the highest obesity and overweight rate
 3.  Investigate the obesity and overweight based on `Education level`,
     `Gender`, `Race`, `Age`, `Income` etc.
 4.  Apply Time Series Analysis to examine the time trend from 2011 to
