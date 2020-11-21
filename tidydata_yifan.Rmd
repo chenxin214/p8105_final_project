@@ -1,11 +1,12 @@
 ---
-title: "tidydata_yifan"
-output: github_document
+title: "Data tidy"
+output: html_document
 ---
 
 ```{r setup, include = FALSE}
 library(tidyverse)
 library(httr)
+library(plotly)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -25,12 +26,114 @@ scale_fill_discrete = scale_fill_viridis_d
 ```
 
 
-## Tidy the data
 
+
+## Add data and tidy it
 
 ```{r}
 load_df =
 GET("https://chronicdata.cdc.gov/resource/fqb7-mgjf.csv",
     query = list("$limit" = 50000)) %>% 
-  content("parsed")
+  content("parsed") %>% 
+  janitor::clean_names()
+
+
+tidy_df = 
+  load_df %>% 
+  filter(is.na(data_value_footnote)) %>% 
+  select(-class, -topic, -question, -data_value_unit, -data_value_type, -data_source, -data_value_footnote_symbol, -data_value_footnote, -question_id, -class_id, -topic_id, -states, -counties)
 ```
+### Variable : notation
+year: 2011 - 2019
+locationabbr: state abbreviation, 56 states
+locationdesc : state name, 56 states
+response :Normal Weight (BMI 18.5-24.9); Obese (BMI 30.0 - 99.8)
+          Overweight (BMI 25.0-29.9); Underweight (BMI 12.0-18.4)
+          Underweight (bmi 12.0-18.4);Normal Weight (bmi 18.5-24.9)
+          Obese (bmi 30.0 - 99.8); Overweight (bmi 25.0-29.9)
+break_out_category: Race/Ethnicity; Age Group; Household Income
+                    Education Attained; Gender; Overall  
+break_out:Male; College graduate;White, non-Hispanic;
+          `$35,000-$49,999`; `$25,000-$34,999`; `$15,000-$24,999`;
+          35-44; 25-34; 18-24; 55-64; 
+          (Other) ; Overall; Some post-H.S.
+sample_size
+data_value: crude prevalence, unit %, such as 14.7 means 14.7%
+confidence_limit_low
+confidence_limit_high
+display_order: I don't know
+geo_location
+break_out_category_id: 6 types
+breakout_id: such as SEX1, SEX2
+location_id: WTF!!! out-of-order!!!! hope it useless
+response_id: 4 types
+
+
+## Data of different household income
+```{r}
+income_df = 
+  tidy_df %>% 
+  filter(break_out_category_id == "CAT6") %>%
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, data_value, confidence_limit_low, confidence_limit_high, response_id) %>% 
+  group_by(break_out, response) %>%
+  mutate(
+    sample_sum  = sum(sample_size),
+    average_value = weighted.mean(data_value, sample_size)
+  ) 
+```
+
+## Take NY 2019 for example
+```{r}
+ny_2019 = 
+  income_df %>% 
+  filter( year == 2019, locationabbr == "NY") 
+
+ny_2019 %>% 
+   mutate(text_label = str_c("Income: ", break_out, "\nBMI: ", response, "\nCrude prevalence: ", average_value)) %>% 
+   plot_ly(
+      type = "scatter3d", 
+      x =  ~break_out, 
+      y =  ~response, 
+      z = ~average_value,
+      text = ~text_label,
+      color = ~average_value,
+      mode = "markers" 
+      )
+```
+This plot is so disgusting!!!!
+
+## Data of different Education Attained
+```{r}
+education_df = 
+  tidy_df %>% 
+  filter(break_out_category_id == "CAT5") 
+```
+
+## Data of different Race/Ethnicity
+```{r}
+race_df = 
+  tidy_df %>% 
+  filter(break_out_category_id == "CAT4") 
+```
+
+## Data of different Age
+```{r}
+age_df = 
+  tidy_df %>% 
+  filter(break_out_category_id == "CAT3") 
+```
+
+## Data of different Gender
+```{r}
+gender_df = 
+  tidy_df %>% 
+  filter(break_out_category_id == "CAT2") 
+```
+
+## Data of nonuse
+```{r}
+nonuse_df = 
+  tidy_df %>% 
+  filter(break_out_category_id == "CAT1") 
+```
+This break_out might be unanswered. Since the dim is 1978 x 16 instead of 38172 x 16
