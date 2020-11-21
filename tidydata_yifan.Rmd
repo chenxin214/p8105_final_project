@@ -62,11 +62,11 @@ data_value: crude prevalence, unit %, such as 14.7 means 14.7%
 confidence_limit_low
 confidence_limit_high
 display_order: I don't know
-geo_location
-break_out_category_id: 6 types
-breakout_id: such as SEX1, SEX2
-location_id: WTF!!! out-of-order!!!! hope it useless
-response_id: 4 types
+geo_location: eg. (32.84057112200048, -86.63186076199969)
+break_out_category_id: eg. CAT6 - 6 types
+breakout_id: eg. SEX1, SEX2, (in CAT2)
+location_id: eg. 01 - WTF!!! out-of-order!!!! hope it useless
+response_id: eg.RESP041 - 4 types 
 
 
 ## Data of different household income
