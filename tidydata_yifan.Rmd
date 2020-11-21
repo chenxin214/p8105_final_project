@@ -1,5 +1,5 @@
 ---
-title: "Homework 5"
+title: "tidydata_yifan"
 output: github_document
 ---
 
@@ -25,7 +25,7 @@ scale_fill_discrete = scale_fill_viridis_d
 ```
 
 
-## Problem 1
+## Tidy the data
 
 
 ```{r}

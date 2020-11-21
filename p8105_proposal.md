@@ -26,7 +26,7 @@ illustrating this project.
 ### The Anticipated Data Sources
 
 [Data collected from Behavioral Risk Factor Sureillance System
-(BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf),
+(BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf), <br/>
 [Centers for Diseases Control and Prevention
 (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
 
