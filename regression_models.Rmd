@@ -1,0 +1,76 @@
+---
+title: "Regression Analysis"
+output:   
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r,include=FALSE,message=FALSE,echo=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(plotly)
+library(httr)
+library(readr)
+
+knitr::opts_chunk$set(
+echo = FALSE,
+ fig.width = 7, 
+ fig.height = 5,
+ fig.asp = 0.6,
+ out.width = "60%")
+theme_set(theme_bw() + 
+          theme(legend.position = "bottom",
+                legend.title = element_blank(),
+                plot.title = element_text(hjust = 0.5, size = 15),
+                plot.subtitle = element_text(hjust = 0.5, size = 12)))
+
+
+```
+
+# 
+```{r}
+df =
+  read_csv("./data/tidy_df") %>% 
+  filter(locationdesc %in% c("Nebraska")) %>%
+  dplyr::select(year, locationdesc, response, break_out, break_out_category, sample_size) %>% 
+  mutate( # case when
+    weight_logic = case_when(
+      response == "Overweight (BMI 25.0-29.9)" ~ 1,
+      response == "Overweight (bmi 25.0-29.9)" ~ 1,
+      response == "Underweight (BMI 12.0-18.4)" ~ 0,
+      response == "Underweight (bmi 12.0-18.4)" ~ 0,
+      response == "Normal Weight (BMI 18.5-24.9)" ~ 0,
+      response == "Normal Weight (bmi 18.5-24.9)" ~ 0,
+      response == "Obese (BMI 30.0 - 99.8)" ~ 0,
+      response == "Obese (bmi 30.0 - 99.8)" ~ 0,
+      )) %>% 
+  dplyr::select(-response) %>% 
+  mutate(break_out = factor(break_out),
+         break_out_category = factor(break_out_category)) %>% 
+  group_by(year, break_out, break_out_category) %>% 
+  summarize(wt_ratio = weighted.mean(weight_logic, sample_size))
+  
+  pivot_wider(
+    names_from = "break_out_category",
+    values_from = "break_out"
+  ) %>% 
+  
+```
+
+```{r}
+df =
+  read_csv("./data/tidy_df") %>% 
+  filter(locationdesc %in% c("Nebraska")) %>%
+  dplyr::select(year, locationdesc, response, break_out, break_out_category, sample_size) %>% 
+  mutate(break_out = factor(break_out)) %>%
+  pivot_wider(
+    names_from = "break_out_category",
+    values_from = "break_out"
+  ) %>% 
+  group_by(break_out, break_out_category) %>% 
+  mutate(wt_ratio = weighted.mean(weight_logit, sample_size))
+  
+```
+

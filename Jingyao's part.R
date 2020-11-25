@@ -72,7 +72,8 @@ df.tot<-load_df %>%
   summarise(state_sum=sum(sample_size))
 
 # total 'obese' and 'overweight' amount in each state in each year
-df.overweight<-load_df %>%
+df.overweight<-
+  load_df %>%
   filter(response %in% c("Obese (BMI 30.0 - 99.8)","Overweight (BMI 25.0-29.9)",
                          "Obese (bmi 30.0 - 99.8)","Overweight (bmi 25.0-29.9)")) %>%
   group_by(year,locationdesc) %>%
@@ -268,12 +269,12 @@ ggplot(data=new.load_df[which(new.load_df$break_out_category_id == "CAT2"),],
 tidy_df = 
   load_df %>% 
   filter(is.na(data_value_footnote)) %>% 
-  select(-class, -topic, -question, -data_value_unit, -data_value_type, -data_source, -data_value_footnote_symbol, -data_value_footnote, -question_id, -class_id, -topic_id, -states, -counties)
+  dplyr::select(-class, -topic, -question, -data_value_unit, -data_value_type, -data_source, -data_value_footnote_symbol, -data_value_footnote, -question_id, -class_id, -topic_id, -states, -counties)
 
 income_df = 
   tidy_df %>% 
   filter(break_out_category_id == "CAT6") %>%
-  select(year, locationabbr, locationdesc, response, break_out, sample_size, data_value, confidence_limit_low, confidence_limit_high, response_id) %>% 
+  dplyr::select(year, locationabbr, locationdesc, response, break_out, sample_size, data_value, confidence_limit_low, confidence_limit_high, response_id) %>% 
   group_by(break_out, response) %>%
   mutate(
     sample_sum  = sum(sample_size),
@@ -292,3 +293,5 @@ ggplot(data=a, aes(x=response, y=break_out)) +
   ggtitle("Bubble plot of response v. income sample size")
 
 ###############################################
+# output tidy_df for regression
+write_csv(tidy_df, "./data/tidy_df")

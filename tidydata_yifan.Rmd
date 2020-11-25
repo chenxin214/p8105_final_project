@@ -74,7 +74,7 @@ response_id: eg.RESP041 - 4 types
 income_df = 
   tidy_df %>% 
   filter(break_out_category_id == "CAT6") %>%
-  select(year, locationabbr, locationdesc, response, break_out, sample_size, data_value, confidence_limit_low, confidence_limit_high, response_id) %>% 
+  dplyr::select(year, locationabbr, locationdesc, response, break_out, sample_size, data_value, confidence_limit_low, confidence_limit_high, response_id) %>% 
   group_by(break_out, response) %>%
   mutate(
     sample_sum  = sum(sample_size),
