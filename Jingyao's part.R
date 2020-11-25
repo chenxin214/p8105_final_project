@@ -72,7 +72,8 @@ df.tot<-load_df %>%
   summarise(state_sum=sum(sample_size))
 
 # total 'obese' and 'overweight' amount in each state in each year
-df.overweight<-load_df %>%
+df.overweight<-
+  load_df %>%
   filter(response %in% c("Obese (BMI 30.0 - 99.8)","Overweight (BMI 25.0-29.9)",
                          "Obese (bmi 30.0 - 99.8)","Overweight (bmi 25.0-29.9)")) %>%
   group_by(year,locationdesc) %>%
@@ -273,7 +274,7 @@ tidy_df =
 income_df = 
   tidy_df %>% 
   filter(break_out_category_id == "CAT6") %>%
-  select(year, locationabbr, locationdesc, response, break_out, sample_size, data_value, confidence_limit_low, confidence_limit_high, response_id) %>% 
+  dplyr::select(year, locationabbr, locationdesc, response, break_out, sample_size, data_value, confidence_limit_low, confidence_limit_high, response_id) %>% 
   group_by(break_out, response) %>%
   mutate(
     sample_sum  = sum(sample_size),
