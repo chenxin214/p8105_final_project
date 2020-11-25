@@ -268,7 +268,7 @@ ggplot(data=new.load_df[which(new.load_df$break_out_category_id == "CAT2"),],
 tidy_df = 
   load_df %>% 
   filter(is.na(data_value_footnote)) %>% 
-  select(-class, -topic, -question, -data_value_unit, -data_value_type, -data_source, -data_value_footnote_symbol, -data_value_footnote, -question_id, -class_id, -topic_id, -states, -counties)
+  dplyr::select(-class, -topic, -question, -data_value_unit, -data_value_type, -data_source, -data_value_footnote_symbol, -data_value_footnote, -question_id, -class_id, -topic_id, -states, -counties)
 
 income_df = 
   tidy_df %>% 
@@ -292,3 +292,5 @@ ggplot(data=a, aes(x=response, y=break_out)) +
   ggtitle("Bubble plot of response v. income sample size")
 
 ###############################################
+# output tidy_df for regression
+write_csv(tidy_df, "./data/tidy_df")

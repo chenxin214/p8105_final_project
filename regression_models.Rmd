@@ -1,0 +1,37 @@
+---
+title: "Regression Analysis"
+output:   
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r,include=FALSE,message=FALSE,echo=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(broom)
+library(plotly)
+library(highcharter)
+library(rworldmap)
+library(gganimate)
+library(transformr)
+library(corrplot)
+library(leaps)
+library(kableExtra)
+knitr::opts_chunk$set(
+ echo = FALSE,
+ fig.width = 7, 
+ fig.height = 5,
+ fig.asp = 0.6,
+ out.width = "60%")
+theme_set(theme_bw() + 
+          theme(legend.position = "bottom",
+                legend.title = element_blank(),
+                plot.title = element_text(hjust = 0.5, size = 15),
+                plot.subtitle = element_text(hjust = 0.5, size = 12)))
+
+
+```
+
+# 
+
