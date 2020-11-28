@@ -80,27 +80,44 @@ rate_time =
 
 ## The rate of obese and overweight in Nebraska over time
 
-```{r, echo = FALSE, warning= FALSE, message=FALSE}
+```{r, echo = FALSE, warning= FALSE, message=FALSE, fig.align='center'}
 rate_time %>%
   group_by(rate_lable) %>% 
   mutate(text_label = str_c("Year:", year, "\nPrevalence:", prevalence)) %>% 
   plot_ly( 
     x = ~year, 
     y = ~prevalence, 
-    type = 'scatter', 
-    mode = "lines+markers", 
+    #type = 'scatter', 
+    #mode = "lines+markers", 
     textposition = "bottom right",  
     color = ~rate_lable, 
-    colors = c('#A95C68', '#C2B280'),
+    colors = c('#FFD700', '#FF8C00'),
     text = ~text_label, 
-    line = list(simplyfy = F)) %>% 
+    line = list(simplyfy = F),
+    alpha = 0.8
+    ) %>% 
   layout(
     legend = list(x = 0.5, y = 0.15),
     title = "Obesity rate trend over time",
          xaxis = list(title = "Year",
                       zeroline = TRUE),
          yaxis = list(title = "Prevalence",
-                      zeroline = TRUE)) 
+                      zeroline = TRUE),
+     updatemenus = list(
+      list(
+        x = 0.7,
+        y = 0.4,
+        buttons = list(
+
+          list(method = "restyle",
+               args = list("type", "scatter"),
+               label = "Line"),
+
+          list(method = "restyle",
+               args = list("type", "bar"),
+               label = "bar")))
+    )
+    ) 
 
 
 ```
@@ -108,7 +125,7 @@ rate_time %>%
 
 ## Difference between race group
 
-```{r, echo = FALSE, warning= FALSE, message=FALSE}
+```{r, echo = FALSE, warning= FALSE, message=FALSE, fig.align='center'}
 ne_race_df = 
   ne_df %>% 
   filter(break_out_category_id == "CAT4") %>% 
@@ -118,17 +135,41 @@ ne_race_df =
   filter(response_id %in% c("RESP039") ) %>% 
   mutate(race_pre = round(sample_size / count_race, digit = 4))
 
+
 fig_race_2 = 
   ne_race_df %>% 
+  filter(break_out != "Other, non-Hispanic") %>% 
   mutate(text_label = str_c("Race/Ethnicity:", break_out, "\nPrevalence:", race_pre)) %>% 
   plot_ly( x = ~year , y = ~race_pre,  type = "bar", color = ~break_out, text = ~text_label, alpha = 0.7) %>% 
   layout(
+         
          title = "Difference between race group in 2019",  
-         legend = list(orientation = "h",  
-                     x = 0.1,
-                     y = 0.9),
-         xaxis = list(title = "Race/Ethnicity",
-                      zeroline = TRUE),
+         legend = list(font = list(size = 8),  x = 0.5, y = 0.05),
+         xaxis = list(title = "Year",
+                      zeroline = TRUE,
+                            rangeselector = list(
+        buttons = list(
+          list(
+            count = 3,
+            label = "3 year",
+            step = "year",
+            stepmode = "backward"),
+          list(
+            count = 6,
+            label = "6 year",
+            step = "year",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "YTD",
+            step = "year",
+            stepmode = "todate"),
+          list(step = "all"))),
+
+      rangeslider = list(type = "date")
+                      ),
+                      
+         
          yaxis = list(title = "Prevalence",
                       zeroline = TRUE)) 
 
@@ -137,7 +178,7 @@ fig_race_2
 ```
 
 ## Difference between gender group
-```{r, echo = FALSE, warning= FALSE, message=FALSE}
+```{r, echo = FALSE, warning= FALSE, message=FALSE, fig.align='center'}
 ne_gender_df = 
   ne_df %>% 
   filter(break_out_category_id == "CAT2") %>% 
@@ -147,24 +188,47 @@ ne_gender_df =
   filter(response_id %in% c("RESP039") ) %>% 
   mutate(gender_pre = round(sample_size / count_gender, digit = 4))
 
-
+ay = list(
+  tickfont = list(color = "#767B84"),
+  overlaying = "y",
+  side = "right",
+  title = "Prevalence",
+  automargin = TRUE
+)
 ne_gender_df %>%
   group_by(break_out) %>% 
-  mutate(text_label = str_c("gender:", break_out, "\nPrevalence:", gender_pre)) %>% 
-  plot_ly( x = ~year, y = ~gender_pre,  type = "bar", color = ~break_out, text = ~text_label, alpha = 0.5) %>% 
+  mutate(
+    text_label_1 = str_c("gender:", break_out, "\nCount:", sample_size),
+    text_label_2 = str_c("gender:", break_out, "\nPrevalence:", gender_pre)     
+    ) %>% 
+  plot_ly( 
+    x = ~year, 
+    y = ~sample_size,  
+    type = "bar", 
+    color = ~break_out, 
+    colors = c("#F1948A", "#85C1E9"),
+    text = ~text_label_1, 
+    alpha = 0.7) %>% 
+    add_lines(x = ~year, y = ~gender_pre, color = ~break_out, text = ~text_label_2, yaxis = "y2") %>% 
   layout(
          title = "Difference between gender group",
          xaxis = list(title = "year",
                       zeroline = TRUE),
-         yaxis = list(title = "Prevalence",
-                      zeroline = TRUE)) 
+         yaxis = list(title = "Count",
+                      zeroline = TRUE),
+         yaxis2 = ay,
+         legend = list(  
+                     x = 0.7,
+                     y = 0.1)
+         )
+
 
 
 ```
 
 ## Difference between Education Attained group
 
-```{r, echo = FALSE, warning= FALSE, message=FALSE}
+```{r, echo = FALSE, warning= FALSE, message=FALSE, fig.align='center'}
 ne_edu_df = 
   ne_df %>% 
   filter(break_out_category_id == "CAT5") %>% 
@@ -188,17 +252,20 @@ fig_edu_1 =
         textinfo = 'label+percent',
         insidetextfont = list(color = '#483C32'),
         hoverinfo = 'text',
+        domain = list(row = 0, column = 1),
         text = ~paste('Education Attained:', break_out, ' \nNumber', count_edu),
         marker = list(colors = c('#cd7eaf', '#f3cec9','#6f4d96' ,'#e7a4b6' ),
                       line = list(color = '#FFFFFF', width = 1)),
-        showlegend = T) %>% add_pie(hole = 0.5)
+        showlegend = F
+        ) %>% add_pie(hole = 0.5)
 
 fig_edu_2 = 
   ne_edu_df %>% 
   mutate(text_label = str_c("Education Attained:", break_out, "\nPrevalence:", edu_pre)) %>% 
   plot_ly( 
     x = ~year , 
-    y = ~edu_pre,  
+    y = ~edu_pre, 
+     domain = list(row = 0, column = 0),
     type = "bar", 
     color = ~break_out, 
     colors = c('#6f4d96', '#e7a4b6', '#f3cec9','#cd7eaf' ),
@@ -206,70 +273,46 @@ fig_edu_2 =
     alpha = 0.7) %>% 
   layout(
          title = "Difference between Education Attained group",  
-         legend = list(orientation = "h",  
-                     x = 0.05,
-                     y = 0.9),
+         legend = list( showlegend = F),
          xaxis = list(title = "Education Attained",
                       zeroline = TRUE),
          yaxis = list(title = "Prevalence",
                       zeroline = TRUE)) 
-fig_edu_1
 
-fig_edu_2
+subplot(fig_edu_2 , fig_edu_1) %>%  layout(legend = list(x = 0.3, y = 0.1, font = list(size = 8)), grid = list(rows = 1, columns = 2))
 ```
 
 ## Difference between household income group
 
-```{r, echo = FALSE, warning= FALSE, message=FALSE}
+```{r,fig.width = 15, fig.height = 11, out.width = "100%", echo = FALSE, warning= FALSE, message=FALSE, fig.align='center'}
 ne_income_df = 
   ne_df %>% 
   filter(break_out_category_id == "CAT6") %>% 
   select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %>% 
   group_by(year, break_out) %>% 
   mutate(count_income = sum(sample_size)) %>% 
-  filter(response_id %in% c("RESP039") ) %>% 
-  mutate(income_pre = round(sample_size / count_income, digit = 4))
+  filter(response_id %in% c("RESP039", "RESP040")) %>% 
+  mutate(
+    income_pre = round(sample_size / count_income, digit = 4),
+    rate_lable = case_when(
+      response_id == "RESP039" ~ "Obese (BMI 30.0 - 99.8)",
+      response_id == "RESP040" ~ "Overweight (BMI 25.0-29.9)")
+    
+    )
+  
 
-income_rate = 
   ne_income_df %>% 
-  select(break_out, count_income, year) %>% 
-  distinct() %>% 
-  group_by(break_out) %>% 
-  mutate(sum_income = round(sum(count_income/9), digits = 0))
+   ggplot(aes(x = year, y = income_pre, color = rate_lable)) +
+   geom_line(size = 1) +
+   scale_color_manual(values=c("#20B2AA", "#228B22")) +
+   theme_bw() +
+   theme(aspect.ratio = 1, axis.text.x = element_text(angle = 45,  hjust = 1)) +
+   facet_wrap(~break_out) +
+   theme(legend.position = "bottom") +
+    labs(title = "Obesity rate trend over time",
+       subtitle = "2011 - 2019.",
+       x = "Year", 
+       y = "Prevalence") +
+  scale_x_continuous(breaks = seq(2011,2019,1)) 
 
-fig_income_1 = 
-  income_rate %>% 
-  plot_ly(labels = ~break_out, values = ~sum_income, 
-        textposition = 'inside',
-        textinfo = 'label+percent',
-        insidetextfont = list(color = '#483C32'),
-        hoverinfo = 'text',
-        text = ~paste('Education Attained:', break_out, ' \nNumber', count_income),
-        marker = list(colors = c('#9FE2BF', '#40E0D0' ,'#008080','#40826D','#8A9A5B' ),
-                      line = list(color = '#FFFFFF', width = 1)),
-        showlegend = T) %>% add_pie(hole = 0.5)
-
-fig_income_2 = 
-  ne_income_df %>% 
-  mutate(text_label = str_c("House income:", break_out, "\nPrevalence:", income_pre)) %>% 
-  plot_ly( 
-    x = ~year , 
-    y = ~income_pre,  
-    type = "bar", 
-    color = ~break_out, 
-    colors = c('#9FE2BF', '#008080','#40E0D0' ,'#8A9A5B','#40826D'),
-    text = ~text_label,
-    alpha = 0.7) %>% 
-  layout(
-         title = "Difference between house income group",  
-         legend = list(orientation = "h",  
-                     x = 0.05,
-                     y = 0.9),
-         xaxis = list(title = "House income",
-                      zeroline = TRUE),
-         yaxis = list(title = "Prevalence",
-                      zeroline = TRUE)) 
-fig_income_1
-
-fig_income_2
 ```
