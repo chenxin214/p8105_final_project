@@ -1,0 +1,341 @@
+---
+title: "Visualizations"
+runtime: shiny
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(plotly)
+library(httr)
+library(ggplot2)
+library(broom)
+library(shiny)
+
+
+knitr::opts_chunk$set(
+ echo = FALSE,
+ fig.width = 7, 
+ fig.height = 5,
+ fig.asp = 0.6,
+ out.width = "60%")
+theme_set(theme_bw() + 
+          theme(legend.position = "bottom",
+                legend.title = element_blank(),
+                plot.title = element_text(hjust = 0.5, size = 15),
+                plot.subtitle = element_text(hjust = 0.5, size = 12)))
+
+load_df =
+GET("https://chronicdata.cdc.gov/resource/fqb7-mgjf.csv",
+    query = list("$limit" = 50000)) %>% 
+  content("parsed") %>% 
+  janitor::clean_names()
+
+
+ne_df = 
+  load_df %>% 
+  filter(is.na(data_value_footnote)) %>% 
+  select(-class, -topic, -question, -data_value_unit, -data_value_type, -data_source, -data_value_footnote_symbol, -data_value_footnote, -question_id, -class_id, -topic_id, -states, -counties) 
+```
+
+```{r, echo=FALSE}
+shinyApp(
+options(shiny.sanitize.errors = TRUE),
+ui = shinyUI(fluidPage(titlePanel(""),
+                                    # sidebar style
+                                         sidebarLayout(sidebarPanel(
+                                           #selectInput function
+                                           selectInput("location","Please Select locationaddr:",unique(ne_df$locationdesc))),
+                                           mainPanel(
+                                             plotlyOutput("plot1"),
+                                             br(),
+                                             br(),
+                                             plotlyOutput("plot2"),
+                                             br(),
+                                             br(),
+                                             plotlyOutput("plot3"),
+                                             br(),
+                                             br(),
+                                             plotlyOutput("plot4"),
+                                             br(),
+                                             br(),
+                                             plotlyOutput("plot5")
+                                           )))),
+server = function(input, output, session) {
+  
+  #choose 
+  Pass <- reactive({
+    ne_df[ne_df$locationdesc==input$location,]
+  })
+  output$plot1 <- renderPlotly({
+    time_df = 
+  Pass() %>% 
+  filter(response_id %in% c("RESP039", "RESP040") ) %>% 
+  select(year, response_id, sample_size) %>% 
+  group_by(year, response_id) %>% 
+  mutate(count_obese = sum(sample_size)) %>% 
+  select(-sample_size) %>% 
+  distinct()
+
+total_df = 
+  Pass() %>%
+  select(year, response_id, sample_size) %>% 
+  group_by(year) %>% 
+  mutate(count_total = sum(sample_size)) %>% 
+  select(-sample_size) %>% 
+  filter(response_id %in% c("RESP039", "RESP040") ) %>% 
+  distinct() 
+
+rate_time = 
+  left_join(time_df, total_df,by = c("year" , "response_id")) %>% 
+  mutate(
+    prevalence = count_obese / count_total,
+    rate_lable = case_when(
+      response_id == "RESP039" ~ "Obese (BMI 30.0 - 99.8)",
+      response_id == "RESP040" ~ "Overweight (BMI 25.0-29.9)"
+    )
+    ) %>%
+  mutate(prevalence = round(prevalence, digits = 4)) 
+
+rate_time <- rate_time %>%
+  group_by(rate_lable) %>% 
+  mutate(text_label = str_c("Year:", year, "\nPrevalence:", prevalence)) 
+
+# plot 1: obese and overweight by states: 
+  plot_ly( rate_time,
+    x = ~year, 
+    y = ~prevalence, 
+    #type = 'scatter', 
+    #mode = "lines+markers", 
+    textposition = "bottom right",  
+    color = ~rate_lable, 
+    colors = c('#FFD700', '#FF8C00'),
+    text = ~text_label, 
+    line = list(simplyfy = F),
+    alpha = 0.8
+    ) %>% 
+  layout(
+    legend = list(x = 0.5, y = 0.15),
+    title = "Obesity rate trend over time",
+         xaxis = list(title = "Year",
+                      zeroline = TRUE),
+         yaxis = list(title = "Prevalence",
+                      zeroline = TRUE),
+     updatemenus = list(
+      list(
+        x = 0.7,
+        y = 0.4,
+        buttons = list(
+
+          list(method = "restyle",
+               args = list("type", "scatter"),
+               label = "Line"),
+
+          list(method = "restyle",
+               args = list("type", "bar"),
+               label = "bar")))
+    )
+    ) 
+
+  })
+  
+ #Difference Among Race Groups:
+  
+  output$plot2 <-renderPlotly({
+    ne_race_df = 
+  Pass() %>% 
+  filter(break_out_category_id == "CAT4") %>% 
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %>% 
+  group_by(year, break_out) %>% 
+  mutate(count_race = sum(sample_size)) %>% 
+  filter(response_id %in% c("RESP039") ) %>% 
+  mutate(race_pre = round(sample_size / count_race, digit = 4))
+
+
+fig_race_2 = 
+  ne_race_df %>% 
+  filter(break_out != "Other, non-Hispanic") %>% 
+  mutate(text_label = str_c("Race/Ethnicity:", break_out, "\nPrevalence:", race_pre)) 
+
+
+  plot_ly(fig_race_2, x = ~year , y = ~race_pre,  type = "bar", color = ~break_out, text = ~text_label, alpha = 0.7) %>% 
+  layout(
+         
+         title = "Difference Among Race Groups",  
+         legend = list(font = list(size = 8),  x = 0.5, y = 0.05),
+         xaxis = list(title = "Year",
+                      zeroline = TRUE,
+                            rangeselector = list(
+        buttons = list(
+          list(
+            count = 3,
+            label = "3 year",
+            step = "year",
+            stepmode = "backward"),
+          list(
+            count = 6,
+            label = "6 year",
+            step = "year",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "YTD",
+            step = "year",
+            stepmode = "todate"),
+          list(step = "all"))),
+
+      rangeslider = list(type = "date")
+                      ),
+                      
+         
+         yaxis = list(title = "Prevalence",
+                      zeroline = TRUE)) 
+
+
+
+  })
+  
+  
+# Difference Between Genders:
+  
+ output$plot3 <- renderPlotly({
+   ne_gender_df = 
+  Pass() %>% 
+  filter(break_out_category_id == "CAT2") %>% 
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %>% 
+  group_by(year, break_out) %>% 
+  mutate(count_gender = sum(sample_size)) %>% 
+  filter(response_id %in% c("RESP039") ) %>% 
+  mutate(gender_pre = round(sample_size / count_gender, digit = 4))
+
+ay = list(
+  tickfont = list(color = "#767B84"),
+  overlaying = "y",
+  side = "right",
+  title = "Prevalence",
+  automargin = TRUE
+)
+ne_gender_df <- ne_gender_df %>%
+  dplyr::group_by(break_out) %>% 
+  mutate(
+    text_label_1 = str_c("gender:", break_out, "\nCount:", sample_size),
+    text_label_2 = str_c("gender:", break_out, "\nPrevalence:", gender_pre)     
+    ) 
+  plot_ly( data=ne_gender_df)%>%add_bars(x = ~year, 
+    y = ~sample_size,  
+    type = "bar", 
+    color = ~break_out, 
+    colors = c("#F1948A", "#85C1E9"),
+    text = ~text_label_1, 
+    alpha = 0.7) %>% 
+    add_lines(x = ~year, y = ~gender_pre, color = ~break_out, text = ~text_label_2, yaxis = "y2") %>% 
+  layout(
+         title = "Difference Between Genders",
+         xaxis = list(title = "year",
+                      zeroline = TRUE),
+         yaxis = list(title = "Count",
+                      zeroline = TRUE),
+         yaxis2 = ay,
+         legend = list(  
+                     x = 0.7,
+                     y = 0.1)
+         )
+
+ })
+ output$plot4 <- renderPlotly({
+  ne_edu_df = 
+  Pass() %>% 
+  filter(break_out_category_id == "CAT5") %>% 
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %>% 
+  group_by(year, break_out) %>% 
+  mutate(count_edu = sum(sample_size)) %>% 
+  filter(response_id %in% c("RESP039") ) %>% 
+  mutate(edu_pre = round(sample_size / count_edu, digit = 4))
+
+edu_rate = 
+  ne_edu_df %>% 
+  select(break_out, count_edu, year) %>% 
+  distinct() %>% 
+  group_by(break_out) %>% 
+  mutate(sum_edu = round(sum(count_edu/9), digits = 0))
+
+fig_edu_1 = 
+  edu_rate %>% 
+  plot_ly(labels = ~break_out, values = ~sum_edu, 
+        textposition = 'inside',
+        textinfo = 'label+percent',
+        insidetextfont = list(color = '#483C32'),
+        hoverinfo = 'text',
+        domain = list(row = 0, column = 1),
+        text = ~paste('Education Attained:', break_out, ' \nNumber', count_edu),
+        marker = list(colors = c('#cd7eaf', '#f3cec9','#6f4d96' ,'#e7a4b6' ),
+                      line = list(color = '#FFFFFF', width = 1)),
+        showlegend = F
+        ) %>% add_pie(hole = 0.5)
+
+fig_edu_2 = 
+  ne_edu_df %>% 
+  mutate(text_label = str_c("Education Attained:", break_out, "\nPrevalence:", edu_pre)) %>% 
+  plot_ly( 
+    x = ~year , 
+    y = ~edu_pre, 
+     domain = list(row = 0, column = 0),
+    type = "bar", 
+    color = ~break_out, 
+    colors = c('#6f4d96', '#e7a4b6', '#f3cec9','#cd7eaf' ),
+    text = ~text_label,
+    alpha = 0.7) %>% 
+  layout(
+         title = "Difference between Education Attained group",  
+         legend = list( showlegend = F),
+         xaxis = list(title = "Education Attained",
+                      zeroline = TRUE),
+         yaxis = list(title = "Prevalence",
+                      zeroline = TRUE)) 
+
+subplot(fig_edu_2 , fig_edu_1) %>%  layout(legend = list(x = 0.3, y = 0.1, font = list(size = 8)), grid = list(rows = 1, columns = 2))
+    })
+ 
+ 
+# "Obesity rate trend over time Income: 
+ output$plot5 <- renderPlotly({
+   ne_income_df = 
+  Pass() %>% 
+  filter(break_out_category_id == "CAT6") %>% 
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %>% 
+  group_by(year, break_out) %>% 
+  mutate(count_income = sum(sample_size)) %>% 
+  filter(response_id %in% c("RESP039", "RESP040")) %>% 
+  mutate(
+    income_pre = round(sample_size / count_income, digit = 4),
+    rate_lable = case_when(
+      response_id == "RESP039" ~ "Obese (BMI 30.0 - 99.8)",
+      response_id == "RESP040" ~ "Overweight (BMI 25.0-29.9)")
+    
+    )
+  
+
+
+   ggplot(data=ne_income_df,aes(x = year, y = income_pre, color = rate_lable)) +
+   geom_line(size = 1) +
+   scale_color_manual(values=c("#20B2AA", "#228B22")) +
+   theme_bw() +
+   theme(aspect.ratio = 1, axis.text.x = element_text(angle = 45,  hjust = 1)) +
+   facet_wrap(~break_out) +
+   theme(legend.position = "bottom") +
+    labs(title = "Obesity rate trend over time",
+       subtitle = "2011 - 2019.",
+       x = "Year", 
+       y = "Prevalence") +
+  scale_x_continuous(breaks = seq(2011,2019,3)) 
+   
+ })
+},
+options=list(
+    width="120%", height=2400)
+)
+
+
+
+
+
