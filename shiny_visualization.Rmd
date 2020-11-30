@@ -11,6 +11,7 @@ library(httr)
 library(ggplot2)
 library(broom)
 library(shiny)
+library(rsconnect)
 
 
 knitr::opts_chunk$set(
