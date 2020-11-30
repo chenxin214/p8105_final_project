@@ -242,6 +242,8 @@ ne_gender_df <- ne_gender_df %>%
          )
 
  })
+ 
+ # Education Attained group:
  output$plot4 <- renderPlotly({
   ne_edu_df = 
   Pass() %>% 
