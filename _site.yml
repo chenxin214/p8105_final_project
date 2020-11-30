@@ -3,11 +3,12 @@ output_dir: "."
 navbar:
   title: "Home"
   right:
-    - text: "Fact Sheet"
-      href: about.html
     - text: "US Overweight and Obesity"
       href: index.html
-
+    - text: "Fact Sheet"
+      href: about.html
+    - text: "Visualization"
+      href: http://129.211.125.36:88/Visualization.Rmd
     - icon: fa-github fa-lg
       href: http://github.com/<YOUR_GH_NAME>/
 output:
