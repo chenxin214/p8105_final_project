@@ -4,6 +4,7 @@ output:
   html_document:
     toc: true
     toc_float: true
+    code_folding: hide
 ---
 
 ```{r,include=FALSE,message=FALSE,echo=FALSE}
@@ -12,6 +13,7 @@ library(ggplot2)
 library(broom)
 library(plotly)
 library(httr)
+library(modelr)
 library(readr)
 
 knitr::opts_chunk$set(
@@ -19,7 +21,7 @@ echo = FALSE,
  fig.width = 7, 
  fig.height = 5,
  fig.asp = 0.6,
- out.width = "60%")
+ out.width = "90%")
 theme_set(theme_bw() + 
           theme(legend.position = "bottom",
                 legend.title = element_blank(),
@@ -29,48 +31,169 @@ theme_set(theme_bw() +
 
 ```
 
-# 
-```{r}
-df =
-  read_csv("./data/tidy_df") %>% 
-  filter(locationdesc %in% c("Nebraska")) %>%
-  dplyr::select(year, locationdesc, response, break_out, break_out_category, sample_size) %>% 
-  mutate( # case when
-    weight_logic = case_when(
-      response == "Overweight (BMI 25.0-29.9)" ~ 1,
-      response == "Overweight (bmi 25.0-29.9)" ~ 1,
-      response == "Underweight (BMI 12.0-18.4)" ~ 0,
-      response == "Underweight (bmi 12.0-18.4)" ~ 0,
-      response == "Normal Weight (BMI 18.5-24.9)" ~ 0,
-      response == "Normal Weight (bmi 18.5-24.9)" ~ 0,
-      response == "Obese (BMI 30.0 - 99.8)" ~ 0,
-      response == "Obese (bmi 30.0 - 99.8)" ~ 0,
-      )) %>% 
-  dplyr::select(-response) %>% 
-  mutate(break_out = factor(break_out),
-         break_out_category = factor(break_out_category)) %>% 
-  group_by(year, break_out, break_out_category) %>% 
-  summarize(wt_ratio = weighted.mean(weight_logic, sample_size))
-  
-  pivot_wider(
-    names_from = "break_out_category",
-    values_from = "break_out"
+## **Data**
+
+The data about the estimation of obesity levels in people from the countries of Mexico, Peru and Colombia, with ages between 14 and 61 and diverse eating habits and physical condition as mentioned by , data was collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining 17 attributes and 2111 records. 
+
+```{r, warning=FALSE, message=FALSE, collapse=FALSE}
+ob_df =
+  read_csv("./data/ObesityDataSet_raw_and_data_sinthetic.csv") %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    n_obeyesdad = case_when(
+      n_obeyesdad == "Normal_Weight" ~ 21.7,
+      n_obeyesdad == "Overweight_Level_I" ~ 25,
+      n_obeyesdad == "Overweight_Level_II" ~ 30,
+      n_obeyesdad == "Obesity_Type_I" ~ 32.5,
+      n_obeyesdad == "Insufficient_Weight" ~ 18.5,
+      n_obeyesdad == "Obesity_Type_II" ~ 37.5,
+      n_obeyesdad == "Obesity_Type_III" ~ 40,
+    )
   ) %>% 
-  
+  rename(bmi = n_obeyesdad,
+         fml_his = family_history_with_overweight) %>% 
+  dplyr::select(bmi, gender, age, fml_his, favc, calc, faf) %>% 
+  drop_na() %>% 
+  mutate(gender = factor(gender),
+         fml_his = factor(fml_his),
+         favc = factor(favc),
+         calc = factor(calc))
+
+head(ob_df)
 ```
 
-```{r}
-df =
-  read_csv("./data/tidy_df") %>% 
-  filter(locationdesc %in% c("Nebraska")) %>%
-  dplyr::select(year, locationdesc, response, break_out, break_out_category, sample_size) %>% 
-  mutate(break_out = factor(break_out)) %>%
-  pivot_wider(
-    names_from = "break_out_category",
-    values_from = "break_out"
-  ) %>% 
-  group_by(break_out, break_out_category) %>% 
-  mutate(wt_ratio = weighted.mean(weight_logit, sample_size))
-  
+**Variables**
+
+- `favc`: Frequent consumption of high caloric food
+- `calc`: Consumption of alcohol
+- `faf`: Physical activity frequency
+- `fml_his`: Family history with overweigh
+
+**Adjustments**
+
+To conduct linear regression, the outcome should be numeric variables, so we convert variable recording obesity condition, such as `Normal_weight` and `Obesity_Type_I` to BMI `21.7` and `32.5` according to [BMI and weights relationships from CDC guildlines](https://www.cdc.gov/obesity/adult/defining.html). Since each weight condition has a BMI range like "25-30", we assume that people with a weight status has an average BMI, that is 27.5. 
+
+
+## BMI Distribution
+
+```{r, warning=FALSE, message=FALSE, collapse=FALSE}
+ggplot(aes(x=bmi),data = ob_df)+
+  geom_density(color="darkblue", fill="lightblue") +
+  geom_vline(data=ob_df, aes(xintercept=mean(bmi)),
+             linetype="dashed") +
+  labs(   # add lables
+    title = "Histogram of BMI distribution",
+    x = "BMI",
+    y = "Frequency",
+    caption = "Dataset of 2111 records, with continuity correction"
+  ) 
+```
+
+## 3 Linear Models
+
+```{r, warning=FALSE, message=FALSE, collapse=FALSE}
+reg_bmi1 = lm(bmi ~ gender + age + fml_his + favc + calc + faf, data = ob_df)
+reg_bmi2 = lm(bmi ~ gender + age + fml_his + favc * calc * faf, data = ob_df)
+reg_bmi3 = lm(bmi ~ gender + age + fml_his, data = ob_df)
+```
+
+### First Model with 6 Predictors
+
+```{r, fig.width=11, fig.height=8, warning=FALSE, message=FALSE, collapse=FALSE}
+par(mfrow=c(2,2))
+plot(reg_bmi1)
+```
+
+
+### Second Model with Interactions
+```{r, warning=FALSE, message=FALSE, collapse=FALSE}
+reg_bmi2 %>% 
+  broom::tidy() %>% 
+  drop_na() %>% 
+  knitr::kable()
+```
+ 
+ 
+ 
+## Comparing 3 models
+
+### Cross Validation for comparisons
+
+The cross validation requires all predictors to be numeric variables, so we transform variables `gender`, `fml_his`, `favc`, `calc` to numeric ones. Since we need to know `rmse` (root mean square error) distributions of models, and basic trends of BMI influenced by variables, the addjustment is acceptable.
+
+```{r, warning=FALSE, message=FALSE, collapse=FALSE}
+ob_dbl =
+  ob_df %>% 
+  mutate(gender = recode(gender, "Female" = 0, "Male" = 1),
+         fml_his = recode(fml_his, "yes" = 1, "no" = 0),
+         favc = recode(favc, "yes" = 1, "no" = 0),
+         calc = recode(calc, "no" = 0, "Sometimes" = 1, "Frequently" = 2, "Always" = 3))
+
+reg_dbl1 = lm(bmi ~ gender + age + fml_his + favc + calc + faf, data = ob_df)
+reg_dbl2 = lm(bmi ~ gender + age + fml_his + favc * calc * faf, data = ob_df)
+reg_dbl3 = lm(bmi ~ gender + age + fml_his, data = ob_df)
+```
+
+```{r, warning=FALSE, message=FALSE, collapse=FALSE}
+cv_df =
+  crossv_mc(ob_dbl, 100) %>% 
+  mutate(
+    train = map(train, as_tibble),
+    test = map(test, as_tibble))
+
+cv_df = 
+  cv_df %>% 
+  mutate(
+    reg_dbl1  = map(.x = train, ~lm(bmi ~ gender + age + fml_his + favc + calc + faf, data = .x)),
+    reg_dbl2  = map(.x = train, ~lm(bmi ~ gender + age + fml_his + favc * calc * faf, data = .x)),
+    reg_dbl3  = map(.x = train, ~lm(bmi ~ gender + age + fml_his, data = .x))) %>% 
+  mutate(
+    rmse_1 = map2_dbl(.x = reg_dbl1, .y = test, ~rmse(model = .x, data = .y)),
+    rmse_2 = map2_dbl(.x = reg_dbl2, .y = test, ~rmse(model = .x, data = .y)),
+    rmse_3 = map2_dbl(.x = reg_dbl3, .y = test, ~rmse(model = .x, data = .y)))
+    
+```
+
+Violin plot of RMSEs.
+
+```{r, warning=FALSE, message=FALSE, collapse=FALSE}
+cv_df %>% 
+  dplyr::select(starts_with("rmse")) %>% 
+  pivot_longer(
+    everything(),
+    names_to = "model", 
+    values_to = "rmse",
+    names_prefix = "rmse_") %>% 
+  mutate(model = fct_inorder(model)) %>% 
+  ggplot(aes(x = model, y = rmse)) +
+  geom_violin()
+```
+
+### ANOVA test for comparisons
+
+Model 1 and model 3, nested data
+```{r, warning=FALSE, message=FALSE, collapse=FALSE}
+anova(reg_bmi3, reg_bmi1)
+```
+
+### AIC for validation
+
+```{r, warning=FALSE, message=FALSE, collapse=FALSE}
+aic_1 = reg_bmi1 %>% broom::glance() %>% dplyr::select(AIC) %>% knitr::kable(digits = 3)
+aic_2 = reg_bmi2 %>% broom::glance() %>% dplyr::select(AIC) %>% knitr::kable(digits = 3)
+aic_3 = reg_bmi3 %>% broom::glance() %>% dplyr::select(AIC) %>% knitr::kable(digits = 3)
+
+tibble(aic_1, aic_2, aic_3)
+```
+
+
+## Further Exploration
+
+With this many factor levels, it really isn’t a good idea to fit models with main effects or interactions for each. Instead, you’d be best-off using a mixed model, with random intercepts and slopes for each factors.
+
+```{r, warning=FALSE, message=FALSE, collapse=FALSE}
+ob_df %>% 
+  lme4::lmer(bmi ~ gender + fml_his + (1 + fml_his | favc), data = .) %>% 
+  broom.mixed::tidy()
 ```
 

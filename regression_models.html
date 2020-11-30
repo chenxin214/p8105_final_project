@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Regression Analysis</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="mailto:&lt;you@youremail.com&gt;">
+    <span class="fa fa-envelope fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="http://github.com/&lt;YOUR_GH_NAME&gt;/">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Regression Analysis</h1>
+
+</div>
+
+
+<div id="data" class="section level2">
+<h2><strong>Data</strong></h2>
+<p>The data about the estimation of obesity levels in people from the countries of Mexico, Peru and Colombia, with ages between 14 and 61 and diverse eating habits and physical condition as mentioned by , data was collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining 17 attributes and 2111 records.</p>
+<pre><code>## # A tibble: 6 x 7
+##     bmi gender   age fml_his favc  calc         faf
+##   &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt; &lt;fct&gt;      &lt;dbl&gt;
+## 1  21.7 Female    21 yes     no    no             0
+## 2  21.7 Female    21 yes     no    Sometimes      3
+## 3  21.7 Male      23 yes     no    Frequently     2
+## 4  25   Male      27 no      no    Frequently     2
+## 5  30   Male      22 no      no    Sometimes      0
+## 6  21.7 Male      29 no      yes   Sometimes      0</code></pre>
+<p><strong>Variables</strong></p>
+<ul>
+<li><code>favc</code>: Frequent consumption of high caloric food</li>
+<li><code>calc</code>: Consumption of alcohol</li>
+<li><code>faf</code>: Physical activity frequency</li>
+<li><code>fml_his</code>: Family history with overweigh</li>
+</ul>
+<p><strong>Adjustments</strong></p>
+<p>To conduct linear regression, the outcome should be numeric variables, so we convert variable recording obesity condition, such as <code>Normal_weight</code> and <code>Obesity_Type_I</code> to BMI <code>21.7</code> and <code>32.5</code> according to <a href="https://www.cdc.gov/obesity/adult/defining.html">BMI and weights relationships from CDC guildlines</a>. Since each weight condition has a BMI range like “25-30”, we assume that people with a weight status has an average BMI, that is 27.5.</p>
+</div>
+<div id="bmi-distribution" class="section level2">
+<h2>BMI Distribution</h2>
+<p><img src="regression_models_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
+</div>
+<div id="linear-models" class="section level2">
+<h2>3 Linear Models</h2>
+<div id="first-model-with-6-predictors" class="section level3">
+<h3>First Model with 6 Predictors</h3>
+<p><img src="regression_models_files/figure-html/unnamed-chunk-5-1.png" width="90%" /></p>
+</div>
+<div id="second-model-with-interactions" class="section level3">
+<h3>Second Model with Interactions</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">5.2816517</td>
+<td align="right">5.9311143</td>
+<td align="right">0.8904991</td>
+<td align="right">0.3733002</td>
+</tr>
+<tr class="even">
+<td align="left">genderMale</td>
+<td align="right">-0.5779571</td>
+<td align="right">0.2619838</td>
+<td align="right">-2.2060796</td>
+<td align="right">0.0274866</td>
+</tr>
+<tr class="odd">
+<td align="left">age</td>
+<td align="right">0.2134598</td>
+<td align="right">0.0209753</td>
+<td align="right">10.1767429</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">fml_hisyes</td>
+<td align="right">8.6139089</td>
+<td align="right">0.3459540</td>
+<td align="right">24.8990010</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">favcyes</td>
+<td align="right">4.8871227</td>
+<td align="right">0.9899786</td>
+<td align="right">4.9365945</td>
+<td align="right">0.0000009</td>
+</tr>
+<tr class="even">
+<td align="left">calcFrequently</td>
+<td align="right">8.0942787</td>
+<td align="right">6.5434278</td>
+<td align="right">1.2370089</td>
+<td align="right">0.2162224</td>
+</tr>
+<tr class="odd">
+<td align="left">calcno</td>
+<td align="right">10.6774490</td>
+<td align="right">5.9748891</td>
+<td align="right">1.7870539</td>
+<td align="right">0.0740733</td>
+</tr>
+<tr class="even">
+<td align="left">calcSometimes</td>
+<td align="right">10.0057400</td>
+<td align="right">5.8348066</td>
+<td align="right">1.7148366</td>
+<td align="right">0.0865231</td>
+</tr>
+<tr class="odd">
+<td align="left">faf</td>
+<td align="right">-0.3461937</td>
+<td align="right">0.6082679</td>
+<td align="right">-0.5691468</td>
+<td align="right">0.5693175</td>
+</tr>
+<tr class="even">
+<td align="left">favcyes:calcFrequently</td>
+<td align="right">-2.4449866</td>
+<td align="right">3.2416359</td>
+<td align="right">-0.7542447</td>
+<td align="right">0.4507871</td>
+</tr>
+<tr class="odd">
+<td align="left">favcyes:calcno</td>
+<td align="right">-4.3055502</td>
+<td align="right">1.3725209</td>
+<td align="right">-3.1369652</td>
+<td align="right">0.0017308</td>
+</tr>
+<tr class="even">
+<td align="left">favcyes:faf</td>
+<td align="right">-0.6411891</td>
+<td align="right">0.6438156</td>
+<td align="right">-0.9959205</td>
+<td align="right">0.3194038</td>
+</tr>
+<tr class="odd">
+<td align="left">calcFrequently:faf</td>
+<td align="right">0.3880361</td>
+<td align="right">1.6017398</td>
+<td align="right">0.2422591</td>
+<td align="right">0.8086031</td>
+</tr>
+<tr class="even">
+<td align="left">calcno:faf</td>
+<td align="right">-0.1349497</td>
+<td align="right">0.8266805</td>
+<td align="right">-0.1632428</td>
+<td align="right">0.8703430</td>
+</tr>
+<tr class="odd">
+<td align="left">favcyes:calcFrequently:faf</td>
+<td align="right">0.4599959</td>
+<td align="right">1.8327566</td>
+<td align="right">0.2509858</td>
+<td align="right">0.8018497</td>
+</tr>
+<tr class="even">
+<td align="left">favcyes:calcno:faf</td>
+<td align="right">0.2944979</td>
+<td align="right">0.8965927</td>
+<td align="right">0.3284634</td>
+<td align="right">0.7425941</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="comparing-3-models" class="section level2">
+<h2>Comparing 3 models</h2>
+<div id="cross-validation-for-comparisons" class="section level3">
+<h3>Cross Validation for comparisons</h3>
+<p>The cross validation requires all predictors to be numeric variables, so we transform variables <code>gender</code>, <code>fml_his</code>, <code>favc</code>, <code>calc</code> to numeric ones. Since we need to know <code>rmse</code> (root mean square error) distributions of models, and basic trends of BMI influenced by variables, the addjustment is acceptable.</p>
+<p>Violin plot of RMSEs.</p>
+<p><img src="regression_models_files/figure-html/unnamed-chunk-9-1.png" width="90%" /></p>
+</div>
+<div id="anova-test-for-comparisons" class="section level3">
+<h3>ANOVA test for comparisons</h3>
+<p>Model 1 and model 3, nested data</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: bmi ~ gender + age + fml_his
+## Model 2: bmi ~ gender + age + fml_his + favc + calc + faf
+##   Res.Df   RSS Df Sum of Sq      F    Pr(&gt;F)    
+## 1   2107 79895                                  
+## 2   2102 72077  5    7818.2 45.601 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="aic-for-validation" class="section level3">
+<h3>AIC for validation</h3>
+<pre><code>## # A tibble: 3 x 3
+##   aic_1      aic_2       aic_3      
+##   &lt;kntr_kbl&gt; &lt;kntr_kbl&gt;  &lt;kntr_kbl&gt; 
+## 1 |     AIC| |      AIC| |      AIC|
+## 2 |-------:| |--------:| |--------:|
+## 3 | 13463.8| | 13452.37| | 13671.19|</code></pre>
+</div>
+</div>
+<div id="further-exploration" class="section level2">
+<h2>Further Exploration</h2>
+<p>With this many factor levels, it really isn’t a good idea to fit models with main effects or interactions for each. Instead, you’d be best-off using a mixed model, with random intercepts and slopes for each factors.</p>
+<pre><code>## # A tibble: 7 x 6
+##   effect   group    term                        estimate std.error statistic
+##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;                          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1 fixed    &lt;NA&gt;     (Intercept)                   22.1       0.447     49.3 
+## 2 fixed    &lt;NA&gt;     genderMale                    -0.991     0.272     -3.64
+## 3 fixed    &lt;NA&gt;     fml_hisyes                     7.99      2.11       3.79
+## 4 ran_pars favc     sd__(Intercept)                0.420    NA         NA   
+## 5 ran_pars favc     cor__(Intercept).fml_hisyes    1.00     NA         NA   
+## 6 ran_pars favc     sd__fml_hisyes                 2.93     NA         NA   
+## 7 ran_pars Residual sd__Observation                6.21     NA         NA</code></pre>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
