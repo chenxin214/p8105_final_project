@@ -1,6 +1,11 @@
 ---
 title: "Fact Sheet"
 fontsize: 12pt
+output:   
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
 ---
 
 <center>

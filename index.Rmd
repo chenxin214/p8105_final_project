@@ -2,6 +2,11 @@
 title: "US Overweight and Obesity"
 fontsize: 12pt
 author: "ChenXin Zhang, JingYao Geng, Liner Ge, YiFan Su"
+output:   
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
 ---
 
 <img src = "http://webmd.cn/en/wp-content/uploads/2016/08/Obesity_China_cloud.jpg" style = "width:40%; float:right; padding-left:5px; padding-bottom:200px">
