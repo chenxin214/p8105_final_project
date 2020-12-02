@@ -363,12 +363,9 @@ div.tocify {
   <a href="about.html">Fact Sheet</a>
 </li>
 <li>
-<<<<<<< HEAD
-=======
   <a href="regression_models.html">Regression Analysis</a>
 </li>
 <li>
->>>>>>> b5d4a57426ff04d035c3f79bbfc9043a53788eb6
   <a href="https://gjy2020.shinyapps.io/Visualization/">Visualization</a>
 </li>
 <li>
@@ -400,37 +397,121 @@ div.tocify {
 
 
 <div id="data" class="section level2">
-<h2><strong>Data</strong></h2>
-<p>The data about the estimation of obesity levels in people from the countries of Mexico, Peru and Colombia, with ages between 14 and 61 and diverse eating habits and physical conditions.</p>
-<p>This data was collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining 17 attributes and 2111 records.</p>
-<pre><code>## # A tibble: 6 x 7
-##     bmi gender   age fml_his favc  calc         faf
-##   &lt;dbl&gt; &lt;fct&gt;  &lt;dbl&gt; &lt;fct&gt;   &lt;fct&gt; &lt;fct&gt;      &lt;dbl&gt;
-## 1  21.7 Female    21 yes     no    no             0
-## 2  21.7 Female    21 yes     no    Sometimes      3
-## 3  21.7 Male      23 yes     no    Frequently     2
-## 4  25   Male      27 no      no    Frequently     2
-## 5  30   Male      22 no      no    Sometimes      0
-## 6  21.7 Male      29 no      yes   Sometimes      0</code></pre>
+<h2>Data</h2>
+<p>The data about the estimation of <strong><em>obesity levels</em></strong> in people from the countries of Mexico, Peru and Colombia, with ages between 14 and 61 and <strong><em>diverse eating habits and physical conditions</em></strong>.</p>
+<p>This data was collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining <em>17 attributes and 2111 records</em>.</p>
+<p><br/></p>
+<p><strong>Goals</strong></p>
+<p>There are many factors associated with overweight or obesity conditions, including <strong><em>congenital factors</em></strong> gender, age, and family history with overweight family members. Also, there are <strong><em>acquired ones</em></strong> also plays an important role in weight status, including high caloric food consumption, alcohol consumption and little physical activities.</p>
+<p>To better understand <strong><em>overweight status</em></strong>, we conduct 3 models, including 6 predictors and their interaction terms, to explore congenital and acquired factors on weight conditions.</p>
+<p><br/></p>
+<p><strong>Adjustments</strong></p>
+<p>To conduct linear regression, the outcome should be numeric variables, so we convert variable recording obesity condition, such as <code>Normal_weight</code> and <code>Obesity_Type_I</code> to BMI <code>21.7</code> and <code>32.5</code> according to <a href="https://www.cdc.gov/obesity/adult/defining.html">BMI and weights relationships of CDC guildlines</a>. Since each weight condition has a BMI range like “25-30”, we assume that people with a weight status has an average BMI, that is 27.5.</p>
+<p><br/></p>
 <p><strong>Variables</strong></p>
+<p>Head of the dataset:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">bmi</th>
+<th align="left">gender</th>
+<th align="right">age</th>
+<th align="left">fml_his</th>
+<th align="left">favc</th>
+<th align="left">calc</th>
+<th align="right">faf</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">21.7</td>
+<td align="left">Female</td>
+<td align="right">21</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">21.7</td>
+<td align="left">Female</td>
+<td align="right">21</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">Sometimes</td>
+<td align="right">3</td>
+</tr>
+<tr class="odd">
+<td align="right">21.7</td>
+<td align="left">Male</td>
+<td align="right">23</td>
+<td align="left">yes</td>
+<td align="left">no</td>
+<td align="left">Frequently</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="right">25.0</td>
+<td align="left">Male</td>
+<td align="right">27</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">Frequently</td>
+<td align="right">2</td>
+</tr>
+<tr class="odd">
+<td align="right">30.0</td>
+<td align="left">Male</td>
+<td align="right">22</td>
+<td align="left">no</td>
+<td align="left">no</td>
+<td align="left">Sometimes</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">21.7</td>
+<td align="left">Male</td>
+<td align="right">29</td>
+<td align="left">no</td>
+<td align="left">yes</td>
+<td align="left">Sometimes</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li><code>favc</code>: Frequent consumption of high caloric food</li>
 <li><code>calc</code>: Consumption of alcohol</li>
 <li><code>faf</code>: Physical activity frequency</li>
 <li><code>fml_his</code>: Family history with overweigh</li>
 </ul>
-<p><strong>Adjustments</strong></p>
-<p>To conduct linear regression, the outcome should be numeric variables, so we convert variable recording obesity condition, such as <code>Normal_weight</code> and <code>Obesity_Type_I</code> to BMI <code>21.7</code> and <code>32.5</code> according to <a href="https://www.cdc.gov/obesity/adult/defining.html">BMI and weights relationships from CDC guildlines</a>. Since each weight condition has a BMI range like “25-30”, we assume that people with a weight status has an average BMI, that is 27.5.</p>
+<p><br/></p>
 </div>
 <div id="bmi-distribution" class="section level2">
 <h2>BMI Distribution</h2>
-<p><img src="regression_models_files/figure-html/unnamed-chunk-3-1.png" width="90%" /></p>
+<p><img src="regression_models_files/figure-html/unnamed-chunk-2-1.png" width="90%" /></p>
+<p>Since we made a <strong><em>continuity correction</em></strong> to the BMI, there will be gaps between values, like the gap between BMI value 25 and 30. However, we can observe the BMI distribution is normal to some extent.</p>
+<p><br/></p>
 </div>
-<div id="linear-models" class="section level2">
-<h2>3 Linear Models</h2>
+<div id="three-linear-models" class="section level2">
+<h2>Three Linear Models</h2>
+<p><span class="math inline">\(Model~1:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\beta_{favc}+\beta_{calc}+\beta_{faf}+\varepsilon_{i}\)</span></p>
+<p><span class="math inline">\(Model~2:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\beta_{favc}+\beta_{calc}+\beta_{faf}+\beta_{favc*calc}+\beta_{favc*faf}+\beta_{faf*calc}+\beta_{favc*calc*faf}+\varepsilon_{i}\)</span></p>
+<p><span class="math inline">\(Model~3:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\varepsilon_{i}\)</span></p>
+<p>We have 3 models. <br/> First is with all factors, 3 congenial and 3 acquired influncing factors. <br> Second model considers interation between caloric food consumption, alcohol consumption and physical activities’ frequencies. <br> The last model focus only on congenial factors, which is nested in the first model.</p>
+<p><br/></p>
 <div id="first-model-with-6-predictors" class="section level3">
 <h3>First Model with 6 Predictors</h3>
-<p><img src="regression_models_files/figure-html/unnamed-chunk-5-1.png" width="90%" /></p>
+<p><img src="regression_models_files/figure-html/unnamed-chunk-4-1.png" width="90%" /></p>
+<p>Based on the first model, we have 4 plots, and give brief analysis on them.</p>
+<ul>
+<li><p>Residual vs Fitted: residual values bounce around 0, form a horizontal line over there, which shows that the error variance of the data is fairly equal.</p></li>
+<li><p>Quantile-Quantile Plot: we can observe a straight line in the first half of the plot, indicating the residuals are normal. There present outliers in the latter half though.</p></li>
+<li><p>Scale-Location: There is a horizontal line, showing that the variance of distribution is equal.</p></li>
+<li><p>Residual vs Leverage: Though not all outliers are influential, there are some outliers beneath the Cook’s distance.</p></li>
+<li><p>Plot Residual vs Fitted and Scale-Location may seems discrete and weired since we used continuity correction, but it dosen’t influence much.</p></li>
+</ul>
+<p><br/></p>
 </div>
 <div id="second-model-with-interactions" class="section level3">
 <h3>Second Model with Interactions</h3>
@@ -559,19 +640,24 @@ div.tocify {
 </tr>
 </tbody>
 </table>
+<p>From the table showing coefficients of the second model, we observe there are <strong><em>several factors are influencial along with some interactions</em></strong>, including <code>gender</code>, <code>age</code>, <code>fml_his</code>, <code>favc</code>, <code>favc*calc</code>.</p>
+<p>All congenial factors matters, while only high caloric food consumption and its interation with alcohol consumption lead to overweight conditions.</p>
+<p><br/></p>
 </div>
 </div>
-<div id="comparing-3-models" class="section level2">
-<h2>Comparing 3 models</h2>
+<div id="comparing-three-models" class="section level2">
+<h2>Comparing three models</h2>
+<p><br/></p>
 <div id="cross-validation-for-comparisons" class="section level3">
 <h3>Cross Validation for comparisons</h3>
+<p><strong>Adjustment</strong></p>
 <p>The cross validation requires all predictors to be numeric variables, so we transform variables <code>gender</code>, <code>fml_his</code>, <code>favc</code>, <code>calc</code> to numeric ones. Since we need to know <code>rmse</code> (root mean square error) distributions of models, and basic trends of BMI influenced by variables, the addjustment is acceptable.</p>
-<p>Violin plot of RMSEs.</p>
-<p><img src="regression_models_files/figure-html/unnamed-chunk-9-1.png" width="90%" /></p>
+<p><img src="regression_models_files/figure-html/unnamed-chunk-8-1.png" width="90%" /></p>
+<p>In the plot showing RMSE, we see the model 1 and model 2 are with the smallest RMSE, showing that those two models fit well. For the third model only focus on congenial factors, it confirms the inference in the coefficients table that <strong><em>acquired factors also matter</em></strong>.</p>
+<p><br/></p>
 </div>
 <div id="anova-test-for-comparisons" class="section level3">
 <h3>ANOVA test for comparisons</h3>
-<p>Model 1 and model 3, nested data</p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Model 1: bmi ~ gender + age + fml_his
@@ -581,30 +667,85 @@ div.tocify {
 ## 2   2102 72077  5    7818.2 45.601 &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-</div>
-<div id="aic-for-validation" class="section level3">
-<h3>AIC for validation</h3>
-<pre><code>## # A tibble: 3 x 3
-##   aic_1      aic_2       aic_3      
-##   &lt;kntr_kbl&gt; &lt;kntr_kbl&gt;  &lt;kntr_kbl&gt; 
-## 1 |     AIC| |      AIC| |      AIC|
-## 2 |-------:| |--------:| |--------:|
-## 3 | 13463.8| | 13452.37| | 13671.19|</code></pre>
+<p>Finally, we use the <strong>ANOVA</strong> test to compare significance of nested model 3 in model 1. Since the P value of the test is <em>2.2e-16</em>, way smaller than 0.05 significance. So we may have the conclusion that model 1, the large model containing acquired influential factors, fits best.</p>
+<p><br/></p>
 </div>
 </div>
 <div id="further-exploration" class="section level2">
 <h2>Further Exploration</h2>
-<p>With this many factor levels, it really isn’t a good idea to fit models with main effects or interactions for each. Instead, you’d be best-off using a mixed model, with random intercepts and slopes for each factors.</p>
-<pre><code>## # A tibble: 7 x 6
-##   effect   group    term                        estimate std.error statistic
-##   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;                          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1 fixed    &lt;NA&gt;     (Intercept)                   22.1       0.447     49.3 
-## 2 fixed    &lt;NA&gt;     genderMale                    -0.991     0.272     -3.64
-## 3 fixed    &lt;NA&gt;     fml_hisyes                     7.99      2.11       3.79
-## 4 ran_pars favc     sd__(Intercept)                0.420    NA         NA   
-## 5 ran_pars favc     cor__(Intercept).fml_hisyes    1.00     NA         NA   
-## 6 ran_pars favc     sd__fml_hisyes                 2.93     NA         NA   
-## 7 ran_pars Residual sd__Observation                6.21     NA         NA</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">effect</th>
+<th align="left">group</th>
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">fixed</td>
+<td align="left">NA</td>
+<td align="left">(Intercept)</td>
+<td align="right">22.0569058</td>
+<td align="right">0.4473010</td>
+<td align="right">49.311108</td>
+</tr>
+<tr class="even">
+<td align="left">fixed</td>
+<td align="left">NA</td>
+<td align="left">genderMale</td>
+<td align="right">-0.9913183</td>
+<td align="right">0.2720813</td>
+<td align="right">-3.643463</td>
+</tr>
+<tr class="odd">
+<td align="left">fixed</td>
+<td align="left">NA</td>
+<td align="left">fml_hisyes</td>
+<td align="right">7.9865148</td>
+<td align="right">2.1087060</td>
+<td align="right">3.787401</td>
+</tr>
+<tr class="even">
+<td align="left">ran_pars</td>
+<td align="left">favc</td>
+<td align="left">sd__(Intercept)</td>
+<td align="right">0.4198137</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">ran_pars</td>
+<td align="left">favc</td>
+<td align="left">cor__(Intercept).fml_hisyes</td>
+<td align="right">1.0000000</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="left">ran_pars</td>
+<td align="left">favc</td>
+<td align="left">sd__fml_hisyes</td>
+<td align="right">2.9262867</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">ran_pars</td>
+<td align="left">Residual</td>
+<td align="left">sd__Observation</td>
+<td align="right">6.2100783</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+<p>Also, we can use a <strong><em>mixed model</em></strong> for further exploration, since there are many factor levels and models fitting with main effects or interactions for each is not appropriate. Though out of the scope of our course, we may use the mixed model to attain random intercepts and slopes of each factors.</p>
+<p><br/></p>
+<p><br/></p>
 </div>
 
 
