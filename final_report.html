@@ -9,9 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan Su (ys3394)" />
 
 
-<title>Fact Sheet</title>
+<title>US Overweight and Obesity (BMI) Analysis (From 2011 to Present)</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -283,6 +284,9 @@ $(document).ready(function () {
   <a href="about.html">Fact Sheet</a>
 </li>
 <li>
+  <a href="regression_models.html">Regression Analysis</a>
+</li>
+<li>
   <a href="https://gjy2020.shinyapps.io/Visualization/">Visualization</a>
 </li>
 <li>
@@ -300,68 +304,82 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Fact Sheet</h1>
+<h1 class="title toc-ignore">US Overweight and Obesity (BMI) Analysis (From 2011 to Present)</h1>
+<h4 class="author">ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan Su (ys3394)</h4>
 
 </div>
 
 
-<center>
-<img src="images/WHO.png" />
-</center>
-<div id="according-to-the-world-health-organization-we-know" class="section level3">
-<h3><strong>According to the World Health Organization, we know:</strong></h3>
-<p><br></p>
-<div id="key-facts-about-obesity-and-overweight" class="section level4">
-<h4><strong>Key Facts about Obesity and Overweight</strong></h4>
+<div id="motivation" class="section level1">
+<h1>Motivation</h1>
+<p>According to <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight">the World Health Organization (WHO)</a>, more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is <a href="https://easo.org/media-portal/statistics/">the fifth leading risk</a> for global death. People overweight have a higher risk of getting more than <a href="https://www.healthline.com/health/obesity-facts">60 chronic diseases</a> like type 2 diabetes, heart disease, which also increases the medical cost. The association between obesity and education level, income is intricate and differs by gender, age, and race.</p>
+</div>
+<div id="related-work" class="section level1">
+<h1>Related Work</h1>
+<p>A combination of contributing factors such as gender, age, race, genetic, physical activity, inactivity, dietary patterns and other factors are related to obese and obesity, which is complex and need statistic analysis to clarify. We get inspired from sources related to these influence factors:</p>
+<p><a href="https://www.nichd.nih.gov/health/topics/obesity/conditioninfo/cause">What causes obesity &amp; overweight</a> <a href="https://asmbs.org/patients/impact-of-obesity">Impact of Obesity on your Body</a> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3649717/">Gender Disparities in Obesity</a> <a href="https://www.bahrainmedicalbulletin.com/june_2002/relationship.pdf">Age and the Prevalence of Obesity</a> <a href="https://www.ncbi.nlm.nih.gov/books/NBK278977/">Social and Environmental Factors Influencing Obesity</a></p>
+<p>#Initial Questions</p>
+</div>
+<div id="data" class="section level1">
+<h1>Data</h1>
+<div id="data-source" class="section level2">
+<h2>Data source</h2>
 <ul>
-<li>Worldwide obesity has nearly tripled since 1975.</li>
-<li>In 2016, more than 1.9 billion adults, 18 years and older, - were overweight. Of these over 650 million were obese.</li>
-<li>39% of adults aged 18 years and over were overweight in 2016, and 13% were obese.</li>
-<li>Most of the world’s population live in countries where overweight and obesity kills more people than underweight.</li>
-<li>38 million children under the age of 5 were overweight or obese in 2019.</li>
-<li>Over 340 million children and adolescents aged 5-19 were overweight or obese in 2016.</li>
-<li>Obesity is preventable.</li>
+<li>Primary data source: <a href="https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf">Data collected from Behavioral Risk Factor Sureillance System (BRFSS)</a><br />
+</li>
+<li>Supplemental data source: <a href="https://www.cdc.gov/obesity/data/prevalence-maps.html#age">Centers for Diseases Control and Prevention (CDC)</a></li>
 </ul>
 </div>
-<div id="causes-of-obesity-and-overweight" class="section level4">
-<h4><strong>Causes of Obesity and Overweight</strong></h4>
+<div id="variable-of-interest" class="section level2">
+<h2>Variable of Interest</h2>
+<p><strong>Outcomes</strong></p>
 <ul>
-<li><p>The fundamental cause of obesity and overweight is an energy imbalance between calories consumed and calories expended. Globally, there has been:</p>
+<li><code>obese_obesity</code>. Count of obese and obesity per year of all sates.</li>
+<li><code>obese_obesity_rate</code>. Calculated using number of obese and obesity divided by the number of total sample size and multiplied by 100, to be interpreted as a prevalence.</li>
+</ul>
+<p><strong>Candidate Predictors</strong></p>
 <ul>
-<li>an increased intake of energy-dense foods that are high in fat and sugars; and;</li>
-<li>an increase in physical inactivity due to the increasingly sedentary nature of many forms of work, changing modes of transportation, and increasing urbanization.</li>
-</ul></li>
-<li><p>Changes in dietary and physical activity patterns are often the result of environmental and societal changes associated with development and lack of supportive policies in sectors such as health, agriculture, transport, urban planning, environment, food processing, distribution, marketing, and education.</p></li>
+<li>year: 2011 - 2019</li>
+<li>locationabbr: state abbreviation, 56 states</li>
+<li>locationdesc : state name, 56 states</li>
+<li>response :Normal Weight (BMI 18.5-24.9); Obese (BMI 30.0 - 99.8) Overweight (BMI 25.0-29.9); Underweight (BMI 12.0-18.4) Underweight (bmi 12.0-18.4);Normal Weight (bmi 18.5-24.9) Obese (bmi 30.0 - 99.8); Overweight (bmi 25.0-29.9)</li>
+<li>break_out_category: Race/Ethnicity; Age Group; Household Income Education Attained; Gender; Overall<br />
+</li>
+<li>break_out:Male; College graduate;White, non-Hispanic; <code>$35,000-$49,999</code>; <code>$25,000-$34,999</code>; <code>$15,000-$24,999</code>; 35-44; 25-34; 18-24; 55-64; (Other) ; Overall; Some post-H.S.</li>
+<li>sample_size</li>
+<li>data_value: crude prevalence, unit %, such as 14.7 means 14.7%</li>
+<li>confidence_limit_low</li>
+<li>confidence_limit_high</li>
+<li>display_order: I don’t know</li>
+<li>geo_location: eg. (32.84057112200048, -86.63186076199969)</li>
+<li>break_out_category_id: eg. CAT6 - 6 types</li>
+<li>breakout_id: eg. SEX1, SEX2, (in CAT2)</li>
+<li>location_id: eg. 01 - WTF!!! out-of-order!!!! hope it useless</li>
+<li>response_id: eg.RESP041 - 4 types</li>
 </ul>
 </div>
-<div id="common-health-consequences" class="section level4">
-<h4><strong>Common Health Consequences</strong></h4>
-<p>_ Raised BMI is a major risk factor for noncommunicable diseases such as:</p>
-<ul>
-<li><p>cardiovascular diseases (mainly heart disease and stroke), which were the leading cause of death in 2012;</p></li>
-<li><p>diabetes;</p></li>
-<li><p>musculoskeletal disorders (especially osteoarthritis – a highly disabling degenerative disease of the joints);</p></li>
-<li><p>some cancers (including endometrial, breast, ovarian, prostate, liver, gallbladder, kidney, and colon).</p></li>
-<li><p>The risk for these noncommunicable diseases increases, with increases in BMI.</p></li>
-</ul>
+<div id="data-cleaning" class="section level2">
+<h2>Data Cleaning</h2>
+<p><strong>1. Gender</strong> <strong>2. Age</strong> <strong>3. Race</strong> <strong>4. Education</strong> <strong>5. Income</strong></p>
 </div>
-<div id="ways-to-reduce-obesity-and-overweight" class="section level4">
-<h4><strong>Ways to Reduce Obesity and Overweight</strong></h4>
-<p>Overweight and obesity, as well as their related noncommunicable diseases, are largely preventable. Supportive environments and communities are fundamental in shaping people’s choices, by making the choice of healthier foods and regular physical activity the easiest choice (the choice that is the most accessible, available and affordable), and therefore preventing overweight and obesity.</p>
-<p>At the individual level, people can:</p>
-<ul>
-<li>limit energy intake from total fats and sugars;</li>
-<li>increase consumption of fruit and vegetables, as well as legumes, whole grains and nuts; and</li>
-<li>engage in regular physical activity (60 minutes a day for children and 150 minutes spread through the week for adults).</li>
-</ul>
-<p>Individual responsibility can only have its full effect where people have access to a healthy lifestyle. Therefore, at the societal level it is important to support individuals in following the recommendations above, through sustained implementation of evidence based and population based policies that make regular physical activity and healthier dietary choices available, affordable and easily accessible to everyone, particularly to the poorest individuals. An example of such a policy is a tax on sugar sweetened beverages.</p>
-<p>The food industry can play a significant role in promoting healthy diets by:</p>
-<ul>
-<li>reducing the fat, sugar and salt content of processed foods; ensuring that healthy and nutritious choices are available and affordable to all consumers;</li>
-<li>restricting marketing of foods high in sugars, salt and fats, especially those foods aimed at children and teenagers; and</li>
-<li>ensuring the availability of healthy food choices and supporting regular physical activity practice in the workplace.</li>
-</ul>
 </div>
+<div id="exploratory-analysis" class="section level1">
+<h1>Exploratory Analysis</h1>
+<div id="association-between-obese-and-gender" class="section level4">
+<h4>Association between Obese and Gender</h4>
+</div>
+<div id="proportion-of-obesity-by-gender" class="section level4">
+<h4>Proportion of obesity by gender</h4>
+</div>
+<div id="section" class="section level4">
+<h4>…</h4>
+</div>
+</div>
+<div id="additional-analysis" class="section level1">
+<h1>Additional Analysis</h1>
+</div>
+<div id="discussion" class="section level1">
+<h1>Discussion</h1>
 </div>
 
 

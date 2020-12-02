@@ -1,0 +1,105 @@
+---
+title: "US Overweight and Obesity (BMI) Analysis (From 2011 to Present)"
+author: "ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan Su (ys3394)"
+output: github_document
+---
+```{r setup, include=FALSE}
+library(tidyverse)
+library(plotly)
+library(rvest)
+library(readr)
+library(viridis)
+library(leaflet)
+library(patchwork)
+library(RColorBrewer)
+knitr::opts_chunk$set(
+	echo = TRUE,
+	warning = FALSE,
+	fig.width = 8, 
+  fig.height = 6,
+  out.width = "80%",
+	warning = FALSE,
+	message = FALSE
+)
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+scale_colour_discrete = scale_colour_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+theme_set(theme_minimal() + theme(legend.position = "bottom",plot.title = element_text(face = "bold")))
+```
+
+# Motivation
+According to [the World Health Organization (WHO)](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight), more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is [the fifth leading risk](https://easo.org/media-portal/statistics/) for global death. People overweight have a higher risk of getting more than [60 chronic diseases](https://www.healthline.com/health/obesity-facts) like type 2 diabetes, heart disease, which also increases the medical cost. The association between obesity and education level, income is intricate and differs by gender, age, and race.
+
+# Related Work
+
+A combination of contributing factors such as gender, age, race, genetic, physical activity, inactivity, dietary patterns and other factors are related to obese and obesity, which is complex and need statistic analysis to clarify. We get inspired from sources related to these influence factors: 
+
+[What causes obesity & overweight](https://www.nichd.nih.gov/health/topics/obesity/conditioninfo/cause)
+[Impact of Obesity on your Body](https://asmbs.org/patients/impact-of-obesity)
+[Gender Disparities in Obesity](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3649717/)
+[Age and the Prevalence of Obesity](https://www.bahrainmedicalbulletin.com/june_2002/relationship.pdf)
+[Social and Environmental Factors Influencing Obesity](https://www.ncbi.nlm.nih.gov/books/NBK278977/)
+
+#Initial Questions
+
+
+
+
+# Data
+## Data source
+  * Primary data source: [Data collected from Behavioral Risk Factor Sureillance System (BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf)  
+  * Supplemental data source: [Centers for Diseases Control and Prevention (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
+
+## Variable of Interest
+**Outcomes**
+
+  * `obese_obesity`. Count of obese and obesity per year of all sates.
+  * `obese_obesity_rate`. Calculated using number of obese and obesity  divided by the number of total sample size and multiplied by 100, to be interpreted as a prevalence. 
+
+**Candidate Predictors**
+
+  * year: 2011 - 2019
+  * locationabbr: state abbreviation, 56 states
+  * locationdesc : state name, 56 states
+  * response :Normal Weight (BMI 18.5-24.9); Obese (BMI 30.0 - 99.8)
+          Overweight (BMI 25.0-29.9); Underweight (BMI 12.0-18.4)
+          Underweight (bmi 12.0-18.4);Normal Weight (bmi 18.5-24.9)
+          Obese (bmi 30.0 - 99.8); Overweight (bmi 25.0-29.9)
+  * break_out_category: Race/Ethnicity; Age Group; Household Income
+                    Education Attained; Gender; Overall  
+  * break_out:Male; College graduate;White, non-Hispanic;
+          `$35,000-$49,999`; `$25,000-$34,999`; `$15,000-$24,999`;
+          35-44; 25-34; 18-24; 55-64; 
+          (Other) ; Overall; Some post-H.S.
+  * sample_size
+  * data_value: crude prevalence, unit %, such as 14.7 means 14.7%
+  * confidence_limit_low
+  * confidence_limit_high
+  * display_order: I don't know
+  * geo_location: eg. (32.84057112200048, -86.63186076199969)
+  * break_out_category_id: eg. CAT6 - 6 types
+  * breakout_id: eg. SEX1, SEX2, (in CAT2)
+  * location_id: eg. 01 - WTF!!! out-of-order!!!! hope it useless
+  * response_id: eg.RESP041 - 4 types 
+
+## Data Cleaning
+**1. Gender**
+**2. Age**
+**3. Race**
+**4. Education**
+**5. Income**
+
+# Exploratory Analysis
+#### Association between Obese and Gender
+#### Proportion of obesity by gender
+#### ...
+
+
+# Additional Analysis
+
+# Discussion
+
+
