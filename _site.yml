@@ -9,9 +9,16 @@ navbar:
       href: about.html
     - text: "Regression Analysis"
       href: regression_models.html
-    - text: "Visualization"
+    - text: "Obesity analysis"
+      menu:
+      - text: "Overview"
+        href: p8105_proposal.html
+      - text: "Nebraska"
+        href: Visualization.html
+    - icon: fa-bar-chart fa-lg
       href: https://gjy2020.shinyapps.io/Visualization/
     - icon: fa-github fa-lg
       href: https://github.com/chenxin214/p8105_final_project
 output:
-  html_document
+  html_document: 
+    theme: journal
