@@ -65,7 +65,7 @@ This data was collected using a web platform with a survey where anonymous users
 
 **Goals**
 
-There are many factors associated with overweight or obesity conditions, including **_congenital factors_** gender, age, and family history with overweight family members. Also, there are **_acquired ones_** also plays an important role in weight status, including high caloric food consumption, alcohol consumption and little physical activities. 
+There are many factors associated with overweight or obesity conditions, including **_congenital factors_** gender, age, and family history with overweight family members. Also, there are **_acquired ones_** also play important roles in weight status, including high caloric food consumption, alcohol consumption and little physical activities. 
 
 To better understand **_overweight status_**, we conduct 3 models, including 6 predictors and their interaction terms, to explore congenital and acquired factors on weight conditions.
 
@@ -124,9 +124,9 @@ $Model~2:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\beta_{fav
 $Model~3:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\varepsilon_{i}$
 
 We have 3 models. <br/>
-First is with all factors, 3 congenial and 3 acquired influncing factors. <br>
+First is with all factors, 3 congenital and 3 acquired influncing factors. <br>
 Second model considers interation between caloric food consumption, alcohol consumption and physical activities' frequencies. <br>
-The last model focus only on congenial factors, which is nested in the first model.
+The last model focus only on congenital factors, which is nested in the first model.
 
 <br/>
 
@@ -161,7 +161,7 @@ reg_bmi2 %>%
  
 From the table showing coefficients of the second model, we observe there are **_several factors are influencial along with some interactions_**, including `gender`, `age`, `fml_his`, `favc`, `favc*calc`.
 
-All congenial factors matters, while only high caloric food consumption and its interation with alcohol consumption lead to overweight conditions.
+All congenital factors matters, while only high caloric food consumption and its interation with alcohol consumption lead to overweight conditions.
  
 <br/>
  
@@ -221,7 +221,7 @@ cv_df %>%
   geom_violin()
 ```
 
-In the plot showing RMSE, we see the model 1 and model 2 are with the smallest RMSE, showing that those two models fit well. For the third model only focus on congenial factors, it confirms the inference in the coefficients table that **_acquired factors also matter_**.
+In the plot showing RMSE, we see the model 1 and model 2 are with the smallest RMSE, showing that those two models fit well. For the third model only focus on congenital factors, it confirms the inference in the coefficients table that **_acquired factors also matter_**.
 
 <br/>
 

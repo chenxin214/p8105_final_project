@@ -420,7 +420,7 @@ div.tocify {
 <p>This data was collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining <em>17 attributes and 2111 records</em>.</p>
 <p><br/></p>
 <p><strong>Goals</strong></p>
-<p>There are many factors associated with overweight or obesity conditions, including <strong><em>congenital factors</em></strong> gender, age, and family history with overweight family members. Also, there are <strong><em>acquired ones</em></strong> also plays an important role in weight status, including high caloric food consumption, alcohol consumption and little physical activities.</p>
+<p>There are many factors associated with overweight or obesity conditions, including <strong><em>congenital factors</em></strong> gender, age, and family history with overweight family members. Also, there are <strong><em>acquired ones</em></strong> also play important roles in weight status, including high caloric food consumption, alcohol consumption and little physical activities.</p>
 <p>To better understand <strong><em>overweight status</em></strong>, we conduct 3 models, including 6 predictors and their interaction terms, to explore congenital and acquired factors on weight conditions.</p>
 <p><br/></p>
 <p><strong>Adjustments</strong></p>
@@ -516,7 +516,7 @@ div.tocify {
 <p><span class="math inline">\(Model~1:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\beta_{favc}+\beta_{calc}+\beta_{faf}+\varepsilon_{i}\)</span></p>
 <p><span class="math inline">\(Model~2:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\beta_{favc}+\beta_{calc}+\beta_{faf}+\beta_{favc*calc}+\beta_{favc*faf}+\beta_{faf*calc}+\beta_{favc*calc*faf}+\varepsilon_{i}\)</span></p>
 <p><span class="math inline">\(Model~3:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\varepsilon_{i}\)</span></p>
-<p>We have 3 models. <br/> First is with all factors, 3 congenial and 3 acquired influncing factors. <br> Second model considers interation between caloric food consumption, alcohol consumption and physical activities’ frequencies. <br> The last model focus only on congenial factors, which is nested in the first model.</p>
+<p>We have 3 models. <br/> First is with all factors, 3 congenital and 3 acquired influncing factors. <br> Second model considers interation between caloric food consumption, alcohol consumption and physical activities’ frequencies. <br> The last model focus only on congenital factors, which is nested in the first model.</p>
 <p><br/></p>
 <div id="first-model-with-6-predictors" class="section level3">
 <h3>First Model with 6 Predictors</h3>
@@ -659,7 +659,7 @@ div.tocify {
 </tbody>
 </table>
 <p>From the table showing coefficients of the second model, we observe there are <strong><em>several factors are influencial along with some interactions</em></strong>, including <code>gender</code>, <code>age</code>, <code>fml_his</code>, <code>favc</code>, <code>favc*calc</code>.</p>
-<p>All congenial factors matters, while only high caloric food consumption and its interation with alcohol consumption lead to overweight conditions.</p>
+<p>All congenital factors matters, while only high caloric food consumption and its interation with alcohol consumption lead to overweight conditions.</p>
 <p><br/></p>
 </div>
 </div>
@@ -671,7 +671,7 @@ div.tocify {
 <p><strong>Adjustment</strong></p>
 <p>The cross validation requires all predictors to be numeric variables, so we transform variables <code>gender</code>, <code>fml_his</code>, <code>favc</code>, <code>calc</code> to numeric ones. Since we need to know <code>rmse</code> (root mean square error) distributions of models, and basic trends of BMI influenced by variables, the addjustment is acceptable.</p>
 <p><img src="regression_models_files/figure-html/unnamed-chunk-8-1.png" width="90%" /></p>
-<p>In the plot showing RMSE, we see the model 1 and model 2 are with the smallest RMSE, showing that those two models fit well. For the third model only focus on congenial factors, it confirms the inference in the coefficients table that <strong><em>acquired factors also matter</em></strong>.</p>
+<p>In the plot showing RMSE, we see the model 1 and model 2 are with the smallest RMSE, showing that those two models fit well. For the third model only focus on congenital factors, it confirms the inference in the coefficients table that <strong><em>acquired factors also matter</em></strong>.</p>
 <p><br/></p>
 </div>
 <div id="anova-test-for-comparisons" class="section level3">
