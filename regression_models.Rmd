@@ -27,13 +27,13 @@ theme_set(theme_bw() +
                 legend.title = element_blank(),
                 plot.title = element_text(hjust = 0.5, size = 15),
                 plot.subtitle = element_text(hjust = 0.5, size = 12)))
-
-
 ```
 
 ## **Data**
 
-The data about the estimation of obesity levels in people from the countries of Mexico, Peru and Colombia, with ages between 14 and 61 and diverse eating habits and physical condition as mentioned by , data was collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining 17 attributes and 2111 records. 
+The data about the estimation of obesity levels in people from the countries of Mexico, Peru and Colombia, with ages between 14 and 61 and diverse eating habits and physical conditions.
+
+This data was collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining 17 attributes and 2111 records. 
 
 ```{r, warning=FALSE, message=FALSE, collapse=FALSE}
 ob_df =
@@ -88,6 +88,8 @@ ggplot(aes(x=bmi),data = ob_df)+
     caption = "Dataset of 2111 records, with continuity correction"
   ) 
 ```
+
+
 
 ## 3 Linear Models
 
