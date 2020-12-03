@@ -2,6 +2,9 @@ name: "Website of US Obesity"
 output_dir: "."
 navbar:
   title: "Home"
+  left:
+    - text: "Final Report"
+      href: final_report.html  
   right:
     - text: "US Overweight and Obesity"
       href: index.html

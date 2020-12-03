@@ -20,7 +20,11 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -248,7 +252,73 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
 
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
 
 
 
@@ -258,6 +328,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -274,7 +354,9 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        
+        <li>
+  <a href="final_report.html">Final Report</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -288,13 +370,16 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Obesity analysis
+    US Obesity Analysis
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="p8105_proposal.html">Overview</a>
+      <a href="p8105_proposal.html">Proposal</a>
+    </li>
+    <li>
+      <a href="overview.html">U.S. Overview</a>
     </li>
     <li>
       <a href="Visualization.html">Nebraska</a>
@@ -320,6 +405,14 @@ $(document).ready(function () {
 
 <div class="fluid-row" id="header">
 
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
 
 
 <h1 class="title toc-ignore">US Overweight and Obesity (BMI) Analysis (From 2011 to Present)</h1>
@@ -328,10 +421,7 @@ $(document).ready(function () {
 </div>
 
 
-<div id="motivation" class="section level1">
-<h1>Motivation</h1>
-<p>According to <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight">the World Health Organization (WHO)</a>, more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is <a href="https://easo.org/media-portal/statistics/">the fifth leading risk</a> for global death. People overweight have a higher risk of getting more than <a href="https://www.healthline.com/health/obesity-facts">60 chronic diseases</a> like type 2 diabetes, heart disease, which also increases the medical cost. The association between obesity and education level, income is intricate and differs by gender, age, and race.</p>
-</div>
+<p><br> # Motivation According to <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight">the World Health Organization (WHO)</a>, more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is <a href="https://easo.org/media-portal/statistics/">the fifth leading risk</a> for global death. People overweight have a higher risk of getting more than <a href="https://www.healthline.com/health/obesity-facts">60 chronic diseases</a> like type 2 diabetes, heart disease, which also increases the medical cost. The association between obesity and education level, income is intricate and differs by gender, age, and race.</p>
 <div id="related-work" class="section level1">
 <h1>Related Work</h1>
 <p>A combination of contributing factors such as gender, age, race, genetic, physical activity, inactivity, dietary patterns and other factors are related to obese and obesity, which is complex and need statistic analysis to clarify. We get inspired from sources related to these influence factors:</p>
@@ -357,28 +447,63 @@ $(document).ready(function () {
 </ul>
 <p><strong>Candidate Predictors</strong></p>
 <ul>
-<li>year: 2011 - 2019</li>
-<li>locationabbr: state abbreviation, 56 states</li>
-<li>locationdesc : state name, 56 states</li>
-<li>response :Normal Weight (BMI 18.5-24.9); Obese (BMI 30.0 - 99.8) Overweight (BMI 25.0-29.9); Underweight (BMI 12.0-18.4) Underweight (bmi 12.0-18.4);Normal Weight (bmi 18.5-24.9) Obese (bmi 30.0 - 99.8); Overweight (bmi 25.0-29.9)</li>
-<li>break_out_category: Race/Ethnicity; Age Group; Household Income Education Attained; Gender; Overall<br />
-</li>
-<li>break_out:Male; College graduate;White, non-Hispanic; <code>$35,000-$49,999</code>; <code>$25,000-$34,999</code>; <code>$15,000-$24,999</code>; 35-44; 25-34; 18-24; 55-64; (Other) ; Overall; Some post-H.S.</li>
-<li>sample_size</li>
-<li>data_value: crude prevalence, unit %, such as 14.7 means 14.7%</li>
-<li>confidence_limit_low</li>
-<li>confidence_limit_high</li>
-<li>display_order: I don’t know</li>
-<li>geo_location: eg. (32.84057112200048, -86.63186076199969)</li>
-<li>break_out_category_id: eg. CAT6 - 6 types</li>
-<li>breakout_id: eg. SEX1, SEX2, (in CAT2)</li>
-<li>location_id: eg. 01 - WTF!!! out-of-order!!!! hope it useless</li>
-<li>response_id: eg.RESP041 - 4 types</li>
+<li><p><code>year:</code> 2011 - 2019</p></li>
+<li><p><code>locationabbr:</code> state abbreviation, 56 states</p></li>
+<li><p><code>locationdesc:</code> state name, 56 states</p></li>
+<li><p><code>response:</code> Normal Weight (BMI 18.5-24.9); Obese (BMI 30.0 - 99.8); Overweight (BMI 25.0-29.9); Underweight (BMI 12.0-18.4); Underweight (bmi 12.0-18.4);Normal Weight (bmi 18.5-24.9); Obese (bmi 30.0 - 99.8); Overweight (bmi 25.0-29.9)</p></li>
+<li><p><code>break_out_category:</code> Race/Ethnicity; Age Group; Household Income; Education Attained; Gender; Overall</p></li>
+<li><p><code>break_out:</code> Male; College graduate; White, non-Hispanic; <code>$35,000-$49,999</code>; <code>$25,000-$34,999</code>; <code>$15,000-$24,999</code>; 35-44; 25-34; 18-24; 55-64; (Other) ; Overall; Some post-H.S.</p></li>
+<li><p><code>sample_size:</code> Number of people in each category</p></li>
+<li><p><code>data_value:</code> crude prevalence, unit %, such as 14.7 means 14.7%</p></li>
+<li><p><code>confidence_limit_low:</code> The value that rank the 25%th of the tatall value</p></li>
+<li><p><code>confidence_limit_high:</code> The value that rank the 75%th of the tatall value</p></li>
+<li><p><code>geo_location:</code> Longitude and latitude</p></li>
+<li><p><code>break_out_category_id:</code> gender(CAT2), age(CAT3), race/ethnicity(CAT4), education(CAT5)</p></li>
+<li><p><code>breakout_id:</code> eg: SEX1, SEX2, (in CAT2)</p></li>
+<li><p><code>location_id:</code> eg: 01, stands for different state</p></li>
+<li><p><code>response_id:</code> eg: RESP041.</p></li>
 </ul>
 </div>
 <div id="data-cleaning" class="section level2">
 <h2>Data Cleaning</h2>
-<p><strong>1. Gender</strong> <strong>2. Age</strong> <strong>3. Race</strong> <strong>4. Education</strong> <strong>5. Income</strong></p>
+<p>first we …</p>
+<pre class="r"><code>load_df =
+GET(&quot;https://chronicdata.cdc.gov/resource/fqb7-mgjf.csv&quot;,
+    query = list(&quot;$limit&quot; = 50000)) %&gt;% 
+  content(&quot;parsed&quot;) %&gt;% 
+  janitor::clean_names()
+
+
+tidy_df = 
+  load_df %&gt;% 
+  filter(is.na(data_value_footnote)) %&gt;% 
+  dplyr::select(-class, -topic, -question, -data_value_unit, -data_value_type, -data_source, -data_value_footnote_symbol, -data_value_footnote, -question_id, -class_id, -topic_id, -states, -counties) 
+
+head(tidy_df) 
+
+#gender
+gender_df = 
+  tidy_df %&gt;% 
+  filter(break_out_category_id == &quot;CAT2&quot;) 
+head(gender_df) 
+
+#age
+age_df = 
+  tidy_df %&gt;% 
+  filter(break_out_category_id == &quot;CAT3&quot;) 
+head(age_df) 
+
+#race
+race_df = 
+  tidy_df %&gt;% 
+  filter(break_out_category_id == &quot;CAT4&quot;) 
+head(race_df)
+
+#education
+education_df = 
+  tidy_df %&gt;% 
+  filter(break_out_category_id == &quot;CAT5&quot;) 
+head(education_df) </code></pre>
 </div>
 </div>
 <div id="exploratory-analysis" class="section level1">
@@ -402,6 +527,8 @@ $(document).ready(function () {
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -433,7 +560,38 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

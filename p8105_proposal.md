@@ -2,7 +2,40 @@ US Overweight and Obesity (BMI) Analysis (From 2011 to Present)
 ================
 ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan
 Su (ys3394)
-2020-11-06
+2020-12-03
+
+<style type="text/css">
+
+body{ /* Normal  */
+      font-size: 12px;
+  }
+td {  /* Table  */
+  font-size: 8px;
+}
+h1.title {
+  font-size: 35px;
+  color: DarkRed;
+}
+h1 { /* Header 1 */
+  font-size: 25px;
+  color: Black;
+}
+h2 { /* Header 2 */
+    font-size: 22px;
+  color: Black;
+}
+h3 { /* Header 3 */
+  font-size: 18px;
+  font-family: "Times New Roman", Times, serif;
+  color: Black;
+}
+code.r{ /* Code block */
+    font-size: 12px;
+}
+pre { /* Code block - determines code spacing between lines */
+    font-size: 14px;
+}
+</style>
 
 ### The Motivation for This Project:
 
@@ -26,7 +59,7 @@ illustrating this project.
 ### The Anticipated Data Sources
 
 [Data collected from Behavioral Risk Factor Sureillance System
-(BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf), <br/>
+(BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf),
 [Centers for Diseases Control and Prevention
 (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
 
@@ -62,10 +95,182 @@ illustrating this project.
 
 ### The Planned Timeline
 
-| Date…1 | Objectives                             | Date…3 | Objective                                 |
-| :----- | :------------------------------------- | :----- | :---------------------------------------- |
-| 11/06  | set goals and have a proposal          | 11/25  | started to write the final report         |
-| 11/07  | hand in the proposal                   | 11/29  | meeting, complete report and website      |
-| 11/10  | tidy the data, preliminary work        | 12/04  | polise final report, screencast, webpages |
-| 11/12  | meet with TA, make correction          | 12/08  | do peer assessment                        |
-| 11/20  | tidy data, basic frames of the website | 12/10  | in-class discussion of projects           |
+<table>
+
+<thead>
+
+<tr>
+
+<th style="text-align:left;">
+
+Date…1
+
+</th>
+
+<th style="text-align:left;">
+
+Objectives
+
+</th>
+
+<th style="text-align:left;">
+
+Date…3
+
+</th>
+
+<th style="text-align:left;">
+
+Objective
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:left;">
+
+11/06
+
+</td>
+
+<td style="text-align:left;">
+
+set goals and have a proposal
+
+</td>
+
+<td style="text-align:left;">
+
+11/25
+
+</td>
+
+<td style="text-align:left;">
+
+started to write the final report
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+11/07
+
+</td>
+
+<td style="text-align:left;">
+
+hand in the proposal
+
+</td>
+
+<td style="text-align:left;">
+
+11/29
+
+</td>
+
+<td style="text-align:left;">
+
+meeting, complete report and website
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+11/10
+
+</td>
+
+<td style="text-align:left;">
+
+tidy the data, preliminary work
+
+</td>
+
+<td style="text-align:left;">
+
+12/04
+
+</td>
+
+<td style="text-align:left;">
+
+polise final report, screencast, webpages
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+11/12
+
+</td>
+
+<td style="text-align:left;">
+
+meet with TA, make correction
+
+</td>
+
+<td style="text-align:left;">
+
+12/08
+
+</td>
+
+<td style="text-align:left;">
+
+do peer assessment
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:left;">
+
+11/20
+
+</td>
+
+<td style="text-align:left;">
+
+tidy data, basic frames of the website
+
+</td>
+
+<td style="text-align:left;">
+
+12/10
+
+</td>
+
+<td style="text-align:left;">
+
+in-class discussion of projects
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
