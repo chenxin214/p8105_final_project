@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Overview</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 61px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h2 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h3 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h4 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h5 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.section h6 {
+  padding-top: 66px;
+  margin-top: -66px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="index.html">US Overweight and Obesity</a>
+</li>
+<li>
+  <a href="about.html">Fact Sheet</a>
+</li>
+<li>
+  <a href="regression_models.html">Regression Analysis</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    US Obesity Analysis
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="p8105_proposal.html">Overview</a>
+    </li>
+    <li>
+      <a href="Visualization.html">Nebraska</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="https://gjy2020.shinyapps.io/Visualization/">
+    <span class="fa fa-bar-chart fa-lg"></span>
+     
+  </a>
+</li>
+<li>
+  <a href="https://github.com/chenxin214/p8105_final_project">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Overview</h1>
+
+</div>
+
+
+<div id="raw-data" class="section level2">
+<h2>Raw Data:</h2>
+<pre class="r"><code>load_df =
+GET(&quot;https://chronicdata.cdc.gov/resource/fqb7-mgjf.csv&quot;,
+    query = list(&quot;$limit&quot; = 50000)) %&gt;% 
+  content(&quot;parsed&quot;) %&gt;% 
+  janitor::clean_names()
+
+
+tidy_df = 
+  load_df %&gt;% 
+  filter(is.na(data_value_footnote)) %&gt;% 
+  dplyr::select(-class, -topic, -question, -data_value_unit, -data_value_type, -data_source, -data_value_footnote_symbol, -data_value_footnote, -question_id, -class_id, -topic_id, -states, -counties)
+
+head(tidy_df) </code></pre>
+<pre><code>## # A tibble: 6 x 16
+##    year locationabbr locationdesc response break_out break_out_categ~
+##   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;           
+## 1  2019 AL           Alabama      Normal ~ $25,000-~ Household Income
+## 2  2019 AL           Alabama      Obese (~ College ~ Education Attai~
+## 3  2019 AL           Alabama      Obese (~ 25-34     Age Group       
+## 4  2019 AL           Alabama      Obese (~ American~ Race/Ethnicity  
+## 5  2019 AL           Alabama      Obese (~ Hispanic  Race/Ethnicity  
+## 6  2019 AL           Alabama      Underwe~ $15,000-~ Household Income
+## # ... with 10 more variables: sample_size &lt;dbl&gt;, data_value &lt;dbl&gt;,
+## #   confidence_limit_low &lt;dbl&gt;, confidence_limit_high &lt;dbl&gt;,
+## #   display_order &lt;dbl&gt;, location_id &lt;chr&gt;, breakout_id &lt;chr&gt;,
+## #   break_out_category_id &lt;chr&gt;, response_id &lt;chr&gt;, geo_location &lt;chr&gt;</code></pre>
+</div>
+<div id="important-variables" class="section level2">
+<h2>Important Variables</h2>
+<ul>
+<li><code>year</code>: 2011 - 2019</li>
+<li><code>locationabbr</code>: state abbreviation, 56 states</li>
+<li><code>locationdesc</code>: state name, 56 states</li>
+<li><code>response</code>:Normal Weight (BMI 18.5-24.9); Obese (BMI 30.0 - 99.8); Overweight (BMI 25.0-29.9); Underweight (BMI 12.0-18.4); Underweight (bmi 12.0-18.4);Normal Weight (bmi 18.5-24.9); Obese (bmi 30.0 - 99.8); Overweight (bmi 25.0-29.9)</li>
+<li><code>break_out_category</code>:
+<ul>
+<li>Race/Ethnicity; Age Group; Household Income; Education Attained; Gender; Overall<br />
+</li>
+</ul></li>
+<li><code>break_out</code>:
+<ul>
+<li>Male; College graduate; White, non-Hispanic; <code>$35,000-$49,999</code>; <code>$25,000-$34,999</code>; <code>$15,000-$24,999</code>; 35-44; 25-34; 18-24; 55-64; (Other) ; Overall; Some post-H.S.</li>
+</ul></li>
+<li><code>sample_size</code></li>
+<li><code>break_out_category_id</code>: gender(CAT2), age(CAT3), race/ethnicity(CAT4), education(CAT5)</li>
+</ul>
+</div>
+<div id="different-education-attained" class="section level2">
+<h2>Different Education Attained</h2>
+<pre class="r"><code>education_df = 
+  tidy_df %&gt;% 
+  filter(break_out_category_id == &quot;CAT5&quot;) 
+head(education_df) </code></pre>
+<pre><code>## # A tibble: 6 x 16
+##    year locationabbr locationdesc response break_out break_out_categ~
+##   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;           
+## 1  2019 AL           Alabama      Obese (~ College ~ Education Attai~
+## 2  2019 AL           Alabama      Normal ~ Some pos~ Education Attai~
+## 3  2019 AL           Alabama      Obese (~ Some pos~ Education Attai~
+## 4  2019 AL           Alabama      Obese (~ Less tha~ Education Attai~
+## 5  2019 AL           Alabama      Normal ~ College ~ Education Attai~
+## 6  2019 AL           Alabama      Overwei~ Some pos~ Education Attai~
+## # ... with 10 more variables: sample_size &lt;dbl&gt;, data_value &lt;dbl&gt;,
+## #   confidence_limit_low &lt;dbl&gt;, confidence_limit_high &lt;dbl&gt;,
+## #   display_order &lt;dbl&gt;, location_id &lt;chr&gt;, breakout_id &lt;chr&gt;,
+## #   break_out_category_id &lt;chr&gt;, response_id &lt;chr&gt;, geo_location &lt;chr&gt;</code></pre>
+</div>
+<div id="different-raceethnicity" class="section level2">
+<h2>Different Race/Ethnicity</h2>
+<pre class="r"><code>race_df = 
+  tidy_df %&gt;% 
+  filter(break_out_category_id == &quot;CAT4&quot;) 
+head(race_df) </code></pre>
+<pre><code>## # A tibble: 6 x 16
+##    year locationabbr locationdesc response break_out break_out_categ~
+##   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;           
+## 1  2019 AL           Alabama      Obese (~ American~ Race/Ethnicity  
+## 2  2019 AL           Alabama      Obese (~ Hispanic  Race/Ethnicity  
+## 3  2019 AL           Alabama      Underwe~ Black, n~ Race/Ethnicity  
+## 4  2019 AL           Alabama      Overwei~ American~ Race/Ethnicity  
+## 5  2019 AL           Alabama      Overwei~ Black, n~ Race/Ethnicity  
+## 6  2019 AL           Alabama      Overwei~ White, n~ Race/Ethnicity  
+## # ... with 10 more variables: sample_size &lt;dbl&gt;, data_value &lt;dbl&gt;,
+## #   confidence_limit_low &lt;dbl&gt;, confidence_limit_high &lt;dbl&gt;,
+## #   display_order &lt;dbl&gt;, location_id &lt;chr&gt;, breakout_id &lt;chr&gt;,
+## #   break_out_category_id &lt;chr&gt;, response_id &lt;chr&gt;, geo_location &lt;chr&gt;</code></pre>
+</div>
+<div id="different-age" class="section level2">
+<h2>Different Age</h2>
+<pre class="r"><code>age_df = 
+  tidy_df %&gt;% 
+  filter(break_out_category_id == &quot;CAT3&quot;) 
+head(age_df) </code></pre>
+<pre><code>## # A tibble: 6 x 16
+##    year locationabbr locationdesc response break_out break_out_categ~
+##   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;           
+## 1  2019 AL           Alabama      Obese (~ 25-34     Age Group       
+## 2  2019 AL           Alabama      Overwei~ 35-44     Age Group       
+## 3  2019 AL           Alabama      Normal ~ 45-54     Age Group       
+## 4  2019 AL           Alabama      Normal ~ 65+       Age Group       
+## 5  2019 AL           Alabama      Normal ~ 25-34     Age Group       
+## 6  2019 AL           Alabama      Overwei~ 65+       Age Group       
+## # ... with 10 more variables: sample_size &lt;dbl&gt;, data_value &lt;dbl&gt;,
+## #   confidence_limit_low &lt;dbl&gt;, confidence_limit_high &lt;dbl&gt;,
+## #   display_order &lt;dbl&gt;, location_id &lt;chr&gt;, breakout_id &lt;chr&gt;,
+## #   break_out_category_id &lt;chr&gt;, response_id &lt;chr&gt;, geo_location &lt;chr&gt;</code></pre>
+</div>
+<div id="different-gender" class="section level2">
+<h2>Different Gender</h2>
+<pre class="r"><code>gender_df = 
+  tidy_df %&gt;% 
+  filter(break_out_category_id == &quot;CAT2&quot;) 
+head(gender_df) </code></pre>
+<pre><code>## # A tibble: 6 x 16
+##    year locationabbr locationdesc response break_out break_out_categ~
+##   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;           
+## 1  2019 AL           Alabama      Obese (~ Female    Gender          
+## 2  2019 AL           Alabama      Normal ~ Male      Gender          
+## 3  2019 AL           Alabama      Obese (~ Male      Gender          
+## 4  2019 AL           Alabama      Normal ~ Female    Gender          
+## 5  2019 AL           Alabama      Underwe~ Female    Gender          
+## 6  2019 AL           Alabama      Overwei~ Female    Gender          
+## # ... with 10 more variables: sample_size &lt;dbl&gt;, data_value &lt;dbl&gt;,
+## #   confidence_limit_low &lt;dbl&gt;, confidence_limit_high &lt;dbl&gt;,
+## #   display_order &lt;dbl&gt;, location_id &lt;chr&gt;, breakout_id &lt;chr&gt;,
+## #   break_out_category_id &lt;chr&gt;, response_id &lt;chr&gt;, geo_location &lt;chr&gt;</code></pre>
+</div>
+<div id="time-trends" class="section level2">
+<h2>Time Trends</h2>
+<pre class="r"><code># total population in each state in each year
+df.tot = load_df %&gt;%
+  group_by(year,locationdesc) %&gt;%
+  summarise(state_sum = sum(sample_size))
+
+# total &#39;obese&#39; and &#39;overweight&#39; amount in each state in each year
+df.overweight = 
+  load_df %&gt;%
+  filter(response %in% c(&quot;Obese (BMI 30.0 - 99.8)&quot;,&quot;Overweight (BMI 25.0-29.9)&quot;,
+                         &quot;Obese (bmi 30.0 - 99.8)&quot;,&quot;Overweight (bmi 25.0-29.9)&quot;)) %&gt;%
+  group_by(year,locationdesc) %&gt;%
+  summarise(state_overweight_sum = sum(sample_size))
+
+
+df.rate = left_join(df.tot, df.overweight,
+                   by = c(&quot;year&quot; , &quot;locationdesc&quot;)) %&gt;%
+  mutate(over_rate = state_overweight_sum/state_sum)</code></pre>
+<pre class="r"><code># Use library(plotly) to visualizing the US obesity and overweight rate geographically (on a map), including the average amount of obesity and overweight from 2011 to 2019.
+df.rate1 =  df.rate %&gt;%
+  group_by(locationdesc)  %&gt;%
+  mutate(mean_amount = mean(state_overweight_sum))
+
+df.rate1 = df.rate1[-which(df.rate1$locationdesc %in% c(&quot;All States and DC (median) **&quot;,&quot;All States, DC and Territories (median) **&quot;,&quot;Virgin Islands&quot;) ),]
+df.rate1$region = tolower(df.rate1$locationdesc)
+
+states = map_data(&quot;state&quot;)
+# merge the datasets
+states = merge(states, df.rate1, by = &quot;region&quot;, all.x = T)
+
+##### US states obesity time trend: scatter plot with line
+ggplot(data = df.rate[-which(df.rate$locationdesc %in% c(&quot;All States and DC (median) **&quot;,&quot;All States, DC and Territories (median) **&quot;,&quot;Virgin Islands&quot;) ),], 
+       aes(year, y = over_rate)) +
+  geom_line(aes(color = locationdesc)) +
+  geom_point(aes(color = locationdesc),size = 1.5) +
+  facet_wrap(~ locationdesc) +
+  theme(legend.position = &quot;None&quot;,
+        #text = element_text(family=&#39;Kai&#39;),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  scale_x_continuous(breaks = seq(2011,2019,1)) +
+  xlab(&quot;Year&quot;) + ylab(&quot;Obesity and overweight rate&quot;) +
+  ggtitle(&quot;Obesity and overweight rate trend for all the states&quot;)</code></pre>
+<p><img src="overview_files/figure-html/unnamed-chunk-6-1.png" width="120%" /></p>
+<p>It is clear that all states have as increasing trend of obese and overweight amount from 2011 to 2019.</p>
+</div>
+<div id="the-state-with-the-highest-average-obesity-and-overweight-throughout-9-years" class="section level2">
+<h2>The state with the highest average obesity and overweight throughout 9 years</h2>
+<pre class="r"><code>df.highest = df.rate %&gt;% 
+  group_by(locationdesc) %&gt;%
+  summarise(mean_overweight = mean(state_overweight_sum)) %&gt;%
+  filter(mean_overweight == max(mean_overweight)) 
+
+
+kable(df.highest, row.names = T, escape = F) %&gt;%
+  kable_styling(bootstrap_options = &quot;striped&quot;, full_width = F)</code></pre>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+locationdesc
+</th>
+<th style="text-align:right;">
+mean_overweight
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+Nebraska
+</td>
+<td style="text-align:right;">
+69551.22
+</td>
+</tr>
+</tbody>
+</table>
+<p>We find the state <code>Nebraska</code> has the highest average <code>obese</code> and <code>overweight</code> amount per year among all the states.</p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

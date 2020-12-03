@@ -9,7 +9,7 @@ navbar:
       href: about.html
     - text: "Regression Analysis"
       href: regression_models.html
-    - text: "Obesity analysis"
+    - text: "US Obesity Analysis"
       menu:
       - text: "Overview"
         href: p8105_proposal.html
