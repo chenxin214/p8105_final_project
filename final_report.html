@@ -16,7 +16,7 @@
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/journal.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -109,33 +109,33 @@ summary {
 <style type="text/css">
 /* padding for bootstrap navbar */
 body {
-  padding-top: 61px;
+  padding-top: 60px;
   padding-bottom: 40px;
 }
 /* offset scroll position for anchor links (for fixed navbar)  */
 .section h1 {
-  padding-top: 66px;
-  margin-top: -66px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h2 {
-  padding-top: 66px;
-  margin-top: -66px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h3 {
-  padding-top: 66px;
-  margin-top: -66px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h4 {
-  padding-top: 66px;
-  margin-top: -66px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h5 {
-  padding-top: 66px;
-  margin-top: -66px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .section h6 {
-  padding-top: 66px;
-  margin-top: -66px;
+  padding-top: 65px;
+  margin-top: -65px;
 }
 .dropdown-submenu {
   position: relative;
@@ -428,7 +428,13 @@ div.tocify {
 <div id="related-work" class="section level1">
 <h1>Related Work</h1>
 <p>A combination of contributing factors such as gender, age, race, genetic, physical activity, inactivity, dietary patterns and other factors are related to obese and obesity, which is complex and need statistic analysis to clarify. We get inspired from sources related to these influence factors:</p>
-<p><a href="https://www.nichd.nih.gov/health/topics/obesity/conditioninfo/cause">What causes obesity &amp; overweight</a> <a href="https://asmbs.org/patients/impact-of-obesity">Impact of Obesity on your Body</a> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3649717/">Gender Disparities in Obesity</a> <a href="https://www.bahrainmedicalbulletin.com/june_2002/relationship.pdf">Age and the Prevalence of Obesity</a> <a href="https://www.ncbi.nlm.nih.gov/books/NBK278977/">Social and Environmental Factors Influencing Obesity</a></p>
+<ul>
+<li><p>“What causes obesity &amp; overweight?”, <em>NIH</em>, 2016.<a href="https://www.nichd.nih.gov/health/topics/obesity/conditioninfo/cause">Link</a></p></li>
+<li><p>“The Impact of Obesity on Your Body and Health”, <em>ASMBS</em>, 2020.<a href="https://asmbs.org/patients/impact-of-obesity">Link</a></p></li>
+<li><p>“Global Gender Disparities in Obesity: A Review”, <em>NCBI</em>, 2012.<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3649717/">Link</a></p></li>
+<li><p>“Relationship between Age and the Prevalence of Obesity and Overweight in Saudi Population”, <em>Google</em>, 2002. <a href="https://www.bahrainmedicalbulletin.com/june_2002/relationship.pdf">Link</a></p></li>
+<li><p>“Social and Environmental Factors Influencing Obesity”, <em>Endotext</em>, 2019.<a href="https://www.ncbi.nlm.nih.gov/books/NBK278977/">Link</a></p></li>
+</ul>
 </div>
 <div id="initial-questions" class="section level1">
 <h1>Initial Questions</h1>
@@ -440,16 +446,16 @@ div.tocify {
 </div>
 <div id="data" class="section level1">
 <h1>Data</h1>
-<div id="data-source" class="section level2">
-<h2>Data source</h2>
+<div id="data-source" class="section level3">
+<h3>Data source</h3>
 <ul>
-<li>Primary data source: <a href="https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf">Data collected from Behavioral Risk Factor Sureillance System (BRFSS)</a><br />
+<li>Primary data source: Data collected from Behavioral Risk Factor Sureillance System <a href="https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf">(BRFSS)</a><br />
 </li>
-<li>Supplemental data source: <a href="https://www.cdc.gov/obesity/data/prevalence-maps.html#age">Centers for Diseases Control and Prevention (CDC)</a></li>
+<li>Supplemental data source: Centers for Diseases Control and Prevention <a href="https://www.cdc.gov/obesity/data/prevalence-maps.html#age">(CDC)</a></li>
 </ul>
 </div>
-<div id="variable-of-interest" class="section level2">
-<h2>Variable of Interest</h2>
+<div id="variable-of-interest" class="section level3">
+<h3>Variable of Interest</h3>
 <p><strong>Outcomes</strong></p>
 <ul>
 <li><code>obese_overweight:</code> Count of obese and overweight per year of all sates.</li>
@@ -460,22 +466,22 @@ div.tocify {
 <li><p><code>year:</code> 2011 - 2019</p></li>
 <li><p><code>locationabbr:</code> state abbreviation, 56 states</p></li>
 <li><p><code>locationdesc:</code> state name, 56 states</p></li>
-<li><p><code>response:</code> Normal Weight (BMI 18.5-24.9); Obese (BMI 30.0 - 99.8); Overweight (BMI 25.0-29.9); Underweight (BMI 12.0-18.4); Underweight (bmi 12.0-18.4);Normal Weight (bmi 18.5-24.9); Obese (bmi 30.0 - 99.8); Overweight (bmi 25.0-29.9)</p></li>
-<li><p><code>break_out_category:</code> Race/Ethnicity; Age Group; Household Income; Education Attained; Gender; Overall</p></li>
-<li><p><code>break_out:</code> Male; College graduate; White, non-Hispanic; <code>$35,000-$49,999</code>; <code>$25,000-$34,999</code>; <code>$15,000-$24,999</code>; 35-44; 25-34; 18-24; 55-64; (Other) ; Overall; Some post-H.S.</p></li>
-<li><p><code>sample_size:</code> Number of people in each category</p></li>
+<li><p><code>response:</code> normal weight (bmi 18.5-24.9); obese (bmi 30.0 - 99.8); overweight (bmi 25.0-29.9); underweight (bmi 12.0-18.4)</p></li>
+<li><p><code>break_out_category:</code> race/ethnicity; age group; household income; education attained; gender; overall</p></li>
+<li><p><code>break_out:</code> male; college graduate; white, non-Hispanic; <code>$35,000-$49,999</code>; <code>$25,000-$34,999</code>; <code>$15,000-$24,999</code>; 35-44; 25-34; 18-24; 55-64; (other) ; overall; some post-H.S.</p></li>
+<li><p><code>sample_size:</code> number of people in each category</p></li>
 <li><p><code>data_value:</code> crude prevalence, unit %, such as 14.7 means 14.7%</p></li>
-<li><p><code>confidence_limit_low:</code> The value that rank the 25%th of the tatall value</p></li>
-<li><p><code>confidence_limit_high:</code> The value that rank the 75%th of the tatall value</p></li>
-<li><p><code>geo_location:</code> Longitude and latitude</p></li>
+<li><p><code>confidence_limit_low:</code> the value that rank the 25%th of the tatall value</p></li>
+<li><p><code>confidence_limit_high:</code> the value that rank the 75%th of the tatall value</p></li>
+<li><p><code>geo_location:</code> longitude and latitude</p></li>
 <li><p><code>break_out_category_id:</code> gender(CAT2), age(CAT3), race/ethnicity(CAT4), education(CAT5)</p></li>
-<li><p><code>breakout_id:</code> eg: SEX1, SEX2, (in CAT2)</p></li>
+<li><p><code>breakout_id:</code> eg: sex1, sex2, (in CAT2)</p></li>
 <li><p><code>location_id:</code> eg: 01, stands for different state</p></li>
 <li><p><code>response_id:</code> eg: RESP041.</p></li>
 </ul>
 </div>
-<div id="data-cleaning" class="section level2">
-<h2>Data Cleaning</h2>
+<div id="data-cleaning" class="section level3">
+<h3>Data Cleaning</h3>
 <p>First, import the data from Behavioral Risk Factor Sureillance System. We clean the data and create four data frames based on the predictors(gender, race, education level, household income) for future analysis.</p>
 <pre class="r"><code>load_df =
 GET(&quot;https://chronicdata.cdc.gov/resource/fqb7-mgjf.csv&quot;,
@@ -570,7 +576,9 @@ rate_time =
 </div>
 <div id="exploratory-analysis" class="section level1">
 <h1>Exploratory Analysis</h1>
-<p><strong>How obese/overweight change from 2011 to present in the US?</strong> It is clear that <strong>all states</strong> have as <strong>increasing</strong> trend of obese and overweight amount from 2011 to 2019.</p>
+<div id="how-obeseoverweight-change-from-2011-to-present-in-the-us" class="section level4">
+<h4>1. How obese/overweight change from 2011 to present in the US?</h4>
+<p>Use library(plotly) to visualizing the US obesity and overweight rate geographically (on a map), including the average amount of obesity and overweight from 2011 to 2019. It is clear that <strong>all states</strong> have as <strong>increasing</strong> trend of obese and overweight amount from 2011 to 2019.</p>
 <pre class="r"><code># Use library(plotly) to visualizing the US obesity and overweight rate geographically (on a map), including the average amount of obesity and overweight from 2011 to 2019.
 df.rate1 =  df.rate %&gt;%
   group_by(locationdesc)  %&gt;%
@@ -595,19 +603,243 @@ ggplot(data = df.rate[-which(df.rate$locationdesc %in% c(&quot;All States and DC
   scale_x_continuous(breaks = seq(2011,2019,1)) +
   xlab(&quot;Year&quot;) + ylab(&quot;Obesity and overweight rate&quot;) +
   ggtitle(&quot;Obesity and overweight rate trend for all the states&quot;)</code></pre>
-<p><strong>What is the distribution of obese/overweight by gender, race, education level, household income in Nebraska?</strong></p>
-<p>According to overview, Nebraska owns the highest rate of overweight and obese. From the line plot, we can see the prevalence of overweight decreased slightly while the prevalence of obese increased significantly over year. The total rate of people whose BMI is greater than 25 reaches almost 70% <em>(rate of obese is 36%)</em> in 2019.</p>
-<ul>
-<li>How gender, race, education level, household income are associated with obese and overweight over the US?</li>
-</ul>
-<div id="association-between-obese-and-gender" class="section level4">
-<h4>Association between Obese and Gender</h4>
 </div>
-<div id="proportion-of-obesity-by-gender" class="section level4">
-<h4>Proportion of obesity by gender</h4>
-</div>
-<div id="section" class="section level4">
-<h4>…</h4>
+<div id="what-is-the-distribution-of-obeseoverweight-by-gender-race-education-level-household-income-in-nebraska" class="section level4">
+<h4>2. What is the distribution of obese/overweight by gender, race, education level, household income in Nebraska?</h4>
+<p><strong>Prevalence of obese/overweight in Nebraska:</strong></p>
+<p>According to overview, Nebraska owns the <strong>highest</strong> rate of overweight and obese. From the line plot, we can see the prevalence of overweight decreased slightly while the prevalence of obese <strong>increased</strong> significantly over year. The total rate of people whose BMI is greater than 25 reaches almost 70% (rate of obese is 36%) in 2019.</p>
+<pre class="r"><code>rate_time %&gt;%
+  group_by(rate_lable) %&gt;% 
+  mutate(text_label = str_c(&quot;Year:&quot;, year, &quot;\nPrevalence:&quot;, prevalence)) %&gt;% 
+  plot_ly( 
+    x = ~year, 
+    y = ~prevalence, 
+    #type = &#39;scatter&#39;, 
+    #mode = &quot;lines+markers&quot;, 
+    textposition = &quot;bottom right&quot;,  
+    color = ~rate_lable, 
+    colors = c(&#39;#FFD700&#39;, &#39;#FF8C00&#39;),
+    text = ~text_label, 
+    line = list(simplyfy = F),
+    alpha = 0.8
+    ) %&gt;% 
+  layout(
+    legend = list(x = 0.5, y = 0.15),
+    title = &quot;Obesity rate trend over time&quot;,
+         xaxis = list(title = &quot;Year&quot;,
+                      zeroline = TRUE),
+         yaxis = list(title = &quot;Prevalence&quot;,
+                      zeroline = TRUE),
+     updatemenus = list(
+      list(
+        x = 0.7,
+        y = 0.4,
+        buttons = list(
+
+          list(method = &quot;restyle&quot;,
+               args = list(&quot;type&quot;, &quot;scatter&quot;),
+               label = &quot;Line&quot;),
+
+          list(method = &quot;restyle&quot;,
+               args = list(&quot;type&quot;, &quot;bar&quot;),
+               label = &quot;bar&quot;)))
+    )
+    ) </code></pre>
+<p><strong>Obese/overweight by Race/Ethnicity:</strong></p>
+<p>Combining data from 2011 through 2019, <code>non-Hispanic American Indian or Alaskan Native</code> had the <strong>highest</strong> prevalence of self-reported obesity (47.13%), followed by <code>non-Hispanic Black adults</code> (41.81%) and<br />
+<code>non-Hispanic Multiracial</code>(39.74%). <code>Non-Hispanic White adults</code> own the <strong>lowest</strong> obesity rate(31.95%).</p>
+<pre class="r"><code>ne_race_df = 
+  ne_df %&gt;% 
+  filter(break_out_category_id == &quot;CAT4&quot;) %&gt;% 
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %&gt;% 
+  group_by(year, break_out) %&gt;% 
+  mutate(count_race = sum(sample_size)) %&gt;% 
+  filter(response_id %in% c(&quot;RESP039&quot;) ) %&gt;% 
+  mutate(race_pre = round(sample_size / count_race, digit = 4))
+
+obesity_rate_by_race = 
+  ne_race_df %&gt;% 
+  group_by(break_out) %&gt;% 
+  mutate(sum_race = sum(sample_size),
+         sum_obese = sum(count_race),
+         obesity_rate = round(sum_race/sum_obese, digits = 4)) %&gt;% 
+  select(break_out, obesity_rate) %&gt;% 
+  distinct() %&gt;% 
+  arrange(desc(obesity_rate))
+
+fig_race_2 = 
+  ne_race_df %&gt;% 
+  filter(break_out != &quot;Other, non-Hispanic&quot;) %&gt;% 
+  mutate(text_label = str_c(&quot;Race/Ethnicity:&quot;, break_out, &quot;\nPrevalence:&quot;, race_pre)) %&gt;% 
+  plot_ly( x = ~year , y = ~race_pre,  type = &quot;bar&quot;, color = ~break_out, text = ~text_label, alpha = 0.7) %&gt;% 
+  layout(
+         
+         title = &quot;Difference between race group over year&quot;,  
+         legend = list(font = list(size = 8),  x = 0.5, y = 0.05),
+         xaxis = list(title = &quot;Year&quot;,
+                      zeroline = TRUE,
+                            rangeselector = list(
+        buttons = list(
+          list(
+            count = 3,
+            label = &quot;3 year&quot;,
+            step = &quot;year&quot;,
+            stepmode = &quot;backward&quot;),
+          list(
+            count = 6,
+            label = &quot;6 year&quot;,
+            step = &quot;year&quot;,
+            stepmode = &quot;backward&quot;),
+          list(
+            count = 1,
+            label = &quot;YTD&quot;,
+            step = &quot;year&quot;,
+            stepmode = &quot;todate&quot;),
+          list(step = &quot;all&quot;))),
+
+      rangeslider = list(type = &quot;date&quot;)
+                      ),
+                      
+         
+         yaxis = list(title = &quot;Prevalence&quot;,
+                      zeroline = TRUE)) 
+
+
+fig_race_2</code></pre>
+<p><strong>Obese/overweight by gender:</strong></p>
+<p>According to the plot, the obesity rate of both women and men kept increasing over year and exceeded 0.35 since 2018. However, obesity rate of <strong>women</strong> always significantly <strong>lower</strong> than that of man.</p>
+<pre class="r"><code>ne_gender_df = 
+  ne_df %&gt;% 
+  filter(break_out_category_id == &quot;CAT2&quot;) %&gt;% 
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %&gt;% 
+  group_by(year, break_out) %&gt;% 
+  mutate(count_gender = sum(sample_size)) %&gt;% 
+  filter(response_id %in% c(&quot;RESP039&quot;) ) %&gt;% 
+  mutate(gender_pre = round(sample_size / count_gender, digit = 4))
+
+ay = list(
+  tickfont = list(color = &quot;#767B84&quot;),
+  overlaying = &quot;y&quot;,
+  side = &quot;right&quot;,
+  title = &quot;Prevalence&quot;,
+  automargin = TRUE
+)
+ne_gender_df %&gt;%
+  group_by(break_out) %&gt;% 
+  mutate(
+    text_label_1 = str_c(&quot;gender:&quot;, break_out, &quot;\nCount:&quot;, sample_size),
+    text_label_2 = str_c(&quot;gender:&quot;, break_out, &quot;\nPrevalence:&quot;, gender_pre)     
+    ) %&gt;% 
+  plot_ly( 
+    x = ~year, 
+    y = ~sample_size,  
+    type = &quot;bar&quot;, 
+    color = ~break_out, 
+    colors = c(&quot;#F1948A&quot;, &quot;#85C1E9&quot;),
+    text = ~text_label_1, 
+    alpha = 0.7) %&gt;% 
+    add_lines(x = ~year, y = ~gender_pre, color = ~break_out, text = ~text_label_2, yaxis = &quot;y2&quot;) %&gt;% 
+  layout(
+         title = &quot;Obesity rate by gender&quot;,
+         xaxis = list(title = &quot;year&quot;,
+                      zeroline = TRUE),
+         yaxis = list(title = &quot;Count&quot;,
+                      zeroline = TRUE),
+         yaxis2 = ay,
+         legend = list(  
+                     x = 0.7,
+                     y = 0.1)
+         )</code></pre>
+<p><strong>Obese/Overweight approximately decreased by level of education:</strong></p>
+<p>The level of Education people have are divided into 4 levels, showing bellow in an increasing order:<br />
+<br>-<code>Less than H.S</code>: People didn’t attend high school <br>-<code>H.S. or G.E.D</code>: High school graduates or people pass General Educational Development test <br>-<code>Some post-H.S</code>: Any school or specialized training which takes place after high school graduation <br>-<code>College graduate</code>:College graduates</p>
+<p>The pie plot shows that the rate of <code>H.S or G.E.D</code> and <code>Some post-H.S</code> are all around 30%, and the rate of <code>Less than H.S</code> is 6%. According to the line plot, the obese/overweight of all groups kept increasing over year. <code>College graduate group</code> always owns the lowest obese/overweight rate, which might benefit of their self-discipline. <code>Less than H.S group</code> owns the highest obesity rate, however, the rate dropped dramatically between 2018 and 2019. The lines of <code>Less than H.S group</code>, <code>Some post-H.S group</code>, and <code>H.S or G.E.D group</code> intersects. From the trend, we conclude that the obese/obesity rate <strong>decrease</strong> as education level <strong>increase</strong>.</p>
+<pre class="r"><code>ne_edu_df = 
+  ne_df %&gt;% 
+  filter(break_out_category_id == &quot;CAT5&quot;) %&gt;% 
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %&gt;% 
+  group_by(year, break_out) %&gt;% 
+  mutate(count_edu = sum(sample_size)) %&gt;% 
+  filter(response_id %in% c(&quot;RESP039&quot;) ) %&gt;% 
+  mutate(edu_pre = round(sample_size / count_edu, digit = 4))
+
+edu_rate = 
+  ne_edu_df %&gt;% 
+  select(break_out, count_edu, year) %&gt;% 
+  distinct() %&gt;% 
+  group_by(break_out) %&gt;% 
+  mutate(sum_edu = round(sum(count_edu/9), digits = 0))
+
+fig_edu_1 = 
+  edu_rate %&gt;% 
+  plot_ly(labels = ~break_out, values = ~sum_edu, 
+        textposition = &#39;inside&#39;,
+        textinfo = &#39;label+percent&#39;,
+        insidetextfont = list(color = &#39;#483C32&#39;),
+        hoverinfo = &#39;text&#39;,
+        domain = list(row = 0, column = 1),
+        text = ~paste(&#39;Education Attained:&#39;, break_out, &#39; \nNumber&#39;, count_edu),
+        marker = list(colors = c(&#39;#6f4d96&#39;,&#39;#f3cec9&#39;,&#39;#cd7eaf&#39;,&#39;#e7a4b6&#39;),
+                      line = list(color = &#39;#FFFFFF&#39;, width = 1)),
+        showlegend = F
+        ) %&gt;% add_pie(hole = 0.5)
+
+fig_edu_2 = 
+  ne_edu_df %&gt;% 
+  group_by(break_out) %&gt;% 
+  mutate(text_label = str_c(&quot;Education Attained:&quot;, break_out, &quot;\nPrevalence:&quot;, edu_pre)) %&gt;% 
+  plot_ly( 
+    x = ~year , 
+    y = ~edu_pre, 
+    domain = list(row = 0, column = 0),
+    type = &#39;scatter&#39;, 
+    mode = &quot;lines+markers&quot;, 
+    #type = &quot;bar&quot;, 
+    color = ~break_out, 
+    colors = c(&#39;#6f4d96&#39;, &#39;#e7a4b6&#39;, &#39;#f3cec9&#39;,&#39;#cd7eaf&#39; ),
+    text = ~text_label,
+    alpha = 0.7) %&gt;% 
+  layout(
+         title = &quot;Obesity rate by Education&quot;,  
+         legend = list( showlegend = T),
+         xaxis = list(title = &quot;Education Attained&quot;,
+                      zeroline = TRUE),
+         yaxis = list(title = &quot;Prevalence&quot;,
+                      zeroline = TRUE)) 
+
+subplot(fig_edu_2 , fig_edu_1) %&gt;%  layout(legend = list(x = 0.3, y = 0.04, font = list(size = 8), showlegend = F), grid = list(rows = 1, columns = 2))</code></pre>
+<p><strong>Obese/Obesity rate trend of household income:</strong><br />
+From the plots, we can see people with <strong>lower</strong> household income tend to have <strong>higher</strong> obese rate and <strong>lower</strong> overweight rate. The overweight rate decreased while obesity rate increased over time.</p>
+<pre class="r"><code>ne_income_df = 
+  ne_df %&gt;% 
+  filter(break_out_category_id == &quot;CAT6&quot;) %&gt;% 
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %&gt;% 
+  group_by(year, break_out) %&gt;% 
+  mutate(count_income = sum(sample_size)) %&gt;% 
+  filter(response_id %in% c(&quot;RESP039&quot;, &quot;RESP040&quot;)) %&gt;% 
+  mutate(
+    income_pre = round(sample_size / count_income, digit = 4),
+    rate_lable = case_when(
+      response_id == &quot;RESP039&quot; ~ &quot;Obese (BMI 30.0 - 99.8)&quot;,
+      response_id == &quot;RESP040&quot; ~ &quot;Overweight (BMI 25.0-29.9)&quot;)
+    
+    )
+  
+
+  ne_income_df %&gt;% 
+    mutate(break_out = factor(break_out, levels = c(&quot;Less than $15,000&quot;, &quot;$15,000-$24,999&quot;, &quot;$25,000-$34,999&quot;, &quot;$35,000-$49,999&quot;, &quot;$50,000+&quot;))) %&gt;% 
+   ggplot(aes(x = year, y = income_pre, color = rate_lable)) +
+   geom_line(size = 1) +
+   scale_color_manual(values=c(&quot;#20B2AA&quot;, &quot;#228B22&quot;)) +
+   theme_bw() +
+   theme(aspect.ratio = 1, axis.text.x = element_text(angle = 45,  hjust = 1)) +
+   facet_wrap(~break_out) +
+   theme(legend.position = &quot;bottom&quot;) +
+    labs(title = &quot;Obesity rate by household income&quot;,
+       subtitle = &quot;2011 - 2019.&quot;,
+       x = &quot;Year&quot;, 
+       y = &quot;Prevalence&quot;) +
+  scale_x_continuous(breaks = seq(2011,2019,1)) </code></pre>
 </div>
 </div>
 <div id="additional-analysis" class="section level1">
