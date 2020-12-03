@@ -421,12 +421,22 @@ div.tocify {
 </div>
 
 
-<p><br> # Motivation According to <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight">the World Health Organization (WHO)</a>, more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is <a href="https://easo.org/media-portal/statistics/">the fifth leading risk</a> for global death. People overweight have a higher risk of getting more than <a href="https://www.healthline.com/health/obesity-facts">60 chronic diseases</a> like type 2 diabetes, heart disease, which also increases the medical cost. The association between obesity and education level, income is intricate and differs by gender, age, and race.</p>
+<div id="motivation" class="section level1">
+<h1>Motivation</h1>
+<p>According to <a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight">the World Health Organization (WHO)</a>, more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is <a href="https://easo.org/media-portal/statistics/">the fifth leading risk</a> for global death. People overweight have a higher risk of getting more than <a href="https://www.healthline.com/health/obesity-facts">60 chronic diseases</a> like type 2 diabetes, heart disease, which also increases the medical cost. The association between obesity and education level, income is intricate and differs by gender, age, and race.</p>
+</div>
 <div id="related-work" class="section level1">
 <h1>Related Work</h1>
 <p>A combination of contributing factors such as gender, age, race, genetic, physical activity, inactivity, dietary patterns and other factors are related to obese and obesity, which is complex and need statistic analysis to clarify. We get inspired from sources related to these influence factors:</p>
 <p><a href="https://www.nichd.nih.gov/health/topics/obesity/conditioninfo/cause">What causes obesity &amp; overweight</a> <a href="https://asmbs.org/patients/impact-of-obesity">Impact of Obesity on your Body</a> <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3649717/">Gender Disparities in Obesity</a> <a href="https://www.bahrainmedicalbulletin.com/june_2002/relationship.pdf">Age and the Prevalence of Obesity</a> <a href="https://www.ncbi.nlm.nih.gov/books/NBK278977/">Social and Environmental Factors Influencing Obesity</a></p>
-<p>#Initial Questions</p>
+</div>
+<div id="initial-questions" class="section level1">
+<h1>Initial Questions</h1>
+<ul>
+<li>How obese/overweight change from 2011 to present in the US?</li>
+<li>How gender, race, education level, household income are associated with obese and overweight over the US?</li>
+<li>Which state has highest average obese and overweight per year among all the states? And what is the distribution of obese/overweight by gender, race, education level, household income in the state?</li>
+</ul>
 </div>
 <div id="data" class="section level1">
 <h1>Data</h1>
@@ -442,8 +452,8 @@ div.tocify {
 <h2>Variable of Interest</h2>
 <p><strong>Outcomes</strong></p>
 <ul>
-<li><code>obese_obesity</code>. Count of obese and obesity per year of all sates.</li>
-<li><code>obese_obesity_rate</code>. Calculated using number of obese and obesity divided by the number of total sample size and multiplied by 100, to be interpreted as a prevalence.</li>
+<li><code>obese_overweight:</code> Count of obese and overweight per year of all sates.</li>
+<li><code>obese_overweight_rate:</code> Prevalence. Getting it by dividing the number of people with obese/overweight by total number of population in data multiplied by 100.</li>
 </ul>
 <p><strong>Candidate Predictors</strong></p>
 <ul>
@@ -466,7 +476,7 @@ div.tocify {
 </div>
 <div id="data-cleaning" class="section level2">
 <h2>Data Cleaning</h2>
-<p>first we …</p>
+<p>First, import the data from Behavioral Risk Factor Sureillance System. We clean the data and create four data frames based on the predictors(gender, race, education level, household income) for future analysis.</p>
 <pre class="r"><code>load_df =
 GET(&quot;https://chronicdata.cdc.gov/resource/fqb7-mgjf.csv&quot;,
     query = list(&quot;$limit&quot; = 50000)) %&gt;% 
@@ -487,12 +497,6 @@ gender_df =
   filter(break_out_category_id == &quot;CAT2&quot;) 
 head(gender_df) 
 
-#age
-age_df = 
-  tidy_df %&gt;% 
-  filter(break_out_category_id == &quot;CAT3&quot;) 
-head(age_df) 
-
 #race
 race_df = 
   tidy_df %&gt;% 
@@ -504,10 +508,98 @@ education_df =
   tidy_df %&gt;% 
   filter(break_out_category_id == &quot;CAT5&quot;) 
 head(education_df) </code></pre>
+<p>To get a time trend of obese/overweight for each state, we calculate prevalence in each year for each state. Using functions like <code>summary</code>, <code>group</code>, <code>filter</code> to calculate total population in each year for each state and total population in each year for each state.</p>
+<pre class="r"><code># total population in each state in each year
+df.tot = load_df %&gt;%
+  group_by(year,locationdesc) %&gt;%
+  summarise(state_sum = sum(sample_size))
+
+# total &#39;obese&#39; and &#39;overweight&#39; amount in each state in each year
+df.overweight = 
+  load_df %&gt;%
+  filter(response %in% c(&quot;Obese (BMI 30.0 - 99.8)&quot;,&quot;Overweight (BMI 25.0-29.9)&quot;,
+                         &quot;Obese (bmi 30.0 - 99.8)&quot;,&quot;Overweight (bmi 25.0-29.9)&quot;)) %&gt;%
+  group_by(year,locationdesc) %&gt;%
+  summarise(state_overweight_sum = sum(sample_size))
+
+
+df.rate = left_join(df.tot, df.overweight,
+                   by = c(&quot;year&quot; , &quot;locationdesc&quot;)) %&gt;%
+  mutate(over_rate = state_overweight_sum/state_sum)</code></pre>
+<p>Next, cleaning data to find the state with highest average obese and overweight per year among all the states. After grouping data by locations and summing up mean value of obese/overweight, we find Nebraska has the highest average obese and overweight and we will choose this state for futher analysis.</p>
+<pre class="r"><code>#cleaning data for nebraska
+df.highest = df.rate %&gt;% 
+  group_by(locationdesc) %&gt;%
+  summarise(mean_overweight = mean(state_overweight_sum)) %&gt;%
+  filter(mean_overweight == max(mean_overweight)) 
+
+
+kable(df.highest, row.names = T, escape = F) %&gt;%
+  kable_styling(bootstrap_options = &quot;striped&quot;, full_width = F)</code></pre>
+<p>After choosing to focus on Nebraska, data were limited to this state. Dividing the number of people with obese/overweight by total number of population in the selected data multiplied by 100 to get the prevalence of obese/overweight for each year in Nebraska. Based on the data, we will visualize the obese/overweight differences by race, gender, education, and household income.</p>
+<pre class="r"><code># prevalence of obese/obesity in Nebraska
+time_df = 
+  ne_df %&gt;% 
+  filter(response_id %in% c(&quot;RESP039&quot;, &quot;RESP040&quot;) ) %&gt;% 
+  select(year, response_id, sample_size) %&gt;% 
+  group_by(year, response_id) %&gt;% 
+  mutate(count_obese = sum(sample_size)) %&gt;% 
+  select(-sample_size) %&gt;% 
+  distinct()
+
+total_df = 
+  ne_df %&gt;%
+  select(year, response_id, sample_size) %&gt;% 
+  group_by(year) %&gt;% 
+  mutate(count_total = sum(sample_size)) %&gt;% 
+  select(-sample_size) %&gt;% 
+  filter(response_id %in% c(&quot;RESP039&quot;, &quot;RESP040&quot;) ) %&gt;% 
+  distinct() 
+
+rate_time = 
+  left_join(time_df, total_df,by = c(&quot;year&quot; , &quot;response_id&quot;)) %&gt;% 
+  mutate(
+    prevalence = count_obese / count_total,
+    rate_lable = case_when(
+      response_id == &quot;RESP039&quot; ~ &quot;Obese (BMI 30.0 - 99.8)&quot;,
+      response_id == &quot;RESP040&quot; ~ &quot;Overweight (BMI 25.0-29.9)&quot;
+    )
+    ) %&gt;%
+  mutate(prevalence = round(prevalence, digits = 4)) </code></pre>
 </div>
 </div>
 <div id="exploratory-analysis" class="section level1">
 <h1>Exploratory Analysis</h1>
+<p><strong>How obese/overweight change from 2011 to present in the US?</strong> It is clear that <strong>all states</strong> have as <strong>increasing</strong> trend of obese and overweight amount from 2011 to 2019.</p>
+<pre class="r"><code># Use library(plotly) to visualizing the US obesity and overweight rate geographically (on a map), including the average amount of obesity and overweight from 2011 to 2019.
+df.rate1 =  df.rate %&gt;%
+  group_by(locationdesc)  %&gt;%
+  mutate(mean_amount = mean(state_overweight_sum))
+
+df.rate1 = df.rate1[-which(df.rate1$locationdesc %in% c(&quot;All States and DC (median) **&quot;,&quot;All States, DC and Territories (median) **&quot;,&quot;Virgin Islands&quot;) ),]
+df.rate1$region = tolower(df.rate1$locationdesc)
+
+states = map_data(&quot;state&quot;)
+# merge the datasets
+states = merge(states, df.rate1, by = &quot;region&quot;, all.x = T)
+
+##### US states obesity time trend: scatter plot with line
+ggplot(data = df.rate[-which(df.rate$locationdesc %in% c(&quot;All States and DC (median) **&quot;,&quot;All States, DC and Territories (median) **&quot;,&quot;Virgin Islands&quot;) ),], 
+       aes(year, y = over_rate)) +
+  geom_line(aes(color = locationdesc)) +
+  geom_point(aes(color = locationdesc),size = 1.5) +
+  facet_wrap(~ locationdesc) +
+  theme(legend.position = &quot;None&quot;,
+        #text = element_text(family=&#39;Kai&#39;),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  scale_x_continuous(breaks = seq(2011,2019,1)) +
+  xlab(&quot;Year&quot;) + ylab(&quot;Obesity and overweight rate&quot;) +
+  ggtitle(&quot;Obesity and overweight rate trend for all the states&quot;)</code></pre>
+<p><strong>What is the distribution of obese/overweight by gender, race, education level, household income in Nebraska?</strong></p>
+<p>According to overview, Nebraska owns the highest rate of overweight and obese. From the line plot, we can see the prevalence of overweight decreased slightly while the prevalence of obese increased significantly over year. The total rate of people whose BMI is greater than 25 reaches almost 70% <em>(rate of obese is 36%)</em> in 2019.</p>
+<ul>
+<li>How gender, race, education level, household income are associated with obese and overweight over the US?</li>
+</ul>
 <div id="association-between-obese-and-gender" class="section level4">
 <h4>Association between Obese and Gender</h4>
 </div>
