@@ -367,8 +367,6 @@ rate_time =
   mutate(prevalence = round(prevalence, digits = 4)) 
 ```
 
-
-
 ```{r prevalence_all, include = TRUE}
 rate_time %>%
   group_by(rate_lable) %>% 
