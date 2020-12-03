@@ -11,8 +11,10 @@ navbar:
       href: regression_models.html
     - text: "US Obesity Analysis"
       menu:
-      - text: "Overview"
+      - text: "Proposal"
         href: p8105_proposal.html
+      - text: "U.S. Overview"
+        href: overview.html
       - text: "Nebraska"
         href: Visualization.html
     - icon: fa-bar-chart fa-lg
