@@ -361,9 +361,6 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="index.html">US Overweight and Obesity</a>
-</li>
-<li>
   <a href="about.html">Fact Sheet</a>
 </li>
 <li>
@@ -391,6 +388,7 @@ div.tocify {
   <a href="https://gjy2020.shinyapps.io/Visualization/">
     <span class="fa fa-bar-chart fa-lg"></span>
      
+    Shinny
   </a>
 </li>
 <li>
@@ -470,86 +468,6 @@ head(tidy_df) </code></pre>
 <li><code>break_out_category_id</code>: gender(CAT2), age(CAT3), race/ethnicity(CAT4), education(CAT5)</li>
 </ul>
 </div>
-<div id="different-education-attained" class="section level2">
-<h2>Different Education Attained</h2>
-<pre class="r"><code>education_df = 
-  tidy_df %&gt;% 
-  filter(break_out_category_id == &quot;CAT5&quot;) 
-head(education_df) </code></pre>
-<pre><code>## # A tibble: 6 x 16
-##    year locationabbr locationdesc response break_out break_out_categ~
-##   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;           
-## 1  2019 AL           Alabama      Obese (~ College ~ Education Attai~
-## 2  2019 AL           Alabama      Normal ~ Some pos~ Education Attai~
-## 3  2019 AL           Alabama      Obese (~ Some pos~ Education Attai~
-## 4  2019 AL           Alabama      Obese (~ Less tha~ Education Attai~
-## 5  2019 AL           Alabama      Normal ~ College ~ Education Attai~
-## 6  2019 AL           Alabama      Overwei~ Some pos~ Education Attai~
-## # ... with 10 more variables: sample_size &lt;dbl&gt;, data_value &lt;dbl&gt;,
-## #   confidence_limit_low &lt;dbl&gt;, confidence_limit_high &lt;dbl&gt;,
-## #   display_order &lt;dbl&gt;, location_id &lt;chr&gt;, breakout_id &lt;chr&gt;,
-## #   break_out_category_id &lt;chr&gt;, response_id &lt;chr&gt;, geo_location &lt;chr&gt;</code></pre>
-</div>
-<div id="different-raceethnicity" class="section level2">
-<h2>Different Race/Ethnicity</h2>
-<pre class="r"><code>race_df = 
-  tidy_df %&gt;% 
-  filter(break_out_category_id == &quot;CAT4&quot;) 
-head(race_df) </code></pre>
-<pre><code>## # A tibble: 6 x 16
-##    year locationabbr locationdesc response break_out break_out_categ~
-##   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;           
-## 1  2019 AL           Alabama      Obese (~ American~ Race/Ethnicity  
-## 2  2019 AL           Alabama      Obese (~ Hispanic  Race/Ethnicity  
-## 3  2019 AL           Alabama      Underwe~ Black, n~ Race/Ethnicity  
-## 4  2019 AL           Alabama      Overwei~ American~ Race/Ethnicity  
-## 5  2019 AL           Alabama      Overwei~ Black, n~ Race/Ethnicity  
-## 6  2019 AL           Alabama      Overwei~ White, n~ Race/Ethnicity  
-## # ... with 10 more variables: sample_size &lt;dbl&gt;, data_value &lt;dbl&gt;,
-## #   confidence_limit_low &lt;dbl&gt;, confidence_limit_high &lt;dbl&gt;,
-## #   display_order &lt;dbl&gt;, location_id &lt;chr&gt;, breakout_id &lt;chr&gt;,
-## #   break_out_category_id &lt;chr&gt;, response_id &lt;chr&gt;, geo_location &lt;chr&gt;</code></pre>
-</div>
-<div id="different-age" class="section level2">
-<h2>Different Age</h2>
-<pre class="r"><code>age_df = 
-  tidy_df %&gt;% 
-  filter(break_out_category_id == &quot;CAT3&quot;) 
-head(age_df) </code></pre>
-<pre><code>## # A tibble: 6 x 16
-##    year locationabbr locationdesc response break_out break_out_categ~
-##   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;           
-## 1  2019 AL           Alabama      Obese (~ 25-34     Age Group       
-## 2  2019 AL           Alabama      Overwei~ 35-44     Age Group       
-## 3  2019 AL           Alabama      Normal ~ 45-54     Age Group       
-## 4  2019 AL           Alabama      Normal ~ 65+       Age Group       
-## 5  2019 AL           Alabama      Normal ~ 25-34     Age Group       
-## 6  2019 AL           Alabama      Overwei~ 65+       Age Group       
-## # ... with 10 more variables: sample_size &lt;dbl&gt;, data_value &lt;dbl&gt;,
-## #   confidence_limit_low &lt;dbl&gt;, confidence_limit_high &lt;dbl&gt;,
-## #   display_order &lt;dbl&gt;, location_id &lt;chr&gt;, breakout_id &lt;chr&gt;,
-## #   break_out_category_id &lt;chr&gt;, response_id &lt;chr&gt;, geo_location &lt;chr&gt;</code></pre>
-</div>
-<div id="different-gender" class="section level2">
-<h2>Different Gender</h2>
-<pre class="r"><code>gender_df = 
-  tidy_df %&gt;% 
-  filter(break_out_category_id == &quot;CAT2&quot;) 
-head(gender_df) </code></pre>
-<pre><code>## # A tibble: 6 x 16
-##    year locationabbr locationdesc response break_out break_out_categ~
-##   &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;           
-## 1  2019 AL           Alabama      Obese (~ Female    Gender          
-## 2  2019 AL           Alabama      Normal ~ Male      Gender          
-## 3  2019 AL           Alabama      Obese (~ Male      Gender          
-## 4  2019 AL           Alabama      Normal ~ Female    Gender          
-## 5  2019 AL           Alabama      Underwe~ Female    Gender          
-## 6  2019 AL           Alabama      Overwei~ Female    Gender          
-## # ... with 10 more variables: sample_size &lt;dbl&gt;, data_value &lt;dbl&gt;,
-## #   confidence_limit_low &lt;dbl&gt;, confidence_limit_high &lt;dbl&gt;,
-## #   display_order &lt;dbl&gt;, location_id &lt;chr&gt;, breakout_id &lt;chr&gt;,
-## #   break_out_category_id &lt;chr&gt;, response_id &lt;chr&gt;, geo_location &lt;chr&gt;</code></pre>
-</div>
 <div id="time-trends" class="section level2">
 <h2>Time Trends</h2>
 <pre class="r"><code># total population in each state in each year
@@ -593,7 +511,7 @@ ggplot(data = df.rate[-which(df.rate$locationdesc %in% c(&quot;All States and DC
   scale_x_continuous(breaks = seq(2011,2019,1)) +
   xlab(&quot;Year&quot;) + ylab(&quot;Obesity and overweight rate&quot;) +
   ggtitle(&quot;Obesity and overweight rate trend for all the states&quot;)</code></pre>
-<p><img src="overview_files/figure-html/unnamed-chunk-6-1.png" width="120%" /></p>
+<p><img src="overview_files/figure-html/unnamed-chunk-2-1.png" width="120%" /></p>
 <p>It is clear that <strong>all states</strong> have as <strong>increasing</strong> trend of obese and overweight amount from 2011 to 2019.</p>
 </div>
 <div id="the-state-with-the-highest-average-obesity-and-overweight-throughout-9-years" class="section level2">

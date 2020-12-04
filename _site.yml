@@ -18,7 +18,8 @@ navbar:
         href: overview.html
       - text: "Nebraska"
         href: Visualization.html
-    - icon: fa-bar-chart fa-lg
+    - text: "Shinny" 
+      icon: fa-bar-chart fa-lg
       href: https://gjy2020.shinyapps.io/Visualization/
     - icon: fa-github fa-lg
       href: https://github.com/chenxin214/p8105_final_project

@@ -1,5 +1,5 @@
 ---
-title: "US Overweight and Obesity (BMI) Analysis (From 2011 to Present)"
+title: "American Obese and Overweight (BMI) Analysis"
 author: "ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan Su (ys3394)"
 date: '`r format(Sys.time(), "%Y-%m-%d")`'
 output: github_document
@@ -48,22 +48,26 @@ According to [the World Health Organization (WHO)](https://www.who.int/news-room
 A website about this project, a report about the process of this project, some interactivity plots to visualize results, and a screencast illustrating this project.
 
 ### The Anticipated Data Sources
-[Data collected from Behavioral Risk Factor Sureillance System (BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf), [Centers for Diseases Control and Prevention (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
+
+1. [Data collected from Behavioral Risk Factor Sureillance System (BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf), [Centers for Diseases Control and Prevention (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
+
+2. 
 
 
 ### The Planned Analyses / Visualizations / Coding challenges
 
-* Planned Analyses: 
+* **_Planned Analyses:_** 
 1. Overview of US obesity and overweight.
 2. Focus on the state with the highest obesity and overweight rate
 3. Investigate the obesity and overweight based on `Education level`, `Gender`, `Race`, `Age`, `Income` etc.
-4. Apply Time Series Analysis to examine the time trend from 2011 to present.
-* Visualizations:
-1. Visualizing the US obesity and overweight rates geographically
-2. Visualizing the changes in obesity and overweight rates over time
-3. Visualizing the state with highest obesity and overweight
-4. Visualizing the difference of obesity rate group by `Educational Level`,  `Gender`, `Race`, `Age`, or `Income`. 
-* Coding Challenge:
+4. Regression analysis.
+
+* **_Visualizations:_**
+1. Visualizing the changes in obesity and overweight rates over time
+2. Visualizing the state with highest obesity and overweight
+3. Visualizing the difference of obesity rate group by `Educational Level`,  `Gender`, `Race`, `Age`, or `Income`. 
+
+* **_Coding Challenge:_**
 Since the data is huge, it might be a trouble to run or knit.
 
 ### The Planned Timeline

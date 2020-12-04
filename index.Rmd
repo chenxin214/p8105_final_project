@@ -1,34 +1,24 @@
 ---
-title: "US Overweight and Obesity"
-fontsize: 12pt
-author: "ChenXin Zhang, JingYao Geng, Liner Ge, YiFan Su"
-output:   
-  html_document:
-    toc: true
-    toc_float: true
-    code_folding: hide
+output:   html_document
 ---
 
-<img src = "http://webmd.cn/en/wp-content/uploads/2016/08/Obesity_China_cloud.jpg" style = "width:40%; float:right; padding-left:5px; padding-bottom:200px">
+
+<h1><b><center>American Obese and Overweight (BMI) Analysis</center></b></h1>
+
+
+<center>ChenXin Zhang, JingYao Geng, Liner Ge, YiFan Su
+
+
+<img src = "http://webmd.cn/en/wp-content/uploads/2016/08/Obesity_China_cloud.jpg" style="width:45%">
 
 
 
-### Motivation
+
+Table of Contents:
+- Home
+- Final Report
+- Fact Sheet
+- 
 
 
-
-### Data
-
-
-### Main results
-
-
-
-### Website Navigation
-- **Trend Graphs**: Graphs of our Main Interest
-- **Regression Analysis**: Detailed Analysis Report
-- **Fact Sheet**: Resources from WHO
-* **Visualization**: Visualizing the Obesity and Overweight by States
-
-
-### Discussion
+Video Guideline:

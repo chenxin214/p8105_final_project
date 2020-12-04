@@ -62,39 +62,6 @@ head(tidy_df)
 * `break_out_category_id`: gender(CAT2), age(CAT3), race/ethnicity(CAT4), education(CAT5)
 
 
-## Different Education Attained
-```{r}
-education_df = 
-  tidy_df %>% 
-  filter(break_out_category_id == "CAT5") 
-head(education_df) 
-```
-
-## Different Race/Ethnicity
-```{r}
-race_df = 
-  tidy_df %>% 
-  filter(break_out_category_id == "CAT4") 
-head(race_df) 
-```
-
-## Different Age
-```{r}
-age_df = 
-  tidy_df %>% 
-  filter(break_out_category_id == "CAT3") 
-head(age_df) 
-```
-
-## Different Gender
-```{r}
-gender_df = 
-  tidy_df %>% 
-  filter(break_out_category_id == "CAT2") 
-head(gender_df) 
-```
-
-
 ## Time Trends
 
 ```{r tidy}

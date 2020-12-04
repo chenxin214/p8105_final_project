@@ -279,7 +279,7 @@ ob_df =
 
 ## 1.How obese/overweight change from 2011 to present in the US?
 
-Use library(plotly) to visualizing the US obesity and overweight rate geographically (on a map), including the average amount of obesity and overweight from 2011 to 2019. It is clear that **all states** have as **increasing** trend of obese and overweight amount from 2011 to 2019.
+Use library(plotly) to visualize the average US obesity and overweight rate from 2011 to 2019. It is clear that **all states** have an **increasing** trend of obese and overweight amount from 2011 to 2019.
 ```{r, tidy, include = FALSE}
 load_df =
 GET("https://chronicdata.cdc.gov/resource/fqb7-mgjf.csv",
@@ -305,7 +305,7 @@ df.rate = left_join(df.tot, df.overweight,
                    by = c("year" , "locationdesc")) %>%
   mutate(over_rate = state_overweight_sum/state_sum)
 
-# Use library(plotly) to visualizing the US obesity and overweight rate geographically (on a map), including the average amount of obesity and overweight from 2011 to 2019.
+# Use library(plotly) to visualize the US obesity and overweight rate geographically (on a map), including the average amount of obesity and overweight from 2011 to 2019.
 df.rate1 =  df.rate %>%
   group_by(locationdesc)  %>%
   mutate(mean_amount = mean(state_overweight_sum))
@@ -332,7 +332,7 @@ ggplot(data = df.rate[-which(df.rate$locationdesc %in% c("All States and DC (med
 ```
 
 ```{r include = TRUE}
-# Use library(plotly) to visualizing the US obesity and overweight rate geographically (on a map), including the average amount of obesity and overweight from 2011 to 2019.
+# Use library(plotly) to visualize the US obesity and overweight rate geographically, including the average amount of obesity and overweight from 2011 to 2019.
 df.rate1 =  df.rate %>%
   group_by(locationdesc)  %>%
   mutate(mean_amount = mean(state_overweight_sum))
@@ -725,12 +725,11 @@ ggplot(aes(x=bmi),data = ob_df)+
 ### Linear Regression Analysis
 
 
+$Model~1:bmi_{i}=\beta_{0}+\beta_{1}gender+\beta_{2}age+\beta_{3} fmlhis+\beta_{4}facv+\beta_{5}calc+\beta_{6}faf+\varepsilon_{i}$
 
-$Model~1:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\beta_{favc}+\beta_{calc}+\beta_{faf}+\varepsilon_{i}$
+$Model~2:bmi_{i}=\beta_{0}+\beta_{1}gender+\beta_{2}age+\beta_{3}fmlhis+\beta_{4}favc+\beta_{5}calc+\beta_{6}faf+\beta_{7}favc_{calc}+\beta_{8}favc_{faf}+\beta_{9}faf_{calc}+\beta_{10}favc_{calc*faf}+\varepsilon_{i}$
 
-$Model~2:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\beta_{favc}+\beta_{calc}+\beta_{faf}+\beta_{favc*calc}+\beta_{favc*faf}+\beta_{faf*calc}+\beta_{favc*calc*faf}+\varepsilon_{i}$
-
-$Model~3:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\varepsilon_{i}$
+$Model~3:bmi_{i}=\beta_{0}+\beta_{1}gender+\beta_{2}age+\beta_{3}fmlhis+\varepsilon_{i}$
 
 We have 3 models. <br/>
 First is with all factors, 3 congenital and 3 acquired influncing factors. <br>
