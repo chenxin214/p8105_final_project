@@ -6,8 +6,6 @@ navbar:
     - text: "Final Report"
       href: final_report.html  
   right:
-    - text: "US Overweight and Obesity"
-      href: index.html
     - text: "Fact Sheet"
       href: about.html
     - text: "Regression Analysis"
