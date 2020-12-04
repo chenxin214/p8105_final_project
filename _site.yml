@@ -25,4 +25,4 @@ navbar:
       href: https://github.com/chenxin214/p8105_final_project
 output:
   html_document: 
-    theme: flatly
+    theme: journal
