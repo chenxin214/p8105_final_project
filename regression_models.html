@@ -420,7 +420,7 @@ div.tocify {
 <div id="data" class="section level2">
 <h2>Data</h2>
 <p>The data about the estimation of <strong><em>obesity levels</em></strong> in people from the countries of Mexico, Peru and Colombia, with ages between 14 and 61 and <strong><em>diverse eating habits and physical conditions</em></strong>.</p>
-<p>This data was collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining <em>17 attributes and 2111 records</em>.</p>
+<p>This <a href="https://www.kaggle.com/ankurbajaj9/obesity-levels">data</a> was collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining <em>17 attributes and 2111 records</em>.</p>
 <p><br/></p>
 <p><strong>Goals</strong></p>
 <p>There are many factors associated with overweight or obesity conditions, including <strong><em>congenital factors</em></strong> gender, age, and family history with overweight family members. Also, there are <strong><em>acquired ones</em></strong> also play important roles in weight status, including high caloric food consumption, alcohol consumption and little physical activities.</p>
@@ -940,7 +940,7 @@ favcyes:calcno:faf
 <div id="cross-validation-for-comparisons" class="section level3">
 <h3>Cross Validation for comparisons</h3>
 <p><strong>Adjustment</strong></p>
-<p>The cross validation requires all predictors to be numeric variables, so we transform variables <code>gender</code>, <code>fml_his</code>, <code>favc</code>, <code>calc</code> to numeric ones. Since we need to know <code>rmse</code> (root mean square error) distributions of models, and basic trends of BMI influenced by variables, the addjustment is acceptable.</p>
+<p>The cross validation requires all predictors to be numeric variables, so we transform variables <code>gender</code>, <code>fml_his</code>, <code>favc</code>, <code>calc</code> to numeric ones. Since we need to know <code>RMSE</code> (root mean square error) distributions of models, and basic trends of BMI influenced by variables, the addjustment is acceptable.</p>
 <p><img src="regression_models_files/figure-html/unnamed-chunk-8-1.png" width="90%" /></p>
 <p>In the plot showing RMSE, we see the model 1 and model 2 are with the smallest RMSE, showing that those two models fit well. For the third model only focus on congenital factors, it confirms the inference in the coefficients table that <strong><em>acquired factors also matter</em></strong>.</p>
 <p><br/></p>
@@ -1130,13 +1130,13 @@ NA
 </table>
 <p>Also, we can use a <strong><em>mixed model</em></strong> for further exploration, since there are many factor levels and models fitting with main effects or interactions for each is not appropriate. Though out of the scope of our course, we may use the mixed model to attain random intercepts and slopes of each factors.</p>
 <p><br/></p>
+<div id="brief-conclusion" class="section level3">
+<h3>Brief conclusion</h3>
+<p>Among three models, the Model 1 and Model 2 are with similar RMSE, and they both address importance on acquired influencing factors in terms of overweight conditions. The best model we choose may be the Model 1 since there is nearly no difference between those 2 models.</p>
+<p>Furthermore, it’s of great significance to control high caloric food consumption and the alcohol consumption.</p>
 <p><br/></p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/oHg5SJYRHA0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-</iframe>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/oHg5SJYRHA0" frameborder="0" allowfullscreen>
-</iframe>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/6A5EpqqDOdk" frameborder="0" allowfullscreen>
-</iframe>
+<p><br/></p>
+</div>
 </div>
 
 

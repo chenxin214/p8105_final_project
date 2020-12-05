@@ -1,9 +1,9 @@
 ---
 title: "Regression Analysis"
-output:   
+output: 
   html_document:
-    toc: true
-    toc_float: true
+    toc: TRUE
+    toc_float: TRUE
     code_folding: hide
     
 ---
@@ -59,7 +59,7 @@ ob_df =
 
 The data about the estimation of **_obesity levels_** in people from the countries of Mexico, Peru and Colombia, with ages between 14 and 61 and **_diverse eating habits and physical conditions_**.
 
-This data was collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining _17 attributes and 2111 records_. 
+This [data](https://www.kaggle.com/ankurbajaj9/obesity-levels) was collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining _17 attributes and 2111 records_. 
 
 <br/>
 
@@ -173,7 +173,7 @@ All congenital factors matters, while only high caloric food consumption and its
 
 **Adjustment**
 
-The cross validation requires all predictors to be numeric variables, so we transform variables `gender`, `fml_his`, `favc`, `calc` to numeric ones. Since we need to know `rmse` (root mean square error) distributions of models, and basic trends of BMI influenced by variables, the addjustment is acceptable.
+The cross validation requires all predictors to be numeric variables, so we transform variables `gender`, `fml_his`, `favc`, `calc` to numeric ones. Since we need to know `RMSE` (root mean square error) distributions of models, and basic trends of BMI influenced by variables, the addjustment is acceptable.
 
 ```{r, warning=FALSE, message=FALSE, collapse=FALSE}
 ob_dbl =
@@ -248,11 +248,13 @@ Also, we can use a **_mixed model_** for further exploration, since there are ma
 
 <br/>
 
+### Brief conclusion
+
+Among three models, the Model 1 and Model 2 are with similar RMSE, and they both address importance on acquired influencing factors in terms of overweight conditions. The best model we choose may be the Model 1 since there is nearly no difference between those 2 models. 
+
+Furthermore, it's of great significance to control high caloric food consumption and the alcohol consumption.
+
 <br/>
 
+<br/>
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/oHg5SJYRHA0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/oHg5SJYRHA0" frameborder="0" allowfullscreen></iframe>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/6A5EpqqDOdk" frameborder="0" allowfullscreen></iframe>

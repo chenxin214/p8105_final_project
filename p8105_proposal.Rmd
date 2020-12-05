@@ -51,7 +51,7 @@ A website about this project, a report about the process of this project, some i
 
 1. [Data collected from Behavioral Risk Factor Sureillance System (BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf), [Centers for Diseases Control and Prevention (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
 
-2. 
+2. [Obesity based on eating habits & physical conditions from Colombia, Peru and Mexico](https://www.kaggle.com/ankurbajaj9/obesity-levels)
 
 
 ### The Planned Analyses / Visualizations / Coding challenges
@@ -72,7 +72,7 @@ Since the data is huge, it might be a trouble to run or knit.
 
 ### The Planned Timeline
 
-```{r echo=FALSE, message=FALSE}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 readxl::read_xlsx("./data/timeline.xlsx") %>% 
   knitr::kable()
