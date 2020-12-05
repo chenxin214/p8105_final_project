@@ -1,17 +1,31 @@
 ---
-title: "US Overweight and Obesity (BMI) Analysis (From 2011 to Present)"
+title: "Obese and Overweight (BMI) Analysis in American"
 author: "ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan Su (ys3394)"
-output: github_document
+output: 
+  html_document:
+    toc: TRUE
+    toc_float: TRUE
+    code_folding: hide
+editor_options: 
+  chunk_output_type: console
 ---
+
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(plotly)
 library(rvest)
 library(readr)
-library(viridis)
 library(leaflet)
 library(patchwork)
-library(RColorBrewer)
+library(kableExtra)
+library(broom)
+library(httr)
+library(ggplot2)
+library(shiny)
+library(rsconnect)
+library(mgcv)
+library(modelr)
+set.seed(1)
 knitr::opts_chunk$set(
 	echo = TRUE,
 	warning = FALSE,
@@ -30,76 +44,823 @@ scale_fill_discrete = scale_fill_viridis_d
 theme_set(theme_minimal() + theme(legend.position = "bottom",plot.title = element_text(face = "bold")))
 ```
 
+ 
+  
 # Motivation
-According to [the World Health Organization (WHO)](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight), more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is [the fifth leading risk](https://easo.org/media-portal/statistics/) for global death. People overweight have a higher risk of getting more than [60 chronic diseases](https://www.healthline.com/health/obesity-facts) like type 2 diabetes, heart disease, which also increases the medical cost. The association between obesity and education level, income is intricate and differs by gender, age, and race.
+According to [the World Health Organization (WHO)](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight), more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is [the fifth leading risk](https://easo.org/media-portal/statistics/) for global death. People overweight have a higher risk of getting more than [60 chronic diseases](https://www.healthline.com/health/obesity-facts) like type 2 diabetes, heart disease, which also increases the medical cost. The association between obesity/overweight and education level, income is intricate and differs by gender, age, and race. 
+  
 
 # Related Work
 
-A combination of contributing factors such as gender, age, race, genetic, physical activity, inactivity, dietary patterns and other factors are related to obese and obesity, which is complex and need statistic analysis to clarify. We get inspired from sources related to these influence factors: 
+A combination of contributing factors include congenital factors(gender, age, and family history with overweight family members) and acquired factors(high caloric food consumption, alcohol consumption and little physical activities) are related to obesity and overweight, which is complex and need statistic analysis to clarify. We get inspired from the bellowing sources:   
 
-[What causes obesity & overweight](https://www.nichd.nih.gov/health/topics/obesity/conditioninfo/cause)
-[Impact of Obesity on your Body](https://asmbs.org/patients/impact-of-obesity)
-[Gender Disparities in Obesity](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3649717/)
-[Age and the Prevalence of Obesity](https://www.bahrainmedicalbulletin.com/june_2002/relationship.pdf)
-[Social and Environmental Factors Influencing Obesity](https://www.ncbi.nlm.nih.gov/books/NBK278977/)
+* "What causes obesity & overweight?", _NIH_, 2016.[Link](https://www.nichd.nih.gov/health/topics/obesity/conditioninfo/cause)  
 
-#Initial Questions
+* "The Impact of Obesity on Your Body and Health", _ASMBS_, 2020.[Link](https://asmbs.org/patients/impact-of-obesity)  
 
+* "Global Gender Disparities in Obesity: A Review", _NCBI_, 2012.[Link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3649717/)  
 
+* “Relationship between Age and the Prevalence of Obesity
+ and Overweight in Saudi Population”, _Google_, 2002. [Link](https://www.bahrainmedicalbulletin.com/june_2002/relationship.pdf)  
+ 
+* "Social and Environmental Factors Influencing Obesity", _Endotext_, 2019.[Link](https://www.ncbi.nlm.nih.gov/books/NBK278977/)  
+  
+  
+
+# Initial Questions  
+
+* What is the trend of obese and overWeight rate in the US from 2011 to present?  
+* How gender, race, education level, household income are associated with obese and overweight rate in the US?
+* Which state has highest average obese and overweight rate in the US? And what is the distribution of obese/overweight rate by gender, race, education level, household income in the state? 
+* What is the distribution of BMI in the South American?
+* How congenital factors(gender, age, and family history with overweight family members) and acquired factors(high caloric food consumption, alcohol consumption and little physical activities) interact with each other when affecting obesity/overweight in the South American?
 
 
 # Data
-## Data source
-  * Primary data source: [Data collected from Behavioral Risk Factor Sureillance System (BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf)  
-  * Supplemental data source: [Centers for Diseases Control and Prevention (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
+  
+  
+### Data source
+* Primary data about the estimation of obesity level in people from North American(the United State) from 2011 to present is collected from Behavioral Risk Factor Sureillance System[(BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf)  
+* Another data about the estimation of obesity level in people from South American( Mexico, Peru and Colombia), with ages between 14 and 61 and diverse eating habits and physical conditionn is collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining 17 attributes and 2111 records.[Centers for Diseases Control and Prevention (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)  
 
-## Variable of Interest
+  
+  
+### Variable of Interest  
+
 **Outcomes**
 
-  * `obese_obesity`. Count of obese and obesity per year of all sates.
-  * `obese_obesity_rate`. Calculated using number of obese and obesity  divided by the number of total sample size and multiplied by 100, to be interpreted as a prevalence. 
+  * `obese_overweight:` Count of obese and overweight per year of all sates.
+  * `obese_overweight_rate:` Prevalence. Getting it by dividing the number of people with obese/overweight by total number of population in data multiplied by 100.  
+  
 
 **Candidate Predictors**
 
-  * year: 2011 - 2019
-  * locationabbr: state abbreviation, 56 states
-  * locationdesc : state name, 56 states
-  * response :Normal Weight (BMI 18.5-24.9); Obese (BMI 30.0 - 99.8)
-          Overweight (BMI 25.0-29.9); Underweight (BMI 12.0-18.4)
-          Underweight (bmi 12.0-18.4);Normal Weight (bmi 18.5-24.9)
-          Obese (bmi 30.0 - 99.8); Overweight (bmi 25.0-29.9)
-  * break_out_category: Race/Ethnicity; Age Group; Household Income
-                    Education Attained; Gender; Overall  
-  * break_out:Male; College graduate;White, non-Hispanic;
-          `$35,000-$49,999`; `$25,000-$34,999`; `$15,000-$24,999`;
-          35-44; 25-34; 18-24; 55-64; 
-          (Other) ; Overall; Some post-H.S.
-  * sample_size
-  * data_value: crude prevalence, unit %, such as 14.7 means 14.7%
-  * confidence_limit_low
-  * confidence_limit_high
-  * display_order: I don't know
-  * geo_location: eg. (32.84057112200048, -86.63186076199969)
-  * break_out_category_id: eg. CAT6 - 6 types
-  * breakout_id: eg. SEX1, SEX2, (in CAT2)
-  * location_id: eg. 01 - WTF!!! out-of-order!!!! hope it useless
-  * response_id: eg.RESP041 - 4 types 
+  * `year:` 2011 - 2019
+  * `locationabbr:` state abbreviation, 56 states
+  * `locationdesc:` state name, 56 states
+  * `response:` normal weight (bmi 18.5-24.9); obese (bmi 30.0 - 99.8); overweight (bmi 25.0-29.9); underweight (bmi 12.0-18.4)
+  * `break_out_category:` race/ethnicity; age group; household income; education attained; gender; overall 
+  
+  * `break_out:` male; college graduate; white, non-Hispanic; `$35,000-$49,999`; `$25,000-$34,999`; `$15,000-$24,999`; 35-44; 25-34; 18-24; 55-64; (other) ; overall; some post-H.S.
+  * `sample_size:` number of people in each category
+  * `data_value:` crude prevalence, unit %, such as 14.7 means 14.7%
+  * `geo_location:` longitude and latitude
+  * `break_out_category_id:` gender(CAT2), age(CAT3), race/ethnicity(CAT4), education(CAT5)
+  * `favc`: Frequent consumption of high caloric food
+  * `calc`: Consumption of alcohol
+  * `faf`: Physical activity frequency
+  * `fml_his`: Family history with overweigh
 
-## Data Cleaning
-**1. Gender**
-**2. Age**
-**3. Race**
-**4. Education**
-**5. Income**
+<br/>
+    
 
-# Exploratory Analysis
-#### Association between Obese and Gender
-#### Proportion of obesity by gender
-#### ...
 
+### Data Cleaning
+**North American**  
+
+First, import the data from Behavioral Risk Factor Sureillance System by function `get()`. We clean the data and create four data frames based on the predictors(gender, race, education level, household income) for future analysis. 
+```{r data_cleaning, eval = FALSE}
+load_df =
+GET("https://chronicdata.cdc.gov/resource/fqb7-mgjf.csv",
+    query = list("$limit" = 50000)) %>% 
+  content("parsed") %>% 
+  janitor::clean_names()
+
+
+tidy_df = 
+  load_df %>% 
+  filter(is.na(data_value_footnote)) %>% 
+  dplyr::select(-class, -topic, -question, -data_value_unit, -data_value_type, -data_source, -data_value_footnote_symbol, -data_value_footnote, -question_id, -class_id, -topic_id, -states, -counties) 
+
+head(tidy_df) 
+
+#gender
+gender_df = 
+  tidy_df %>% 
+  filter(break_out_category_id == "CAT2") 
+head(gender_df) 
+
+#race
+race_df = 
+  tidy_df %>% 
+  filter(break_out_category_id == "CAT4") 
+head(race_df)
+
+#education
+education_df = 
+  tidy_df %>% 
+  filter(break_out_category_id == "CAT5") 
+head(education_df) 
+```
+
+To get a time trend of obesity/overweight for each state, we calculate prevalence in each year for each state. Using functions like `summary`, `group`, `filter` to calculate total population in each year for each state and total population in each year for each state.
+
+```{r nebraska, eval = FALSE}
+# total population in each state in each year
+df.tot = load_df %>%
+  group_by(year,locationdesc) %>%
+  summarise(state_sum = sum(sample_size))
+
+# total 'obese' and 'overweight' amount in each state in each year
+df.overweight = 
+  load_df %>%
+  filter(response %in% c("Obese (BMI 30.0 - 99.8)","Overweight (BMI 25.0-29.9)",
+                         "Obese (bmi 30.0 - 99.8)","Overweight (bmi 25.0-29.9)")) %>%
+  group_by(year,locationdesc) %>%
+  summarise(state_overweight_sum = sum(sample_size))
+
+
+df.rate = left_join(df.tot, df.overweight,
+                   by = c("year" , "locationdesc")) %>%
+  mutate(over_rate = state_overweight_sum/state_sum)
+
+```
+Next, cleaning data to find the state with highest average obese and overweight rate per year among all the states. After grouping data by locations and summing up mean value of obese/overweight, we find Nebraska has the highest average obese and overweight rate and we will choose this state for further analysis.
+```{r prevalence_allstate, eval = FALSE}
+# total population in each state in each year
+df.tot = load_df %>%
+  group_by(year,locationdesc) %>%
+  summarise(state_sum = sum(sample_size))
+
+# total 'obese' and 'overweight' amount in each state in each year
+df.overweight = 
+  load_df %>%
+  filter(response %in% c("Obese (BMI 30.0 - 99.8)","Overweight (BMI 25.0-29.9)",
+                         "Obese (bmi 30.0 - 99.8)","Overweight (bmi 25.0-29.9)")) %>%
+  group_by(year,locationdesc) %>%
+  summarise(state_overweight_sum = sum(sample_size))
+
+
+df.rate = left_join(df.tot, df.overweight,
+                   by = c("year" , "locationdesc")) %>%
+  mutate(over_rate = state_overweight_sum/state_sum)
+
+
+#cleaning data for nebraska
+df.highest = df.rate %>% 
+  group_by(locationdesc) %>%
+  summarise(mean_overweight = mean(state_overweight_sum)) %>%
+  filter(mean_overweight == max(mean_overweight)) 
+
+
+kable(df.highest, row.names = T, escape = F) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+
+After choosing to focus on Nebraska, data were limited to this state. Dividing the number of people with obese/overweight by total number of population in the selected data multiplied by 100 to get the prevalence of obese/overweight for each year in Nebraska. Based on the data, we will visualize the obese/overweight differences by race, gender, education, and household income.  
+
+```{r prevalence, eval = FALSE}
+# prevalence of obese/obesity in Nebraska
+ne_df = 
+  load_df %>% 
+  filter(is.na(data_value_footnote)) %>% 
+  select(-class, -topic, -question, -data_value_unit, -data_value_type, -data_source, -data_value_footnote_symbol, -data_value_footnote, -question_id, -class_id, -topic_id, -states, -counties) %>% 
+  filter(locationabbr == "NE")
+
+time_df = 
+  ne_df %>% 
+  filter(response_id %in% c("RESP039", "RESP040") ) %>% 
+  select(year, response_id, sample_size) %>% 
+  group_by(year, response_id) %>% 
+  mutate(count_obese = sum(sample_size)) %>% 
+  select(-sample_size) %>% 
+  distinct()
+
+total_df = 
+  ne_df %>%
+  select(year, response_id, sample_size) %>% 
+  group_by(year) %>% 
+  mutate(count_total = sum(sample_size)) %>% 
+  select(-sample_size) %>% 
+  filter(response_id %in% c("RESP039", "RESP040") ) %>% 
+  distinct() 
+
+rate_time = 
+  left_join(time_df, total_df,by = c("year" , "response_id")) %>% 
+  mutate(
+    prevalence = count_obese / count_total,
+    rate_lable = case_when(
+      response_id == "RESP039" ~ "Obese (BMI 30.0 - 99.8)",
+      response_id == "RESP040" ~ "Overweight (BMI 25.0-29.9)"
+    )
+    ) %>%
+  mutate(prevalence = round(prevalence, digits = 4)) 
+```
+
+**South American**  
+
+This data is not as large as the first one, so we download it from website and import the data from working dictionary by function`read_csv()`. To make the raw data usable for linear regression, the outcome should be numeric variables. We convert variable recording obesity condition, such as `Normal_weight` and `Obesity_Type_I` to BMI `21.7` and `32.5` according to [BMI and weights relationships of CDC guildlines](https://www.cdc.gov/obesity/adult/defining.html). Since each weight condition has a BMI range like "25-30", we assume that people with a weight status has an average BMI, that is 27.5.   
+```{r eval = FALSE}
+ob_df =
+  read_csv("./data/ObesityDataSet_raw_and_data_sinthetic.csv") %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    n_obeyesdad = case_when(
+      n_obeyesdad == "Normal_Weight" ~ 21.7,
+      n_obeyesdad == "Overweight_Level_I" ~ 25,
+      n_obeyesdad == "Overweight_Level_II" ~ 30,
+      n_obeyesdad == "Obesity_Type_I" ~ 32.5,
+      n_obeyesdad == "Insufficient_Weight" ~ 18.5,
+      n_obeyesdad == "Obesity_Type_II" ~ 37.5,
+      n_obeyesdad == "Obesity_Type_III" ~ 40,
+    )
+  ) %>% 
+  rename(bmi = n_obeyesdad,
+         fml_his = family_history_with_overweight) %>% 
+  dplyr::select(bmi, gender, age, fml_his, favc, calc, faf) %>% 
+  drop_na() %>% 
+  mutate(gender = factor(gender),
+         fml_his = factor(fml_his),
+         favc = factor(favc),
+         calc = factor(calc))
+```
+  
+<br/>
+
+# Exploratory Analysis  
+
+## 1.What is the trend of obese and overWeight rate in the US from 2011 to present? 
+
+Use library(plotly) to visualize the average US obesity and overweight rate from 2011 to 2019. It is clear that **all states** have an **increasing** trend of obese and overweight amount from 2011 to 2019.
+```{r, tidy, include = FALSE}
+load_df =
+GET("https://chronicdata.cdc.gov/resource/fqb7-mgjf.csv",
+    query = list("$limit" = 50000)) %>% 
+  content("parsed") %>% 
+  janitor::clean_names()
+
+# total population in each state in each year
+df.tot = load_df %>%
+  group_by(year,locationdesc) %>%
+  summarise(state_sum = sum(sample_size))
+
+# total 'obese' and 'overweight' amount in each state in each year
+df.overweight = 
+  load_df %>%
+  filter(response %in% c("Obese (BMI 30.0 - 99.8)","Overweight (BMI 25.0-29.9)",
+                         "Obese (bmi 30.0 - 99.8)","Overweight (bmi 25.0-29.9)")) %>%
+  group_by(year,locationdesc) %>%
+  summarise(state_overweight_sum = sum(sample_size))
+
+
+df.rate = left_join(df.tot, df.overweight,
+                   by = c("year" , "locationdesc")) %>%
+  mutate(over_rate = state_overweight_sum/state_sum)
+
+# Use library(plotly) to visualize the US obesity and overweight rate geographically (on a map), including the average amount of obesity and overweight from 2011 to 2019.
+df.rate1 =  df.rate %>%
+  group_by(locationdesc)  %>%
+  mutate(mean_amount = mean(state_overweight_sum))
+
+df.rate1 = df.rate1[-which(df.rate1$locationdesc %in% c("All States and DC (median) **","All States, DC and Territories (median) **","Virgin Islands") ),]
+df.rate1$region = tolower(df.rate1$locationdesc)
+
+states = map_data("state")
+# merge the datasets
+states = merge(states, df.rate1, by = "region", all.x = T)
+
+##### US states obesity time trend: scatter plot with line
+ggplot(data = df.rate[-which(df.rate$locationdesc %in% c("All States and DC (median) **","All States, DC and Territories (median) **","Virgin Islands") ),], 
+       aes(year, y = over_rate)) +
+  geom_line(aes(color = locationdesc)) +
+  geom_point(aes(color = locationdesc),size = 1.5) +
+  facet_wrap(~ locationdesc) +
+  theme(legend.position = "None",
+        #text = element_text(family='Kai'),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  scale_x_continuous(breaks = seq(2011,2019,1)) +
+  xlab("Year") + ylab("Obesity and overweight rate") +
+  ggtitle("Obesity and overweight rate trend for all the states")
+```
+
+```{r include = TRUE}
+# Use library(plotly) to visualize the US obesity and overweight rate geographically, including the average amount of obesity and overweight from 2011 to 2019.
+df.rate1 =  df.rate %>%
+  group_by(locationdesc)  %>%
+  mutate(mean_amount = mean(state_overweight_sum))
+
+df.rate1 = df.rate1[-which(df.rate1$locationdesc %in% c("All States and DC (median) **","All States, DC and Territories (median) **","Virgin Islands") ),]
+df.rate1$region = tolower(df.rate1$locationdesc)
+
+states = map_data("state")
+# merge the datasets
+states = merge(states, df.rate1, by = "region", all.x = T)
+
+##### US states obesity time trend: scatter plot with line
+ggplot(data = df.rate[-which(df.rate$locationdesc %in% c("All States and DC (median) **","All States, DC and Territories (median) **","Virgin Islands") ),], 
+       aes(year, y = over_rate)) +
+  geom_line(aes(color = locationdesc)) +
+  geom_point(aes(color = locationdesc),size = 1.5) +
+  facet_wrap(~ locationdesc) +
+  theme(legend.position = "None",
+        #text = element_text(family='Kai'),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  scale_x_continuous(breaks = seq(2011,2019,1)) +
+  xlab("Year") + ylab("Obesity and overweight rate") +
+  ggtitle("Obesity and overweight rate trend for all the states")
+```
+
+<br/> 
+
+## 2. What is the distribution of obese/overweight by gender, race, education level, household income in Nebraska?  
+
+### 1) Prevalence of obese/overweight in Nebraska: 
+
+According to overview, Nebraska owns the **highest** rate of overweight and obese. From the line plot, we can see the prevalence of overweight decreased slightly while the prevalence of obese **increased** significantly over year. The total rate of people whose BMI is greater than 25 reaches almost 70% (rate of obese is 36%) in 2019.  
+
+```{r visualization, include = FALSE}
+ne_df = 
+  load_df %>% 
+  filter(is.na(data_value_footnote)) %>% 
+  select(-class, -topic, -question, -data_value_unit, -data_value_type, -data_source, -data_value_footnote_symbol, -data_value_footnote, -question_id, -class_id, -topic_id, -states, -counties) %>% 
+  filter(locationabbr == "NE")
+time_df = 
+  ne_df %>% 
+  filter(response_id %in% c("RESP039", "RESP040") ) %>% 
+  select(year, response_id, sample_size) %>% 
+  group_by(year, response_id) %>% 
+  mutate(count_obese = sum(sample_size)) %>% 
+  select(-sample_size) %>% 
+  distinct()
+
+total_df = 
+  ne_df %>%
+  select(year, response_id, sample_size) %>% 
+  group_by(year) %>% 
+  mutate(count_total = sum(sample_size)) %>% 
+  select(-sample_size) %>% 
+  filter(response_id %in% c("RESP039", "RESP040") ) %>% 
+  distinct() 
+
+rate_time = 
+  left_join(time_df, total_df,by = c("year" , "response_id")) %>% 
+  mutate(
+    prevalence = count_obese / count_total,
+    rate_lable = case_when(
+      response_id == "RESP039" ~ "Obese (BMI 30.0 - 99.8)",
+      response_id == "RESP040" ~ "Overweight (BMI 25.0-29.9)"
+    )
+    ) %>%
+  mutate(prevalence = round(prevalence, digits = 4)) 
+```
+
+```{r prevalence_all, include = TRUE}
+rate_time %>%
+  group_by(rate_lable) %>% 
+  mutate(text_label = str_c("Year:", year, "\nPrevalence:", prevalence)) %>% 
+  plot_ly( 
+    x = ~year, 
+    y = ~prevalence, 
+    #type = 'scatter', 
+    #mode = "lines+markers", 
+    textposition = "bottom right",  
+    color = ~rate_lable, 
+    colors = c('#FFD700', '#FF8C00'),
+    text = ~text_label, 
+    line = list(simplyfy = F),
+    alpha = 0.8
+    ) %>% 
+  layout(
+    legend = list(x = 0.5, y = 0.15),
+    title = "Obesity rate trend over time",
+         xaxis = list(title = "Year",
+                      zeroline = TRUE),
+         yaxis = list(title = "Prevalence",
+                      zeroline = TRUE),
+     updatemenus = list(
+      list(
+        x = 0.7,
+        y = 0.4,
+        buttons = list(
+
+          list(method = "restyle",
+               args = list("type", "scatter"),
+               label = "Line"),
+
+          list(method = "restyle",
+               args = list("type", "bar"),
+               label = "bar")))
+    )
+    ) 
+
+
+```
+
+<br/>
+
+### 2) Obesity/Overweight by Race/Ethnicity: 
+
+Combining data from 2011 through 2019, `non-Hispanic American Indian or Alaskan Native` had the **highest** prevalence of self-reported obesity (47.13%), followed by `non-Hispanic Black adults` (41.81%) and 	
+`non-Hispanic Multiracial`(39.74%). `Non-Hispanic White adults` own the **lowest** obesity rate(31.95%).  
+```{r race, include = TRUE}
+ne_race_df = 
+  ne_df %>% 
+  filter(break_out_category_id == "CAT4") %>% 
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %>% 
+  group_by(year, break_out) %>% 
+  mutate(count_race = sum(sample_size)) %>% 
+  filter(response_id %in% c("RESP039") ) %>% 
+  mutate(race_pre = round(sample_size / count_race, digit = 4))
+
+obesity_rate_by_race = 
+  ne_race_df %>% 
+  group_by(break_out) %>% 
+  mutate(sum_race = sum(sample_size),
+         sum_obese = sum(count_race),
+         obesity_rate = round(sum_race/sum_obese, digits = 4)) %>% 
+  select(break_out, obesity_rate) %>% 
+  distinct() %>% 
+  arrange(desc(obesity_rate))
+
+fig_race_2 = 
+  ne_race_df %>% 
+  filter(break_out != "Other, non-Hispanic") %>% 
+  mutate(text_label = str_c("Race/Ethnicity:", break_out, "\nPrevalence:", race_pre)) %>% 
+  plot_ly( x = ~year , y = ~race_pre,  type = "bar", color = ~break_out, text = ~text_label, alpha = 0.7) %>% 
+  layout(
+         
+         title = "Difference between race group over year",  
+         legend = list(font = list(size = 8),  x = 0.5, y = 0.05),
+         xaxis = list(title = "Year",
+                      zeroline = TRUE,
+                            rangeselector = list(
+        buttons = list(
+          list(
+            count = 3,
+            label = "3 year",
+            step = "year",
+            stepmode = "backward"),
+          list(
+            count = 6,
+            label = "6 year",
+            step = "year",
+            stepmode = "backward"),
+          list(
+            count = 1,
+            label = "YTD",
+            step = "year",
+            stepmode = "todate"),
+          list(step = "all"))),
+
+      rangeslider = list(type = "date")
+                      ),
+                      
+         
+         yaxis = list(title = "Prevalence",
+                      zeroline = TRUE)) 
+
+
+fig_race_2
+```
+
+<br/>
+
+### 3) Obesity/Overweight by gender: 
+
+According to the plot, the obesity rate of both women and men kept increasing over year and exceeded 0.35 since 2018. However, obesity rate of **women** always significantly **lower** than that of man.  
+
+```{r gender, include = TRUE}
+ne_gender_df = 
+  ne_df %>% 
+  filter(break_out_category_id == "CAT2") %>% 
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %>% 
+  group_by(year, break_out) %>% 
+  mutate(count_gender = sum(sample_size)) %>% 
+  filter(response_id %in% c("RESP039") ) %>% 
+  mutate(gender_pre = round(sample_size / count_gender, digit = 4))
+
+ay = list(
+  tickfont = list(color = "#767B84"),
+  overlaying = "y",
+  side = "right",
+  title = "Prevalence",
+  automargin = TRUE
+)
+ne_gender_df %>%
+  group_by(break_out) %>% 
+  mutate(
+    text_label_1 = str_c("gender:", break_out, "\nCount:", sample_size),
+    text_label_2 = str_c("gender:", break_out, "\nPrevalence:", gender_pre)     
+    ) %>% 
+  plot_ly( 
+    x = ~year, 
+    y = ~sample_size,  
+    type = "bar", 
+    color = ~break_out, 
+    colors = c("#F1948A", "#85C1E9"),
+    text = ~text_label_1, 
+    alpha = 0.7) %>% 
+    add_lines(x = ~year, y = ~gender_pre, color = ~break_out, text = ~text_label_2, yaxis = "y2") %>% 
+  layout(
+         title = "Obesity rate by gender",
+         xaxis = list(title = "year",
+                      zeroline = TRUE),
+         yaxis = list(title = "Count",
+                      zeroline = TRUE),
+         yaxis2 = ay,
+         legend = list(  
+                     x = 0.7,
+                     y = 0.1)
+         )
+
+
+
+```
+
+<br/>
+
+### 4) Obesity/Overweight by level of education:
+
+The level of Education people have are divided into 4 levels, showing bellow in an increasing order:  
+<br>-`Less than H.S`: People didn't attend high school
+<br>-`H.S. or G.E.D`: High school graduates or people pass General Educational Development test
+<br>-`Some post-H.S`: Any school or specialized training which takes place after high school graduation
+<br>-`College graduate`:College graduates  
+
+The pie plot shows that the rate of `H.S or G.E.D` and `Some post-H.S` are all around 30%, and the rate of `Less than H.S` is 6%. According to the line plot, the obese/overweight of all groups kept increasing over year. `College graduate group` always owns the lowest obese/overweight rate, which might benefit of their self-discipline. `Less than H.S group` owns the highest obesity rate, however, the rate dropped dramatically between 2018 and 2019. The lines of `Less than H.S group`, `Some post-H.S group`, and `H.S or G.E.D group` intersects. From the trend, we conclude that the obese/obesity rate **decrease** as education level **increase**.  
+
+```{r educatioon, include = TRUE}
+ne_edu_df = 
+  ne_df %>% 
+  filter(break_out_category_id == "CAT5") %>% 
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %>% 
+  group_by(year, break_out) %>% 
+  mutate(count_edu = sum(sample_size)) %>% 
+  filter(response_id %in% c("RESP039") ) %>% 
+  mutate(edu_pre = round(sample_size / count_edu, digit = 4))
+
+edu_rate = 
+  ne_edu_df %>% 
+  select(break_out, count_edu, year) %>% 
+  distinct() %>% 
+  group_by(break_out) %>% 
+  mutate(sum_edu = round(sum(count_edu/9), digits = 0))
+
+fig_edu_1 = 
+  edu_rate %>% 
+  plot_ly(labels = ~break_out, values = ~sum_edu, 
+        textposition = 'inside',
+        textinfo = 'label+percent',
+        insidetextfont = list(color = '#483C32'),
+        hoverinfo = 'text',
+        domain = list(row = 0, column = 1),
+        text = ~paste('Education Attained:', break_out, ' \nNumber', count_edu),
+        marker = list(colors = c('#6f4d96','#f3cec9','#cd7eaf','#e7a4b6'),
+                      line = list(color = '#FFFFFF', width = 1)),
+        showlegend = F
+        ) %>% add_pie(hole = 0.5)
+
+fig_edu_2 = 
+  ne_edu_df %>% 
+  group_by(break_out) %>% 
+  mutate(text_label = str_c("Education Attained:", break_out, "\nPrevalence:", edu_pre)) %>% 
+  plot_ly( 
+    x = ~year , 
+    y = ~edu_pre, 
+    domain = list(row = 0, column = 0),
+    type = 'scatter', 
+    mode = "lines+markers", 
+    #type = "bar", 
+    color = ~break_out, 
+    colors = c('#6f4d96', '#e7a4b6', '#f3cec9','#cd7eaf' ),
+    text = ~text_label,
+    alpha = 0.7) %>% 
+  layout(
+         title = "Obesity rate by Education",  
+         legend = list( showlegend = T),
+         xaxis = list(title = "Education Attained",
+                      zeroline = TRUE),
+         yaxis = list(title = "Prevalence",
+                      zeroline = TRUE)) 
+
+subplot(fig_edu_2 , fig_edu_1) %>%  layout(legend = list(x = 0.3, y = 0.04, font = list(size = 8), showlegend = F), grid = list(rows = 1, columns = 2))
+```
+
+<br/>
+
+### 5) Obesity/Overweight by household income: 
+From the plots, we can see people with **lower** household income tend to have **higher** obese rate and **lower** overweight rate. The overweight rate decreased while obesity rate increased over time.
+
+```{r income, include = TRUE}
+ne_income_df = 
+  ne_df %>% 
+  filter(break_out_category_id == "CAT6") %>% 
+  select(year, locationabbr, locationdesc, response, break_out, sample_size, response_id) %>% 
+  group_by(year, break_out) %>% 
+  mutate(count_income = sum(sample_size)) %>% 
+  filter(response_id %in% c("RESP039", "RESP040")) %>% 
+  mutate(
+    income_pre = round(sample_size / count_income, digit = 4),
+    rate_lable = case_when(
+      response_id == "RESP039" ~ "Obese (BMI 30.0 - 99.8)",
+      response_id == "RESP040" ~ "Overweight (BMI 25.0-29.9)")
+    
+    )
+  
+
+  ne_income_df %>% 
+    mutate(break_out = factor(break_out, levels = c("Less than $15,000", "$15,000-$24,999", "$25,000-$34,999", "$35,000-$49,999", "$50,000+"))) %>% 
+   ggplot(aes(x = year, y = income_pre, color = rate_lable)) +
+   geom_line(size = 1) +
+   scale_color_manual(values=c("#20B2AA", "#228B22")) +
+   theme_bw() +
+   theme(aspect.ratio = 1, axis.text.x = element_text(angle = 45,  hjust = 1)) +
+   facet_wrap(~break_out) +
+   theme(legend.position = "bottom") +
+    labs(title = "Obesity rate by household income",
+       subtitle = "2011 - 2019.",
+       x = "Year", 
+       y = "Prevalence") +
+  scale_x_continuous(breaks = seq(2011,2019,1)) 
+
+```
+
+<br/>
 
 # Additional Analysis
+  
+```{r include = FALSE}
+ob_df =
+  read_csv("./data/ObesityDataSet_raw_and_data_sinthetic.csv") %>% 
+  janitor::clean_names() %>% 
+  mutate(
+    n_obeyesdad = case_when(
+      n_obeyesdad == "Normal_Weight" ~ 21.7,
+      n_obeyesdad == "Overweight_Level_I" ~ 25,
+      n_obeyesdad == "Overweight_Level_II" ~ 30,
+      n_obeyesdad == "Obesity_Type_I" ~ 32.5,
+      n_obeyesdad == "Insufficient_Weight" ~ 18.5,
+      n_obeyesdad == "Obesity_Type_II" ~ 37.5,
+      n_obeyesdad == "Obesity_Type_III" ~ 40,
+    )
+  ) %>% 
+  rename(bmi = n_obeyesdad,
+         fml_his = family_history_with_overweight) %>% 
+  dplyr::select(bmi, gender, age, fml_his, favc, calc, faf) %>% 
+  drop_na() %>% 
+  mutate(gender = factor(gender),
+         fml_his = factor(fml_his),
+         favc = factor(favc),
+         calc = factor(calc))
+```
+<br/>
 
+### BMI Distribution of population in the South American
+<br/>
+There is high frequency of BMI above 30. Since we made a **_continuity correction_** to the BMI, there will be gaps between values, like the gap between BMI value 25 and 30. However, we can observe the BMI distribution is normal to some extent.
+```{r, include = TRUE}
+ggplot(aes(x=bmi),data = ob_df)+
+  geom_density(color="darkblue", fill="lightblue") +
+  geom_vline(data=ob_df, aes(xintercept=mean(bmi)),
+             linetype="dashed") +
+  labs(   # add lables
+    title = "BMI distribution",
+    x = "BMI",
+    y = "Frequency",
+    caption = "Dataset of 2111 records, with continuity correction"
+  ) 
+```
+
+<br/>
+
+### Linear Regression Analysis
+
+
+$Model~1:bmi_{i}=\beta_{0}+\beta_{1}gender+\beta_{2}age+\beta_{3} fmlhis+\beta_{4}facv+\beta_{5}calc+\beta_{6}faf+\varepsilon_{i}$
+
+$Model~2:bmi_{i}=\beta_{0}+\beta_{1}gender+\beta_{2}age+\beta_{3}fmlhis+\beta_{4}favc+\beta_{5}calc+\beta_{6}faf+\beta_{7}favc_{calc}+\beta_{8}favc_{faf}+\beta_{9}faf_{calc}+\beta_{10}favc_{calc*faf}+\varepsilon_{i}$
+
+$Model~3:bmi_{i}=\beta_{0}+\beta_{1}gender+\beta_{2}age+\beta_{3}fmlhis+\varepsilon_{i}$
+
+We have 3 models. <br/>
+First is with all factors, 3 congenital and 3 acquired influncing factors. <br>
+Second model considers interation between caloric food consumption, alcohol consumption and physical activities' frequencies. <br>
+The last model focus only on congenital factors, which is nested in the first model.
+
+```{r lm, include = TRUE}
+reg_bmi1 = lm(bmi ~ gender + age + fml_his + favc + calc + faf, data = ob_df)
+reg_bmi2 = lm(bmi ~ gender + age + fml_his + favc * calc * faf, data = ob_df)
+reg_bmi3 = lm(bmi ~ gender + age + fml_his, data = ob_df)
+```
+
+<br/>
+
+**First Model with 6 Predictors**
+
+Based on the first model, we have 4 plots, and give brief analysis on them.
+
+* Residual vs Fitted: residual values bounce around 0, form a horizontal line over there, which shows that the error variance of the data is fairly equal.
+
+* Quantile-Quantile Plot: we can observe a straight line in the first half of the plot, indicating the residuals are normal. There present outliers in the latter half though.
+
+* Scale-Location: There is a horizontal line, showing that the variance of distribution is equal.
+
+* Residual vs Leverage: Though not all outliers are influential, there are some outliers beneath the Cook's distance.
+
+* Plot Residual vs Fitted and Scale-Location may seems discrete and weired since we used continuity correction, but it dosen't influence much.
+```{r include = TRUE}
+par(mfrow=c(2,2))
+plot(reg_bmi1)
+```
+
+<br/>
+
+**Second Model with Interactions**
+
+From the table showing coefficients of the second model, we observe there are **_several factors are influencial along with some interactions_**, including `gender`, `age`, `fml_his`, `favc`, `favc*calc`.
+
+All congenital factors matters, while only high caloric food consumption and its interation with alcohol consumption lead to overweight conditions.
+```{r lm2, include = TRUE}
+reg_bmi2 %>% 
+  broom::tidy() %>% 
+  drop_na() %>% 
+  knitr::kable()
+```
+<br/>
+
+### Cross Validation for comparisons
+
+The cross validation requires all predictors to be numeric variables, so we transform variables `gender`, `fml_his`, `favc`, `calc` to numeric ones. Since we need to know `rmse` (root mean square error) distributions of models, and basic trends of BMI influenced by variables, the addjustment is acceptable.  
+
+
+
+In the plot showing RMSE, we see the model 1 and model 2 are with the smallest RMSE, showing that those two models fit well. For the third model only focus on congenital factors, it confirms the inference in the coefficients table that acquired factors also matter.
+```{r violin, include = TRUE}
+ob_dbl =
+  ob_df %>% 
+  mutate(gender = recode(gender, "Female" = 0, "Male" = 1),
+         fml_his = recode(fml_his, "yes" = 1, "no" = 0),
+         favc = recode(favc, "yes" = 1, "no" = 0),
+         calc = recode(calc, "no" = 0, "Sometimes" = 1, "Frequently" = 2, "Always" = 3))
+
+reg_dbl1 = lm(bmi ~ gender + age + fml_his + favc + calc + faf, data = ob_df)
+reg_dbl2 = lm(bmi ~ gender + age + fml_his + favc * calc * faf, data = ob_df)
+reg_dbl3 = lm(bmi ~ gender + age + fml_his, data = ob_df)
+
+cv_df =
+  crossv_mc(ob_dbl, 100) %>% 
+  mutate(
+    train = map(train, as_tibble),
+    test = map(test, as_tibble))
+
+cv_df = 
+  cv_df %>% 
+  mutate(
+    reg_dbl1  = map(.x = train, ~lm(bmi ~ gender + age + fml_his + favc + calc + faf, data = .x)),
+    reg_dbl2  = map(.x = train, ~lm(bmi ~ gender + age + fml_his + favc * calc * faf, data = .x)),
+    reg_dbl3  = map(.x = train, ~lm(bmi ~ gender + age + fml_his, data = .x))) %>% 
+  mutate(
+    rmse_model1 = map2_dbl(.x = reg_dbl1, .y = test, ~rmse(model = .x, data = .y)),
+    rmse_model2 = map2_dbl(.x = reg_dbl2, .y = test, ~rmse(model = .x, data = .y)),
+    rmse_model3 = map2_dbl(.x = reg_dbl3, .y = test, ~rmse(model = .x, data = .y)))
+
+cv_df %>% 
+  dplyr::select(starts_with("rmse")) %>% 
+  pivot_longer(
+    everything(),
+    names_to = "model", 
+    values_to = "rmse",
+    names_prefix = "rmse_") %>% 
+  mutate(model = fct_inorder(model)) %>% 
+  ggplot(aes(x = model, y = rmse)) + 
+  geom_violin()
+```
+
+<br/>
+
+### ANOVA test for comparisons
+
+Finally, we use the **ANOVA** test to compare significance of nested model 3 in model 1. Since the P value of the test is _2.2e-16_, way smaller than 0.05 significance. So we may have the conclusion that model 1, the large model containing acquired influential factors, fits best.
+```{r, include = TRUE}
+anova(reg_bmi3, reg_bmi1)
+```
+<br/>
+
+### Further Exploration
+
+Also, we can use a **_mixed model_** for further exploration, since there are many factor levels and models fitting with main effects or interactions for each is not appropriate. Though out of the scope of our course, we may use the mixed model to attain random intercepts and slopes of each factors.
+```{r, include = TRUE}
+ob_df %>% 
+  lme4::lmer(bmi ~ gender + fml_his + (1 + fml_his | favc), data = .) %>% 
+  broom.mixed::tidy() %>% 
+  knitr::kable()
+```
+
+<br/>
+  
+  
 # Discussion
+
+The study covers 4 countries in either North American(the US) or South American(Mexico, Peru and Colombia). The US data include total 47.1K observations and 27 variables range from 2011 to present, and there are many variables are related to obesity/overweight, which give enough information for a longitudinal study of obese/overweight. The South American data is sample for analysis, which include only 2111 observations and 7 variables. This is enough for regression analysis. The limitation is it only include three years, so that we can not get a good trend of obese/overweight rate compared to the US data. As a summary, by clean, tidy and transform the US data, we get the trend of obese and overWeight rate in the US from 2011 to present; The association of gender, race, education level, household income with obese and overweight rate in the US; Nebraska has highest average obese and overweight rate in the US. By regression analysis of the South American data, we get the distribution of BMI in the South American; the interaction of congenital factors(gender, age, and family history with overweight family members) and acquired factors(high caloric food consumption, alcohol consumption and little physical activities) in obesity/overweight in the South American. 
+
+
+
+
+
+
+
+
+
+
 
 

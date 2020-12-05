@@ -7,20 +7,16 @@ output: html_document
 library(tidyverse)
 library(httr)
 library(plotly)
-
 knitr::opts_chunk$set(
   fig.width = 6,
   fig.asp = .6,
   out.width = "90%"
 )
-
 theme_set(theme_minimal() + theme(legend.position = "bottom"))
-
 options(
   ggplot2.continuous.colour = "viridis",
   ggplot2.continuous.fill = "viridis"
 )
-
 scale_colour_discrete = scale_color_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
@@ -36,8 +32,6 @@ GET("https://chronicdata.cdc.gov/resource/fqb7-mgjf.csv",
     query = list("$limit" = 50000)) %>% 
   content("parsed") %>% 
   janitor::clean_names()
-
-
 tidy_df = 
   load_df %>% 
   filter(is.na(data_value_footnote)) %>% 
@@ -87,7 +81,6 @@ income_df =
 ny_2019 = 
   income_df %>% 
   filter( year == 2019, locationabbr == "NY") 
-
 ny_2019 %>% 
    mutate(text_label = str_c("Income: ", break_out, "\nBMI: ", response, "\nCrude prevalence: ", average_value)) %>% 
    plot_ly(

@@ -2,20 +2,24 @@ name: "Website of US Obesity"
 output_dir: "."
 navbar:
   title: "Home"
+  left:
+    - text: "Final Report"
+      href: final_report.html  
   right:
-    - text: "US Overweight and Obesity"
-      href: index.html
     - text: "Fact Sheet"
       href: about.html
     - text: "Regression Analysis"
       href: regression_models.html
-    - text: "Obesity analysis"
+    - text: "US Obesity Analysis"
       menu:
-      - text: "Overview"
+      - text: "Proposal"
         href: p8105_proposal.html
+      - text: "U.S. Overview"
+        href: overview.html
       - text: "Nebraska"
         href: Visualization.html
-    - icon: fa-bar-chart fa-lg
+    - text: "Shinny" 
+      icon: fa-bar-chart fa-lg
       href: https://gjy2020.shinyapps.io/Visualization/
     - icon: fa-github fa-lg
       href: https://github.com/chenxin214/p8105_final_project

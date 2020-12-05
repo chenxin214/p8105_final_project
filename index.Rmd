@@ -1,34 +1,32 @@
 ---
-title: "US Overweight and Obesity"
-fontsize: 12pt
-author: "ChenXin Zhang, JingYao Geng, Liner Ge, YiFan Su"
-output:   
-  html_document:
-    toc: true
-    toc_float: true
-    code_folding: hide
+output:   html_document
 ---
 
-<img src = "http://webmd.cn/en/wp-content/uploads/2016/08/Obesity_China_cloud.jpg" style = "width:40%; float:right; padding-left:5px; padding-bottom:200px">
+
+<h1><b><center>American Obese and Overweight (BMI) Analysis</center></b></h1>
+
+
+<center>ChenXin Zhang, JingYao Geng, Liner Ge, YiFan Su
+
+
+<img src = "http://webmd.cn/en/wp-content/uploads/2016/08/Obesity_China_cloud.jpg" style="width:45%">
+
+
+Video Guideline:  
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yuFZjHNTfp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 
-### Motivation
+Table of Contents:
 
-
-
-### Data
-
-
-### Main results
-
-
-
-### Website Navigation
-- **Trend Graphs**: Graphs of our Main Interest
-- **Regression Analysis**: Detailed Analysis Report
-- **Fact Sheet**: Resources from WHO
-* **Visualization**: Visualizing the Obesity and Overweight by States
-
-
-### Discussion
+- [Final Report](final.report)
+- [Fact Sheet](about.html)
+- [Regression Analysis](regression_models.html)
+- [Proposal](p8105_proposal.html)
+- [U.S. Overview](overview.html)
+- [Nebraska](Visualization.html)
+- [Shinny](https://gjy2020.shinyapps.io/Visualization/)
+  
+  
+ 

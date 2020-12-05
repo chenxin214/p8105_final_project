@@ -11,7 +11,7 @@
 
 
 
-<title>Fact Sheet</title>
+<title>Visualizations</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,11 +19,7 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/navigation-1.1/codefolding.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
@@ -251,73 +247,7 @@ $(document).ready(function () {
 </style>
 
 <!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
 
-
-
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-
-</style>
 
 
 
@@ -327,16 +257,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row-fluid">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -400,86 +320,19 @@ div.tocify {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
+<div class="fluid-row" id="section-header">
 
 
 
-<h1 class="title toc-ignore">Fact Sheet</h1>
+<h1 class="title toc-ignore">Visualizations</h1>
 
 </div>
 
 
-<center>
-<img src="images/WHO.png" />
-</center>
-<div id="according-to-the-world-health-organization-we-know" class="section level3">
-<h3><strong>According to the World Health Organization, we know:</strong></h3>
-<p><br></p>
-<div id="key-facts-about-obesity-and-overweight" class="section level4">
-<h4><strong>Key Facts about Obesity and Overweight</strong></h4>
-<ul>
-<li>Worldwide obesity has nearly tripled since 1975.</li>
-<li>In 2016, more than 1.9 billion adults, 18 years and older, - were overweight. Of these over 650 million were obese.</li>
-<li>39% of adults aged 18 years and over were overweight in 2016, and 13% were obese.</li>
-<li>Most of the world’s population live in countries where overweight and obesity kills more people than underweight.</li>
-<li>38 million children under the age of 5 were overweight or obese in 2019.</li>
-<li>Over 340 million children and adolescents aged 5-19 were overweight or obese in 2016.</li>
-<li>Obesity is preventable.</li>
-</ul>
-</div>
-<div id="causes-of-obesity-and-overweight" class="section level4">
-<h4><strong>Causes of Obesity and Overweight</strong></h4>
-<ul>
-<li><p>The fundamental cause of obesity and overweight is an energy imbalance between calories consumed and calories expended. Globally, there has been:</p>
-<ul>
-<li>an increased intake of energy-dense foods that are high in fat and sugars; and;</li>
-<li>an increase in physical inactivity due to the increasingly sedentary nature of many forms of work, changing modes of transportation, and increasing urbanization.</li>
-</ul></li>
-<li><p>Changes in dietary and physical activity patterns are often the result of environmental and societal changes associated with development and lack of supportive policies in sectors such as health, agriculture, transport, urban planning, environment, food processing, distribution, marketing, and education.</p></li>
-</ul>
-</div>
-<div id="common-health-consequences" class="section level4">
-<h4><strong>Common Health Consequences</strong></h4>
-<p>_ Raised BMI is a major risk factor for noncommunicable diseases such as:</p>
-<ul>
-<li><p>cardiovascular diseases (mainly heart disease and stroke), which were the leading cause of death in 2012;</p></li>
-<li><p>diabetes;</p></li>
-<li><p>musculoskeletal disorders (especially osteoarthritis – a highly disabling degenerative disease of the joints);</p></li>
-<li><p>some cancers (including endometrial, breast, ovarian, prostate, liver, gallbladder, kidney, and colon).</p></li>
-<li><p>The risk for these noncommunicable diseases increases, with increases in BMI.</p></li>
-</ul>
-</div>
-<div id="ways-to-reduce-obesity-and-overweight" class="section level4">
-<h4><strong>Ways to Reduce Obesity and Overweight</strong></h4>
-<p>Overweight and obesity, as well as their related noncommunicable diseases, are largely preventable. Supportive environments and communities are fundamental in shaping people’s choices, by making the choice of healthier foods and regular physical activity the easiest choice (the choice that is the most accessible, available and affordable), and therefore preventing overweight and obesity.</p>
-<p>At the individual level, people can:</p>
-<ul>
-<li>limit energy intake from total fats and sugars;</li>
-<li>increase consumption of fruit and vegetables, as well as legumes, whole grains and nuts; and</li>
-<li>engage in regular physical activity (60 minutes a day for children and 150 minutes spread through the week for adults).</li>
-</ul>
-<p>Individual responsibility can only have its full effect where people have access to a healthy lifestyle. Therefore, at the societal level it is important to support individuals in following the recommendations above, through sustained implementation of evidence based and population based policies that make regular physical activity and healthier dietary choices available, affordable and easily accessible to everyone, particularly to the poorest individuals. An example of such a policy is a tax on sugar sweetened beverages.</p>
-<p>The food industry can play a significant role in promoting healthy diets by:</p>
-<ul>
-<li>reducing the fat, sugar and salt content of processed foods; ensuring that healthy and nutritious choices are available and affordable to all consumers;</li>
-<li>restricting marketing of foods high in sugars, salt and fats, especially those foods aimed at children and teenagers; and</li>
-<li>ensuring the availability of healthy food choices and supporting regular physical activity practice in the workplace.</li>
-</ul>
-</div>
-</div>
+<iframe data-deferred-src="app60d08586056fa83becca62e34a87d7e8/?w=&amp;__subapp__=1" width="120%" height="2400" class="shiny-frame shiny-frame-deferred"></iframe>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -500,7 +353,7 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function () {
-  window.buildTabsets("TOC");
+  window.buildTabsets("section-TOC");
 });
 
 $(document).ready(function () {
@@ -511,38 +364,7 @@ $(document).ready(function () {
 </script>
 
 <!-- code folding -->
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
 
-<script>
-$(document).ready(function ()  {
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = true;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

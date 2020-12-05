@@ -117,11 +117,11 @@ reg_bmi2 = lm(bmi ~ gender + age + fml_his + favc * calc * faf, data = ob_df)
 reg_bmi3 = lm(bmi ~ gender + age + fml_his, data = ob_df)
 ```
 
-$Model~1:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\beta_{favc}+\beta_{calc}+\beta_{faf}+\varepsilon_{i}$
+$Model~1:bmi_{i}=\beta_{0}+\beta_{1}gender+\beta_{2}age+\beta_{3} fmlhis+\beta_{4}facv+\beta_{5}calc+\beta_{6}faf+\varepsilon_{i}$
 
-$Model~2:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\beta_{favc}+\beta_{calc}+\beta_{faf}+\beta_{favc*calc}+\beta_{favc*faf}+\beta_{faf*calc}+\beta_{favc*calc*faf}+\varepsilon_{i}$
+$Model~2:bmi_{i}=\beta_{0}+\beta_{1}gender+\beta_{2}age+\beta_{3}fmlhis+\beta_{4}favc+\beta_{5}calc+\beta_{6}faf+\beta_{7}favc_{calc}+\beta_{8}favc_{faf}+\beta_{9}faf_{calc}+\beta_{10}favc_{calc*faf}+\varepsilon_{i}$
 
-$Model~3:bmi_{i}=\beta_{0}+\beta_{gender}+\beta_{age}+\beta_{fml-his}+\varepsilon_{i}$
+$Model~3:bmi_{i}=\beta_{0}+\beta_{1}gender+\beta_{2}age+\beta_{3}fmlhis+\varepsilon_{i}$
 
 We have 3 models. <br/>
 First is with all factors, 3 congenital and 3 acquired influncing factors. <br>

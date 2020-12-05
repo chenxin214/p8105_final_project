@@ -1,0 +1,135 @@
+---
+title: "US Data Overview"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    code_folding: hide
+---
+
+```{r setup, include = FALSE}
+library(tidyverse)
+library(httr)
+library(plotly)
+library(kableExtra)
+
+
+knitr::opts_chunk$set(
+ message = FALSE, warning = FALSE
+)
+
+theme_set(theme_minimal() + theme(legend.position = "bottom"))
+
+options(
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis"
+)
+
+scale_colour_discrete = scale_color_viridis_d
+scale_fill_discrete = scale_fill_viridis_d
+```
+
+## Raw Data:
+
+```{r}
+load_df =
+GET("https://chronicdata.cdc.gov/resource/fqb7-mgjf.csv",
+    query = list("$limit" = 50000)) %>% 
+  content("parsed") %>% 
+  janitor::clean_names()
+
+
+tidy_df = 
+  load_df %>% 
+  filter(is.na(data_value_footnote)) %>% 
+  dplyr::select(-class, -topic, -question, -data_value_unit, -data_value_type, -data_source, -data_value_footnote_symbol, -data_value_footnote, -question_id, -class_id, -topic_id, -states, -counties)
+
+head(tidy_df) 
+
+```
+
+## Important Variables
+
+* `year`: 2011 - 2019
+* `locationabbr`: state abbreviation, 56 states
+* `locationdesc`: state name, 56 states
+* `response`:Normal Weight (BMI 18.5-24.9); Obese (BMI 30.0 - 99.8); Overweight (BMI 25.0-29.9); Underweight (BMI 12.0-18.4); Underweight (bmi 12.0-18.4);Normal Weight (bmi 18.5-24.9); Obese (bmi 30.0 - 99.8); Overweight (bmi 25.0-29.9)
+* `break_out_category`: 
+  * Race/Ethnicity; Age Group; Household Income; Education Attained; Gender; Overall  
+* `break_out`: 
+  * Male; College graduate; White, non-Hispanic; `$35,000-$49,999`; `$25,000-$34,999`; `$15,000-$24,999`; 35-44; 25-34; 18-24; 55-64; (Other) ; Overall; Some post-H.S.
+* `sample_size`
+* `break_out_category_id`: gender(CAT2), age(CAT3), race/ethnicity(CAT4), education(CAT5)
+
+
+## Time Trends
+
+```{r tidy}
+# total population in each state in each year
+df.tot = load_df %>%
+  group_by(year,locationdesc) %>%
+  summarise(state_sum = sum(sample_size))
+
+# total 'obese' and 'overweight' amount in each state in each year
+df.overweight = 
+  load_df %>%
+  filter(response %in% c("Obese (BMI 30.0 - 99.8)","Overweight (BMI 25.0-29.9)",
+                         "Obese (bmi 30.0 - 99.8)","Overweight (bmi 25.0-29.9)")) %>%
+  group_by(year,locationdesc) %>%
+  summarise(state_overweight_sum = sum(sample_size))
+
+
+df.rate = left_join(df.tot, df.overweight,
+                   by = c("year" , "locationdesc")) %>%
+  mutate(over_rate = state_overweight_sum/state_sum)
+
+```
+
+```{r  out.width = "120%"}
+# Use library(plotly) to visualizing the US obesity and overweight rate geographically (on a map), including the average amount of obesity and overweight from 2011 to 2019.
+df.rate1 =  df.rate %>%
+  group_by(locationdesc)  %>%
+  mutate(mean_amount = mean(state_overweight_sum))
+
+df.rate1 = df.rate1[-which(df.rate1$locationdesc %in% c("All States and DC (median) **","All States, DC and Territories (median) **","Virgin Islands") ),]
+df.rate1$region = tolower(df.rate1$locationdesc)
+
+states = map_data("state")
+# merge the datasets
+states = merge(states, df.rate1, by = "region", all.x = T)
+
+##### US states obesity time trend: scatter plot with line
+ggplot(data = df.rate[-which(df.rate$locationdesc %in% c("All States and DC (median) **","All States, DC and Territories (median) **","Virgin Islands") ),], 
+       aes(year, y = over_rate)) +
+  geom_line(aes(color = locationdesc)) +
+  geom_point(aes(color = locationdesc),size = 1.5) +
+  facet_wrap(~ locationdesc) +
+  theme(legend.position = "None",
+        #text = element_text(family='Kai'),
+        axis.text.x = element_text(angle = 90, hjust = 1)) +
+  scale_x_continuous(breaks = seq(2011,2019,1)) +
+  xlab("Year") + ylab("Obesity and overweight rate") +
+  ggtitle("Obesity and overweight rate trend for all the states")
+```
+
+It is clear that **all states** have as **increasing** trend of obese and overweight amount from 2011 to 2019.
+
+
+## The state with the highest average obesity and overweight throughout 9 years 
+```{r}
+df.highest = df.rate %>% 
+  group_by(locationdesc) %>%
+  summarise(mean_overweight = mean(state_overweight_sum)) %>%
+  filter(mean_overweight == max(mean_overweight)) 
+
+
+kable(df.highest, row.names = T, escape = F) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+
+We find the state `Nebraska` has the highest average `obese` and `overweight` amount per year among all the states.
+
+
+
+
+
