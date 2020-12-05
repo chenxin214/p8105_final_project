@@ -1,5 +1,5 @@
 ---
-title: "American Obese and Overweight (BMI) Analysis"
+title: "Obesity and Overweight (BMI) Analysis in American"
 author: "ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan Su (ys3394)"
 date: '`r format(Sys.time(), "%Y-%m-%d")`'
 output: github_document

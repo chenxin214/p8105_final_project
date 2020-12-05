@@ -1,4 +1,4 @@
-American Obese and Overweight (BMI) Analysis
+Obesity and Overweight (BMI) Analysis in American
 ================
 ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan
 Su (ys3394)

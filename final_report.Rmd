@@ -1,5 +1,5 @@
 ---
-title: "Obese and Overweight (BMI) Analysis in American"
+title: "Obesity and Overweight (BMI) Analysis in American"
 author: "ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan Su (ys3394)"
 output: 
   html_document:
@@ -448,7 +448,7 @@ rate_time %>%
 
 <br/>
 
-### 2) Obesity/Overweight by Race/Ethnicity: 
+### 2) Obesity rate by race/ethnicity: 
 
 Combining data from 2011 through 2019, `non-Hispanic American Indian or Alaskan Native` had the **highest** prevalence of self-reported obesity (47.13%), followed by `non-Hispanic Black adults` (41.81%) and 	
 `non-Hispanic Multiracial`(39.74%). `Non-Hispanic White adults` own the **lowest** obesity rate(31.95%).  
@@ -515,7 +515,7 @@ fig_race_2
 
 <br/>
 
-### 3) Obesity/Overweight by gender: 
+### 3) Obesity rate by gender: 
 
 According to the plot, the obesity rate of both women and men kept increasing over year and exceeded 0.35 since 2018. However, obesity rate of **women** always significantly **lower** than that of man.  
 
@@ -569,7 +569,7 @@ ne_gender_df %>%
 
 <br/>
 
-### 4) Obesity/Overweight by level of education:
+### 4) Obesity rate by level of education:
 
 The level of Education people have are divided into 4 levels, showing bellow in an increasing order:  
 <br>-`Less than H.S`: People didn't attend high school
@@ -638,7 +638,7 @@ subplot(fig_edu_2 , fig_edu_1) %>%  layout(legend = list(x = 0.3, y = 0.04, font
 
 <br/>
 
-### 5) Obesity/Overweight by household income: 
+### 5) Obesity rate by household income: 
 From the plots, we can see people with **lower** household income tend to have **higher** obese rate and **lower** overweight rate. The overweight rate decreased while obesity rate increased over time.
 
 ```{r income, include = TRUE}

@@ -2,31 +2,37 @@
 output:   html_document
 ---
 
-
 <h1><b><center>American Obese and Overweight (BMI) Analysis</center></b></h1>
 
 
 <center>ChenXin Zhang, JingYao Geng, Liner Ge, YiFan Su
 
-
 <img src = "http://webmd.cn/en/wp-content/uploads/2016/08/Obesity_China_cloud.jpg" style="width:45%">
 
 
-Video Guideline:  
+### Video Guideline:  
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/yuFZjHNTfp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/F6KJHRzR28U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center> 
+  
+### What you will find:
+
+<p style="text-align:left;"> 
+
+1. The obesity rate are increasing in all 56 sates from 2011 to present in the US.
+ 
+2. Nebraska has the highest obesity rate among all state, and people are changing from overweight to obesity in the sate.
+
+3. For obesity rate by race, the white own the lowest obesity rate, while American Indian or Alaskan native has the highest obesity rate.
+4. For obesity rate by gender, we can obviously see female have lower rate of obesity than male
+5. For obesity rate by education level, college graduate have lower obesity rate than people who never go to collage.
+6. For obesity rate by income, people with lower income tend to have higher obesity rate.
+7. The interaction between high caloric food consumption and alcohol consumption are statistically significant. This indicate high caloric food consumption has a different effect on the obesity rate depending on the values of alcohol consumption.
+</p>
 
 
 
-Table of Contents:
 
-- [Final Report](final.report)
-- [Fact Sheet](about.html)
-- [Regression Analysis](regression_models.html)
-- [Proposal](p8105_proposal.html)
-- [U.S. Overview](overview.html)
-- [Nebraska](Visualization.html)
-- [Shinny](https://gjy2020.shinyapps.io/Visualization/)
   
   
  
