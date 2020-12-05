@@ -12,13 +12,21 @@ output:   html_document
 <img src = "http://webmd.cn/en/wp-content/uploads/2016/08/Obesity_China_cloud.jpg" style="width:45%">
 
 
+Video Guideline:  
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yuFZjHNTfp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 
 Table of Contents:
-- Home
-- Final Report
-- Fact Sheet
-- 
 
-
-Video Guideline:
+- [Final Report](final.report)
+- [Fact Sheet](about.html)
+- [Regression Analysis](regression_models.html)
+- [Proposal](p8105_proposal.html)
+- [U.S. Overview](overview.html)
+- [Nebraska](Visualization.html)
+- [Shinny](https://gjy2020.shinyapps.io/Visualization/)
+  
+  
+ 

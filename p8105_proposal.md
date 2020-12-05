@@ -1,8 +1,8 @@
-US Overweight and Obesity (BMI) Analysis (From 2011 to Present)
+American Obese and Overweight (BMI) Analysis
 ================
 ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan
 Su (ys3394)
-2020-12-04
+2020-12-05
 
 <style type="text/css">
 
@@ -58,14 +58,15 @@ illustrating this project.
 
 ### The Anticipated Data Sources
 
-[Data collected from Behavioral Risk Factor Sureillance System
-(BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf),
-[Centers for Diseases Control and Prevention
-(CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
+1.  [Data collected from Behavioral Risk Factor Sureillance System
+    (BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf),
+    [Centers for Diseases Control and Prevention
+    (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)
 
+2.  
 ### The Planned Analyses / Visualizations / Coding challenges
 
-  - Planned Analyses:
+  - ***Planned Analyses:***
 
 <!-- end list -->
 
@@ -73,25 +74,23 @@ illustrating this project.
 2.  Focus on the state with the highest obesity and overweight rate
 3.  Investigate the obesity and overweight based on `Education level`,
     `Gender`, `Race`, `Age`, `Income` etc.
-4.  Apply Time Series Analysis to examine the time trend from 2011 to
-    present.
+4.  Regression analysis.
 
 <!-- end list -->
 
-  - Visualizations:
+  - ***Visualizations:***
 
 <!-- end list -->
 
-1.  Visualizing the US obesity and overweight rates geographically
-2.  Visualizing the changes in obesity and overweight rates over time
-3.  Visualizing the state with highest obesity and overweight
-4.  Visualizing the difference of obesity rate group by `Educational
+1.  Visualizing the changes in obesity and overweight rates over time
+2.  Visualizing the state with highest obesity and overweight
+3.  Visualizing the difference of obesity rate group by `Educational
     Level`, `Gender`, `Race`, `Age`, or `Income`.
 
 <!-- end list -->
 
-  - Coding Challenge: Since the data is huge, it might be a trouble to
-    run or knit.
+  - ***Coding Challenge:*** Since the data is huge, it might be a
+    trouble to run or knit.
 
 ### The Planned Timeline
 
