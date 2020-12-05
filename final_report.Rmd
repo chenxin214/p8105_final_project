@@ -1,5 +1,5 @@
 ---
-title: "American Obese and Overweight (BMI) Analysis"
+title: "Obese and Overweight (BMI) Analysis in American"
 author: "ChenXin Zhang (cz2634), JingYao Geng (jg4294), Liner Ge (lg3156), YiFan Su (ys3394)"
 output: 
   html_document:
@@ -47,12 +47,12 @@ theme_set(theme_minimal() + theme(legend.position = "bottom",plot.title = elemen
  
   
 # Motivation
-According to [the World Health Organization (WHO)](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight), more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is [the fifth leading risk](https://easo.org/media-portal/statistics/) for global death. People overweight have a higher risk of getting more than [60 chronic diseases](https://www.healthline.com/health/obesity-facts) like type 2 diabetes, heart disease, which also increases the medical cost. The association between obesity and education level, income is intricate and differs by gender, age, and race.
+According to [the World Health Organization (WHO)](https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight), more than two-thirds of adults are obese or overweight and one-sixth of children are obese in the US. Obesity is [the fifth leading risk](https://easo.org/media-portal/statistics/) for global death. People overweight have a higher risk of getting more than [60 chronic diseases](https://www.healthline.com/health/obesity-facts) like type 2 diabetes, heart disease, which also increases the medical cost. The association between obesity/overweight and education level, income is intricate and differs by gender, age, and race. 
   
 
 # Related Work
 
-A combination of contributing factors such as gender, age, race, genetic, physical activity, inactivity, dietary patterns and other factors are related to obese and overweight, which is complex and need statistic analysis to clarify. We get inspired from sources related to these influence factors:   
+A combination of contributing factors include congenital factors(gender, age, and family history with overweight family members) and acquired factors(high caloric food consumption, alcohol consumption and little physical activities) are related to obesity and overweight, which is complex and need statistic analysis to clarify. We get inspired from the bellowing sources:   
 
 * "What causes obesity & overweight?", _NIH_, 2016.[Link](https://www.nichd.nih.gov/health/topics/obesity/conditioninfo/cause)  
 
@@ -67,11 +67,13 @@ A combination of contributing factors such as gender, age, race, genetic, physic
   
   
 
-# Initial Questions
-* How obese/overweight change from 2011 to present in the US?
-* Which state has highest average obese and overweight rate per year among all the states? And what is the distribution of obese/overweight by gender, race, education level, household income in the state?  
-* How gender, race, education level, household income are associated with obese and overweight over the US?
-* How congenital factors(gender, age, and family history with overweight family members) and acquired factors(high caloric food consumption, alcohol consumption and little physical activities associated with obese and overweight over South American?
+# Initial Questions  
+
+* What is the trend of obese and overWeight rate in the US from 2011 to present?  
+* How gender, race, education level, household income are associated with obese and overweight rate in the US?
+* Which state has highest average obese and overweight rate in the US? And what is the distribution of obese/overweight rate by gender, race, education level, household income in the state? 
+* What is the distribution of BMI in the South American?
+* How congenital factors(gender, age, and family history with overweight family members) and acquired factors(high caloric food consumption, alcohol consumption and little physical activities) interact with each other when affecting obesity/overweight in the South American?
 
 
 # Data
@@ -79,7 +81,7 @@ A combination of contributing factors such as gender, age, race, genetic, physic
   
 ### Data source
 * Primary data about the estimation of obesity level in people from North American(the United State) from 2011 to present is collected from Behavioral Risk Factor Sureillance System[(BRFSS)](https://chronicdata.cdc.gov/Behavioral-Risk-Factors/BRFSS-Table-of-Overweight-and-Obesity-BMI-/fqb7-mgjf)  
-* Another data about the estimation of obesity level in people from South American( Mexico, Peru and Colombia), with ages between 14 and 61 and diverse eating habits and physical conditionn is collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining 17 attributes and 2111 records.[source](?)  
+* Another data about the estimation of obesity level in people from South American( Mexico, Peru and Colombia), with ages between 14 and 61 and diverse eating habits and physical conditionn is collected using a web platform with a survey where anonymous users answered each question, then the information was processed obtaining 17 attributes and 2111 records.[Centers for Diseases Control and Prevention (CDC)](https://www.cdc.gov/obesity/data/prevalence-maps.html#age)  
 
   
   
@@ -151,7 +153,7 @@ education_df =
 head(education_df) 
 ```
 
-To get a time trend of obese/overweight for each state, we calculate prevalence in each year for each state. Using functions like `summary`, `group`, `filter` to calculate total population in each year for each state and total population in each year for each state.
+To get a time trend of obesity/overweight for each state, we calculate prevalence in each year for each state. Using functions like `summary`, `group`, `filter` to calculate total population in each year for each state and total population in each year for each state.
 
 ```{r nebraska, eval = FALSE}
 # total population in each state in each year
@@ -277,7 +279,7 @@ ob_df =
 
 # Exploratory Analysis  
 
-## 1.How obese/overweight change from 2011 to present in the US?
+## 1.What is the trend of obese and overWeight rate in the US from 2011 to present? 
 
 Use library(plotly) to visualize the average US obesity and overweight rate from 2011 to 2019. It is clear that **all states** have an **increasing** trend of obese and overweight amount from 2011 to 2019.
 ```{r, tidy, include = FALSE}
@@ -446,7 +448,7 @@ rate_time %>%
 
 <br/>
 
-### 2) Obese/Overweight by Race/Ethnicity: 
+### 2) Obesity/Overweight by Race/Ethnicity: 
 
 Combining data from 2011 through 2019, `non-Hispanic American Indian or Alaskan Native` had the **highest** prevalence of self-reported obesity (47.13%), followed by `non-Hispanic Black adults` (41.81%) and 	
 `non-Hispanic Multiracial`(39.74%). `Non-Hispanic White adults` own the **lowest** obesity rate(31.95%).  
@@ -513,7 +515,7 @@ fig_race_2
 
 <br/>
 
-### 3) Obese/Overweight by gender: 
+### 3) Obesity/Overweight by gender: 
 
 According to the plot, the obesity rate of both women and men kept increasing over year and exceeded 0.35 since 2018. However, obesity rate of **women** always significantly **lower** than that of man.  
 
@@ -567,7 +569,7 @@ ne_gender_df %>%
 
 <br/>
 
-### 4) Obese/Overweight by level of education:
+### 4) Obesity/Overweight by level of education:
 
 The level of Education people have are divided into 4 levels, showing bellow in an increasing order:  
 <br>-`Less than H.S`: People didn't attend high school
@@ -636,7 +638,7 @@ subplot(fig_edu_2 , fig_edu_1) %>%  layout(legend = list(x = 0.3, y = 0.04, font
 
 <br/>
 
-### 5) Obese/overweight by household income: 
+### 5) Obesity/Overweight by household income: 
 From the plots, we can see people with **lower** household income tend to have **higher** obese rate and **lower** overweight rate. The overweight rate decreased while obesity rate increased over time.
 
 ```{r income, include = TRUE}
@@ -701,12 +703,11 @@ ob_df =
          favc = factor(favc),
          calc = factor(calc))
 ```
-  
 <br/>
 
 ### BMI Distribution of population in the South American
 <br/>
-Since we made a **_continuity correction_** to the BMI, there will be gaps between values, like the gap between BMI value 25 and 30. However, we can observe the BMI distribution is normal to some extent.
+There is high frequency of BMI above 30. Since we made a **_continuity correction_** to the BMI, there will be gaps between values, like the gap between BMI value 25 and 30. However, we can observe the BMI distribution is normal to some extent.
 ```{r, include = TRUE}
 ggplot(aes(x=bmi),data = ob_df)+
   geom_density(color="darkblue", fill="lightblue") +
@@ -846,10 +847,20 @@ ob_df %>%
 ```
 
 <br/>
-
-<br/>
   
   
 # Discussion
+
+The study covers 4 countries in either North American(the US) or South American(Mexico, Peru and Colombia). The US data include total 47.1 observations and 27 variables range from 2011 to present, and there are many variables are related to obesity/overweight, which give enough information for a longitudinal study of obese/overweight. The South American data is sample for analysis, which include only 2111 observations and 7 variables. This is enough for regression analysis. The limitation is it only include three years, so that we can not get a good trend of obese/overweight rate compared to the US data. As a summary, by clean, tidy and transform the US data, we get the trend of obese and overWeight rate in the US from 2011 to present; The association of gender, race, education level, household income with obese and overweight rate in the US; Nebraska has highest average obese and overweight rate in the US. By regression analysis of the South American data, we get the distribution of BMI in the South American; the interaction of congenital factors(gender, age, and family history with overweight family members) and acquired factors(high caloric food consumption, alcohol consumption and little physical activities) in obesity/overweight in the South American. 
+
+
+
+
+
+
+
+
+
+
 
 
